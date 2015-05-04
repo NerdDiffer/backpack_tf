@@ -1,0 +1,5 @@
+*.sw*
+*dump.rdb
+scratch/
+spec/fixtures
+spec/other-library-examples
