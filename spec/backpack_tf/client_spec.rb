@@ -31,15 +31,6 @@ module BackpackTF
     context 'Instances of Client' do
       let(:bp) { Client.new }
   
-      it 'A client has some of these properties' do
-        expect(bp.db).to be_instance_of Redis
-      end
-
-      # TODO: write some tests or even another module to handle caching
-      describe 'the Redis client' do
-        let(:db) { bp.db }
-      end
-
       describe '#get_data' do
 
         before do

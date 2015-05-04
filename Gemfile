@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'redis'
 gem 'httparty'
 
 group :test do
