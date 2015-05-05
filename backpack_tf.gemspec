@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'backpack_tf'
-  s.version       = '0.0.11'
+  s.version       = '0.2.0'
   s.date          = '2015-05-01'
   s.summary       = 'a wrapper for the backpack.tf API'
   s.author        = 'Rafael Espinoza'

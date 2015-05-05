@@ -1,5 +1,10 @@
 *.sw*
 *dump.rdb
-scratch/
+
+*.gem
+Gemfile.lock
+
 spec/fixtures/*yml
 spec/other-library-examples
+
+scratch/
