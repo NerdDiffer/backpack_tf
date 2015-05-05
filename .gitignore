@@ -1,5 +1,5 @@
 *.sw*
 *dump.rdb
 scratch/
-spec/fixtures
+spec/fixtures/*yml
 spec/other-library-examples

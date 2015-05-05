@@ -32,6 +32,40 @@ module BackpackTF
     default_timeout 5
     default_params(:key => api_key)
   
+    def self.build_url_via action, query_options = {}
+      case action
+      when :get_prices
+        version = 4
+        interface_url = "/#{Prices.interface}/v#{version}/?"
+      when :get_currencies
+        version = 1
+        interface_url = "/#{Currencies.interface}/v#{version}/?"
+      when :get_special_items
+        version = 1
+        interface_url = "/IGetSpecialItems/v#{version}/?"
+      when :get_users
+        version = 3
+        interface_url = "/IGetUsers/v#{version}/?"
+      when :get_user_listings
+        version = 1
+        interface_url = "/IGetUserListings/v#{version}/?"
+      else
+        raise ArgumentError, 'pass in valid action as a Symbol object'
+      end
+  
+      base_uri + interface_url + extract_query_string(query_options)
+    end
+
+    def self.extract_query_string options = {}
+      options.each_pair.map do |key, val|
+        unless val.class == Array
+          "#{key}=#{val}"
+        else
+          "#{key}=#{val.join(',')}"
+        end
+      end.join('&')
+    end
+
     ###########################
     #     Instance Methods
     ###########################
@@ -43,8 +77,8 @@ module BackpackTF
   
     def get_data action, query_options = {}
       handle_timeouts do
-        url = build_url_via(action, query_options)
-        self.class.get(url)['response']
+        url = self.class.build_url_via(action, query_options)
+        self.class.get(url)#['response']
       end
     end
   
@@ -62,39 +96,6 @@ module BackpackTF
       end
     end
   
-    def build_url_via action, query_options = {}
-      case action
-      when :get_prices
-        version = 4
-        interface_url = "/IGetPrices/v#{version}/?"
-      when :get_currencies
-        version = 1
-        interface_url = "/IGetCurrencies/v#{version}/?"
-      when :get_special_items
-        version = 1
-        interface_url = "/IGetSpecialItems/v#{version}/?"
-      when :get_users
-        version = 3
-        interface_url = "/IGetUsers/v#{version}/?"
-      when :get_user_listings
-        version = 1
-        interface_url = "/IGetUserListings/v#{version}/?"
-      else
-        raise ArgumentError, 'pass in valid action as a Symbol object'
-      end
-  
-      self.class.base_uri + interface_url + extract_query_string(query_options)
-    end
-
-    def extract_query_string options = {}
-      options.each_pair.map do |key, val|
-        unless val.class == Array
-          "#{key}=#{val}"
-        else
-          "#{key}=#{val.join(',')}"
-        end
-      end.join('&')
-    end
 
   end
 
