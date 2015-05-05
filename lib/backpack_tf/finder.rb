@@ -10,7 +10,7 @@ module BackpackTF
     module ClassMethods
       # returns JSON data for the item
       # does not return data for items with a special particle effect
-      def self.get_item_price quality, item_name
+      def get_item_price quality, item_name
         item = find_item_by_name(item_name)
         ind = @@qualities.find_index(quality)
 
@@ -34,7 +34,7 @@ module BackpackTF
         end
       end
 
-      def self.defindex_to_item_name defindex
+      def defindex_to_item_name defindex
         items = get_items_hash
         keys = items.keys#.shuffle
 
@@ -49,13 +49,13 @@ module BackpackTF
         raise KeyError, "item with a defindex of #{defindex} was not found"
       end
 
-      def self.get_name_of_random_item
+      def get_name_of_random_item
         items = get_items_hash
         items.keys.sample
       end
 
       # returns JSON representation of pricing for the item
-      def self.find_item_by_name item_name
+      def find_item_by_name item_name
         items = get_items_hash
         if items[item_name].nil?
           raise KeyError, "item with the name #{item_name} was not found"
@@ -67,7 +67,7 @@ module BackpackTF
       # @param [String] item_name, the item name (according to item_name of item's schema)
       # @param [Symbol] type, checking to see if item is of this type
       # @return [Boolean] `true` if the item is the type
-      def self.is_item_of_type? item_name, type = :weapon
+      def is_item_of_type? item_name, type = :weapon
         item = find_item_by_name(item_name)
         defindex = item['defindex'][0]
         tf2_item = Trade.tf2_item_schema.items[defindex]

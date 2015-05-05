@@ -9,7 +9,6 @@ module BackpackTF
     ###########################
 
     def self.generate_price_keys prices, option = nil
-      byebug
       prices
     end
 
