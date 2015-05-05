@@ -2,22 +2,16 @@ require 'spec_helper'
 
 module BackpackTF
   describe 'Item' do
+    it 'The Prices class returns the fixture and sets to its @@items variable' do
+      stub_http_response_with('prices.json')
+      opts = { :app_id => 440, :compress => 1 }
+      Prices.fetch(Client.new.get_data(:get_prices, opts)['response'])
+      expect(Prices.items).not_to be_nil
+    end
+
     describe 'instance of Item' do
 
-      let (:item) { Item.new('Kritzkrieg', Price.items['Kritzkrieg']) }
-
-      before :all do
-        opts = { :app_id => 440, :compress => 1 }
-        Prices.fetch( Client.new.get_data(:get_prices, opts) )
-      end
-
-      before do
-        VCR.insert_cassette 'pricing_data', :record => :new_episodes
-      end
-
-      after do
-        VCR.eject_cassette
-      end
+      let (:item) { Item.new('Kritzkrieg', Prices.items['Kritzkrieg']) }
 
       it 'should respond to these methods' do
         expect(item).to respond_to :item_name, :defindex, :prices

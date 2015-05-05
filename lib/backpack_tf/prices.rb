@@ -9,7 +9,7 @@ module BackpackTF
     @interface = :IGetPrices
 
     def self.items
-      @@items = hash_keys_to_sym(@response[:items])
+      @@items = @response[:items]
     end
 
     def self.defindex_to_item_name defindex

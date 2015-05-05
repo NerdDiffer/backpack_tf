@@ -11,7 +11,7 @@ module BackpackTF
 
     def initialize item_name, attr
       @item_name = item_name
-      @defindex = attr[:defindex]
+      @defindex = attr['defindex'][0]
       @prices = nil
     end
 
