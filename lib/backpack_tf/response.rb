@@ -2,7 +2,6 @@ module BackpackTF
   module Response
 
     def self.included(other)
-      puts "#{self} included in (#{other})"
       other.extend(ClassMethods)
       super
     end

@@ -11,7 +11,8 @@ end
 # taken from httparty's spec dir
 # https://github.com/jnunemaker/httparty/blob/master/spec/spec_helper.rb
 def file_fixture(filename)
-  File.open( File.join( File.dirname(__FILE__), "fixtures", "#{filename}")).read
+  filename = File.join( File.dirname(__FILE__), "fixtures", "#{filename}")
+  File.open(filename).read
 end
 
 # taken from httparty's spec dir

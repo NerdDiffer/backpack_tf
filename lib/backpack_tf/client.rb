@@ -78,7 +78,7 @@ module BackpackTF
     def get_data action, query_options = {}
       handle_timeouts do
         url = self.class.build_url_via(action, query_options)
-        self.class.get(url)#['response']
+        self.class.get(url)
       end
     end
   
