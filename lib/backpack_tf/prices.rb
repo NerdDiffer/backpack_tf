@@ -9,8 +9,32 @@ module BackpackTF
 
     @interface = :IGetPrices
 
+    @@items = nil
+
     def self.items
-      @@items = @response[:items]
+      if @@items.nil?
+        gen_items
+      else
+        @@items
+      end
+    end
+
+    def self.gen_items
+      @@items = @response[:items].inject({}) do |items, (name)|
+        defindex = @response[:items][name]['defindex'][0]
+
+        if defindex.nil? || defindex < 0
+          #puts name
+          #fake_attr = { :currency => nil, :value => nil, :last_update => nil, :difference => nil }
+          #fake_item = {'defindex' => [nil], 'prices' => fake_attr }
+          #byebug
+          #items[name] = Item.new(name, @response[:items][name])
+          items
+        else
+          items[name] = Item.new(name, @response[:items][name])
+          items
+        end
+      end
     end
 
     def initialize
