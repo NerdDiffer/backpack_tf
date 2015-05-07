@@ -2,18 +2,23 @@ module BackpackTF
 
   # ruby representations of a JSON response to
   # `IGetCurrencies`['response']
-  class Currencies
+  class Currencies < Response
 
     ###########################
     #     Class Methods
     ###########################
 
-    include BackpackTF::Response
+    INTERFACE = :IGetCurrencies
+    @interface = INTERFACE
+    @response = nil
 
-    @interface = :IGetCurrencies
+    def self.response
+      @response = superclass.responses[self]
+    end
 
     def self.currencies
-      @@currencies = hash_keys_to_sym(@response[:currencies])
+      @@currencies = response[:currencies]
+      hash_keys_to_sym(@@currencies)
     end
 
     ###########################
