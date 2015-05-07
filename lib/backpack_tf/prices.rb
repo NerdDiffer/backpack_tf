@@ -2,12 +2,17 @@ module BackpackTF
 
   # ruby representations of a JSON response to
   # `IGetPrices`['response']
-  class Prices
+  class Prices < Response
 
-    include BackpackTF::Response
     include BackpackTF::Finder
 
-    @interface = :IGetPrices
+    INTERFACE = :IGetPrices
+    @interface = INTERFACE
+    @response = nil
+
+    def self.response
+      @response = superclass.responses[self]
+    end
 
     @@items = nil
 
