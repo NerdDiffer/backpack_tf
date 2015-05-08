@@ -6,6 +6,7 @@ module BackpackTF
 end
 
 # IMPORTANT! require the Response module before any other class or module
+require 'backpack_tf/version'
 require 'backpack_tf/response'
 require 'backpack_tf/finder'
 require 'backpack_tf/client'

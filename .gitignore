@@ -1,6 +1,7 @@
 *.sw*
 *dump.rdb
 
+.ruby-version
 *.gem
 Gemfile.lock
 
