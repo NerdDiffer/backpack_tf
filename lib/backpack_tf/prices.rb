@@ -9,12 +9,11 @@ module BackpackTF
     INTERFACE = :IGetPrices
     @interface = INTERFACE
     @response = nil
+    @@items = nil
 
     def self.response
-      @response = superclass.responses[self]
+      @response = superclass.responses[to_sym]
     end
-
-    @@items = nil
 
     def self.items
       if @@items.nil?

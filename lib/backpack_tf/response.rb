@@ -7,6 +7,10 @@ module BackpackTF
 
     def self.interface; @interface; end
 
+    def self.to_sym
+      self.name.to_sym
+    end
+
     @responses = {}
 
     def self.responses key_val = nil

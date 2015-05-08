@@ -34,21 +34,24 @@ module BackpackTF
   
     def self.build_url_via action, query_options = {}
       case action
-      when :get_prices
+      when :get_prices, :prices
         version = 4
         interface_url = "/#{Prices.interface}/v#{version}/?"
-      when :get_currencies
+      when :get_currencies, :currencies
         version = 1
         interface_url = "/#{Currencies.interface}/v#{version}/?"
-      when :get_special_items
-        version = 1
-        interface_url = "/IGetSpecialItems/v#{version}/?"
-      when :get_users
-        version = 3
-        interface_url = "/IGetUsers/v#{version}/?"
-      when :get_user_listings
-        version = 1
-        interface_url = "/IGetUserListings/v#{version}/?"
+      when :get_special_items, :special_items
+        raise RuntimeError, "Unfortunately, this interface is not yet supported."
+        #version = 1
+        #interface_url = "/IGetSpecialItems/v#{version}/?"
+      when :get_users, :users
+        raise RuntimeError, "Unfortunately, this interface is not yet supported."
+        #version = 3
+        #interface_url = "/IGetUsers/v#{version}/?"
+      when :get_user_listings, :user_listings
+        raise RuntimeError, "Unfortunately, this interface is not yet supported."
+        #version = 1
+        #interface_url = "/IGetUserListings/v#{version}/?"
       else
         raise ArgumentError, 'pass in valid action as a Symbol object'
       end
@@ -75,15 +78,32 @@ module BackpackTF
       @db = nil 
     end
   
+    def fetch interface, query_options = {}
+      get_data(interface, query_options)['response']
+    end
+
+    def update class_to_update, data_to_update
+      send_update_to_master_hash(class_to_update, data_to_update)
+      refresh_class_hash(class_to_update)
+    end
+  
+    private
+  
+    def send_update_to_master_hash class_to_update, data_to_update
+      Response.responses( { class_to_update.to_sym => data_to_update } )
+    end
+
+    def refresh_class_hash class_to_update
+      class_to_update.response
+    end
+
     def get_data action, query_options = {}
       handle_timeouts do
         url = self.class.build_url_via(action, query_options)
         self.class.get(url)
       end
     end
-  
-    private
-  
+
     # HTTParty raises an errors after time limit defined by ::default_timeout
     # * if it cannot connect to server, then it raises Net::OpenTimeout
     # * if it cannot read response from server, then it raises Net::ReadTimeout
@@ -95,7 +115,6 @@ module BackpackTF
         {}
       end
     end
-  
 
   end
 

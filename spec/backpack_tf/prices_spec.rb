@@ -24,13 +24,13 @@ module BackpackTF
       before :each do
         stub_http_response_with('prices.json')
         opts = { :app_id => 440, :compress => 1 }
-        fetched_prices = bp.get_data(:get_prices, opts)['response']
-        Response.responses(Prices => fetched_prices)
+        fetched_prices = bp.fetch(:prices, opts)
+        Response.responses(Prices.to_sym => fetched_prices)
       end
 
       context 'access from Response class' do
         it "Prices can be accessed by calling the key, Prices" do
-          expect(Response.responses[Prices]).to eq json_obj
+          expect(Response.responses[Prices.to_sym]).to eq json_obj
         end
       end
 
@@ -41,7 +41,7 @@ module BackpackTF
       end
 
       it "is the same as calling Prices.response" do
-        expect(Response.responses[Prices]).to eq Prices.response
+        expect(Response.responses[Prices.to_sym]).to eq Prices.response
       end
     end
 
@@ -50,8 +50,8 @@ module BackpackTF
       before :each do
         stub_http_response_with('prices.json')
         opts = { :app_id => 440, :compress => 1 }
-        fetched_prices = bp.get_data(:get_prices, opts)['response']
-        Response.responses(self => fetched_prices)
+        fetched_prices = bp.fetch(:prices, opts)
+        Response.responses(Prices.to_sym => fetched_prices)
       end
 
       it 'the response attribute should have these keys' do
@@ -77,7 +77,7 @@ module BackpackTF
 
         stub_http_response_with('prices.json')
         opts = { :app_id => 440, :compress => 1 }
-        fetched_prices = bp.get_data(:get_prices, opts)['response']
+        fetched_prices = bp.fetch(:prices, opts)
         Response.responses(Prices => fetched_prices)
       end
 

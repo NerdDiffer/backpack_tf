@@ -2,74 +2,125 @@ require 'spec_helper'
 
 module BackpackTF
   describe 'Client' do
-    context 'The Client class' do
-  
-      it 'has these default options' do
-        ans = { base_uri: 'http://backpack.tf/api', timeout: 5 }
-        ans[:default_params] = { key: ENV[Client.env_var] }
-        expect(Client.default_options).to eq ans
-      end
+    let(:bp) { Client.new }
 
-      describe '::api_key' do
-        it 'Raises ArgumentError, if key is not a hexadecimal string' do
-          fake_key = 'abcdefghijklmnopqrstuvwx'
-          expect{Client.api_key(fake_key)}.to raise_error ArgumentError
-        end
-        it 'Raises ArgumentError, if key is not 24 digits long' do
-          fake_key = 'abcdef0987654321'
-          expect{Client.api_key(fake_key)}.to raise_error ArgumentError
-        end
-        it 'lets an otherwise theoretically-valid key, pass through' do
-          key = generate_fake_api_key
-          expect(Client.api_key(key)).to eq key
-        end
-      end
-
-      describe '::extract_query_string' do
-        it 'produces a query parameter string' do
-          opts = {:key => Client.api_key, :appid => 440, :format => 'json', :compress => 1, :raw => 2}
-          ans = "key=#{Client.api_key}&appid=440&format=json&compress=1&raw=2"
-          expect(Client.extract_query_string(opts)).to eq ans
-        end
-      end
-
-      describe '::build_url_via' do
-        it 'returns correct destination url when asking for pricing data' do
-          opts = {:key => Client.api_key, :compress => 1}
-          expect(Client.build_url_via(:get_prices, opts)).to eq "http://backpack.tf/api/IGetPrices/v4/?key=#{Client.api_key}&compress=1"
-        end
-        it 'raises an error when asking for any unexpected interface' do
-          expect{Client.build_url_via(:foo)}.to raise_error ArgumentError
-        end
-      end  
+    it 'has these default options' do
+      ans = { base_uri: 'http://backpack.tf/api', timeout: 5 }
+      ans[:default_params] = { key: ENV[Client.env_var] }
+      expect(Client.default_options).to eq ans
     end
-  
-    context 'Instances of Client' do
-      let(:bp) { Client.new }
 
-      describe '#get_data' do
+    describe '::api_key' do
+      it 'Raises ArgumentError, if key is not a hexadecimal string' do
+        fake_key = 'abcdefghijklmnopqrstuvwx'
+        expect{Client.api_key(fake_key)}.to raise_error ArgumentError
+      end
+      it 'Raises ArgumentError, if key is not 24 digits long' do
+        fake_key = 'abcdef0987654321'
+        expect{Client.api_key(fake_key)}.to raise_error ArgumentError
+      end
+      it 'lets an otherwise theoretically-valid key, pass through' do
+        key = generate_fake_api_key
+        expect(Client.api_key(key)).to eq key
+      end
+    end
 
-        it 'returns results from archived json file' do
-          stub_http_response_with('currencies.json')
-          opts = { :key => Client.api_key, :compress => 1, :appid => 440 }
-          currencies = bp.get_data(:get_currencies, opts)
+    describe '::extract_query_string' do
+      it 'produces a query parameter string' do
+        opts = {:key => Client.api_key, :appid => 440, :format => 'json', :compress => 1, :raw => 2}
+        ans = "key=#{Client.api_key}&appid=440&format=json&compress=1&raw=2"
+        expect(Client.extract_query_string(opts)).to eq ans
+      end
+    end
 
-          expect(currencies['response']).to have_key('success')
-          expect(currencies['response']).to have_key('currencies')
-          expect(currencies['response']).to have_key('name')
-          expect(currencies['response']).to have_key('url')
-          expect(currencies['response']).to have_key('current_time')
-        end
+    describe '::build_url_via' do
+      it 'returns correct destination url when asking for pricing data' do
+        opts = {:key => Client.api_key, :compress => 1}
+        expect(Client.build_url_via(:get_prices, opts)).to eq "http://backpack.tf/api/IGetPrices/v4/?key=#{Client.api_key}&compress=1"
+      end
+      it 'raises an error when asking for any unexpected interface' do
+        expect{Client.build_url_via(:foo)}.to raise_error ArgumentError
+      end
+    end  
 
-        it 'client requests are returned as ruby Hash objects' do
-          stub_http_response_with('prices.json')
-          opts = {:app_id => 440, :compress => 1}
-          expect(bp.get_data(:get_prices, opts)).to be_instance_of Hash
-        end
+    describe '#fetch' do
 
+      before :each do
+        stub_http_response_with('currencies.json')
       end
 
+      let(:fetched_currencies) {
+        bp.fetch(:currencies, {:compress => 1, :appid => 440})
+      }
+
+      it 'fetches JSON from an interface and returns as a Hash object' do
+        expect(fetched_currencies).to be_instance_of Hash
+      end
+      it 'fetched response has these keys' do
+        expected_keys = %w(currencies current_time name success url)
+        expect(fetched_currencies.keys).to match_array expected_keys
+      end
 
     end
+
+    describe '#update' do
+      #context "USING rspec/mock, updating another another class' class variable" do
+      #  before :each do
+      #    MockResponse = class_double(Response)
+      #    MockCurrencies = class_double(Currencies)
+
+      #    allow(MockResponse).to receive(:responses) { 
+      #      { MockCurrencies => fetched_currencies }
+      #    }
+      #    expect(MockResponse.responses.keys).to eq [MockCurrencies]
+
+      #    allow(MockCurrencies).to receive(:response) {
+      #      Response.hash_keys_to_sym(MockResponse.responses[MockCurrencies])
+      #    }
+      #    expect(MockCurrencies.response.keys).to eq [:success, :currencies, :name, :url, :current_time]
+
+      #    allow(MockCurrencies).to receive(:currencies)
+      #    #expect(MockCurrencies.response).to be_nil
+      #  end
+
+      #  it 'the client passes its fetched data to Response.response class method' do
+      #  end
+      #  it 'the client can pass fetched data to another class so the class can update one of its own class variables' do
+      #    MockResponse.responses(MockCurrencies => fetched_currencies)
+      #    MockCurrencies.response
+      #    expect(MockCurrencies.currencies).not_to be_nil
+      #  end
+      #end
+
+      before :each do
+        stub_http_response_with('currencies.json')
+        Response.responses(:reset => :confirm)
+        expect(Response.responses).to be_empty
+        expect(Currencies.response).to be_nil
+        expect(Currencies.currencies).to be_nil
+      end
+
+      let(:fetched_currencies) {
+        bp.fetch(:currencies, {:compress => 1, :appid => 440})
+      }
+
+      context 'results on the Currencies.response method' do
+        it 'returns this Hash object' do
+          bp.update(Currencies, fetched_currencies)
+          processed_json = Response.hash_keys_to_sym(fetched_currencies)
+          expect(Currencies.response).to eq processed_json
+        end
+      end
+
+      context 'results on the Currencies.currencies method' do
+        it 'returns this Hash object' do
+          bp.update(Currencies, fetched_currencies)
+          processed_json = Response.hash_keys_to_sym(fetched_currencies['currencies'])
+          expect(Currencies.currencies).to eq processed_json
+        end
+      end
+
+    end
+
   end
 end

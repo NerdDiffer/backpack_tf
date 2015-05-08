@@ -11,12 +11,14 @@ module BackpackTF
     INTERFACE = :IGetCurrencies
     @interface = INTERFACE
     @response = nil
+    @@currencies = nil
 
     def self.response
-      @response = superclass.responses[self]
+      @response = superclass.responses[to_sym]
     end
 
     def self.currencies
+      return @response if @response.nil?
       @@currencies = response[:currencies]
       hash_keys_to_sym(@@currencies)
     end

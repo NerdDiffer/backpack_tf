@@ -29,13 +29,13 @@ module BackpackTF
       before :each do
         stub_http_response_with('currencies.json')
         opts = { :app_id => 440, :compress => 1 }
-        fetched_currencies = bp.get_data(:get_currencies, opts)['response']
-        Response.responses(Currencies => fetched_currencies)
+        fetched_currencies = bp.fetch(:currencies, opts)
+        Response.responses(Currencies.to_sym => fetched_currencies)
       end
 
       context 'access from Response class' do
         it 'Currencies can be accessed by calling the key, Currencies' do
-          expect(Response.responses[Currencies]).to eq json_obj
+          expect(Response.responses[:'BackpackTF::Currencies']).to eq json_obj
         end
       end
 
@@ -46,7 +46,7 @@ module BackpackTF
       end
 
       it 'is the same as calling Currencies.response' do
-        expect(Response.responses[Currencies]).to eq Currencies.response
+        expect(Response.responses[:'BackpackTF::Currencies']).to eq Currencies.response
       end
     end
 
@@ -54,8 +54,8 @@ module BackpackTF
       before :each do
         stub_http_response_with('currencies.json')
         opts = { :app_id => 440, :compress => 1 }
-        fetched_currencies = bp.get_data(:get_currencies, opts)['response']
-        Response.responses(Currencies => fetched_currencies)
+        fetched_currencies = bp.fetch(:currencies, opts)
+        Response.responses(':BackpackTF::Currencies' => fetched_currencies)
       end
       it 'the response attribute should have these keys' do
         expect(Currencies.response.keys).to match_array [:success, :current_time, :currencies, :name, :url]
@@ -78,8 +78,8 @@ module BackpackTF
 
         stub_http_response_with('currencies.json')
         opts = { :app_id => 440, :compress => 1 }
-        fetched_currencies = bp.get_data(:get_currencies, opts)['response']
-        Response.responses(Currencies => fetched_currencies)
+        fetched_currencies = bp.fetch(:currencies, opts)
+        Response.responses(:'BackpackTF::Currencies' => fetched_currencies)
       end
 
       it 'returns the fixture and sets to @@currencies variable' do

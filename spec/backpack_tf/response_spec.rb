@@ -23,7 +23,14 @@ module BackpackTF
       end
     end
 
+    describe '::to_sym' do
+      it 'should return the name of the class, as a Symbol object' do
+        expect(Response.to_sym).to eq :'BackpackTF::Response'
+      end
+    end
+
     describe '::responses' do
+      let (:faked_class_sym) { :'BackpackTF::FakedClass' }
 
       it 'returns a Hash object' do
         expect(Response.responses).to be_instance_of Hash
@@ -32,14 +39,14 @@ module BackpackTF
       context 'expected input' do
         it 'has these keys' do
           stub_http_response_with('currencies.json')
-          expect(bp.get_data(:get_currencies).keys).to eq ['response']
+          expect(bp.fetch(:currencies).keys).to eq ['success', 'currencies', 'name', 'url', 'current_time']
         end
       end
 
       context 'reset' do
         before :each do
-          Response.responses(:currencies => json_obj)
-          expect(Response.responses[:currencies]).to eq json_obj
+          Response.responses(faked_class_sym => json_obj)
+          expect(Response.responses[faked_class_sym]).to eq json_obj
         end
         it 'can be emptied by passing in `:reset => :confirm`' do
           Response.responses(:reset => :confirm)
@@ -55,9 +62,9 @@ module BackpackTF
         end
 
         it 'returns the value of the key' do
-          res = { :currencies => json_obj }
+          res = { faked_class_sym => json_obj }
           Response.responses(res)
-          expect(Response.responses[:currencies]).to eq json_obj
+          expect(Response.responses[faked_class_sym]).to eq json_obj
         end
         it 'returns nil when key has no value' do
           Response.responses(:foo)
@@ -73,16 +80,20 @@ module BackpackTF
         end
 
         it "updates a key's value when the key already exists" do
-          entry1 = { :currencies => json_obj }
+          entry1 = { faked_class_sym => json_obj }
           Response.responses(entry1)
-          expect(Response.responses[:currencies]).to eq json_obj
-          entry2 = { :currencies => more_json }
+          expect(Response.responses[faked_class_sym]).to eq json_obj
+          entry2 = { faked_class_sym => more_json }
           Response.responses(entry2)
-          expect(Response.responses[:currencies]).to eq more_json
+          expect(Response.responses[faked_class_sym]).to eq more_json
         end
         it 'creates a new key & value if key does not exist' do
-          res = { :currencies => json_obj }
-          expect(Response.responses(res)[:currencies]).to eq json_obj
+          res = { faked_class_sym => json_obj }
+          expect(Response.responses(res)[faked_class_sym]).to eq json_obj
+        end
+        it 'is not nil when you reference entire hash object' do
+          Response.responses( { faked_class_sym => json_obj } )
+          expect(Response.responses).not_to be_nil
         end
       end
     end
