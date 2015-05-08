@@ -44,9 +44,8 @@ module BackpackTF
         version = 1
         interface_url = "/#{SpecialItems.interface}/v#{version}/?"
       when :get_users, :users
-        raise RuntimeError, "Unfortunately, this interface is not yet supported."
-        #version = 3
-        #interface_url = "/IGetUsers/v#{version}/?"
+        version = 3
+        interface_url = "/#{Users.interface}/v#{version}/?"
       when :get_user_listings, :user_listings
         raise RuntimeError, "Unfortunately, this interface is not yet supported."
         #version = 1
