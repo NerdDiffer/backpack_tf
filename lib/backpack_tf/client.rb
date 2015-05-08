@@ -46,10 +46,9 @@ module BackpackTF
       when :get_users, :users
         version = 3
         interface_url = "/#{Users.interface}/v#{version}/?"
-      when :get_user_listings, :user_listings
-        raise RuntimeError, "Unfortunately, this interface is not yet supported."
-        #version = 1
-        #interface_url = "/IGetUserListings/v#{version}/?"
+      when :get_user_listings, :user_listing, :user_listings
+        version = 1
+        interface_url = "/#{UserListing.interface}/v#{version}/?"
       else
         raise ArgumentError, 'pass in valid action as a Symbol object'
       end
