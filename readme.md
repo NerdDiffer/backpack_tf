@@ -4,10 +4,13 @@ Backpack.tf is a website for the in-game economies of Team Fortress 2 and Dota 2
 It is in the very early stages of development. See the [TODO](TODO.md) list if you are interested in contributing.
 
 ###Installation
-Install it as a gem:  
+#####install any dependencies
+`bundle install`
+
+######Install it as a gem:  
 `gem install backpack_tf`  
 
-Or add it to your project's Gemfile:  
+######Or add it to your project's Gemfile:  
 `gem 'backpack_tf'`
 
 ###Usage
@@ -17,24 +20,45 @@ Or add it to your project's Gemfile:
 * Load the gem into your project:  
   `require 'backpack_tf'`
 
+###Examples
+
+#####create a new Client object  
+`bp = BackpackTF::Client.new`
+
+#####get the latest prices or currencies
+`fetched_prices = bp.fetch(:prices, { :compress => 1 })`  
+`fetched_currencies = bp.fetch(:currencies, { :compress => 1 })`
+
+#####update the Prices or Currencies object with the data
+*note*: you should send a message from your Client object to the class before using any of those class' methods. This only applies to `Prices` and `Currencies` class. The `Item` and the `ItemPrice` class are updated through the `Prices` class.
+
+`bp.update(BackpackTF::Prices, fetched_prices)`  
+`bp.update(BackpackTF::Currencies, fetched_currencies)`
+
+#####look at prices of a random item
+```
+random_key = BackpackTF::Prices.items.sample
+BackpackTF::Prices.items[random_key]
+```
+
 ##Interfaces
 
 ####IGetPrices
 * Get pricing data for all priced items
 * [official doc](http://backpack.tf/api/prices)
 
-API responses from this interfaces are captured in the `Prices` class. The `Prices` class is not meant to be instantiated. One of the class attributes is `@@items`, a Hash object. Information on any particular item, ie: 'Kritzkrieg', is captured in an instance of the `Item` class. Furthermore, there may be several prices for the same item, ie: a Kritzkrieg with the Unique quality has a different price than a Kritzkrieg with a Vintage quality.  Each price is an instance of the `ItemPrice` class, and is stored in the `@prices` hash of that item.
+API responses from this interface are captured in the `Prices` class. The `Prices` class is not meant to be instantiated. One of the class attributes is `@@items`, a Hash object. Information on any particular item, ie: 'Eviction Notice', is captured in an instance of the `Item` class. Furthermore, there may be several prices for the same item, ie: an Eviction Notice with the Unique quality has a different price than a Eviction Notice with a Strange quality.  Each price is an instance of the `ItemPrice` class, and is stored in the `@prices` hash of that item.
 
 ######a visual
 * `Prices` class
   * `@@items` hash of `Price` class.
     * `Item` object (ie: 'Beast From Below')
     * `Item` object (ie: 'Taunt: Rock, Paper Scissors')
-    * `Item` object (ie: 'Kritzkrieg')
+    * `Item` object (ie: 'Eviction Notice')
       * `@prices` hash of an `Item` object
-        * `ItemPrices` object (ie: price for Unique Kritzkrieg)
-        * `ItemPrices` object (ie: price for Collector's Kritzkrieg)
-        * `ItemPrices` object (ie: price for Vintage Kritzkrieg)
+        * `ItemPrice` object (ie: price for Unique Eviction Notice)
+        * `ItemPrice` object (ie: price for Collector's Eviction Notice)
+        * `ItemPrice` object (ie: price for Strange Eviction Notice)
 
 ####IGetCurrencies
 * Get internal currency data for a given game
