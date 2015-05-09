@@ -66,6 +66,27 @@ module BackpackTF
     end
 
     describe '::generate_items' do
+      before :each do
+        stub_http_response_with('prices.json')
+        fetched_prices = bp.fetch(:prices)
+        bp.update(described_class, fetched_prices)
+      end
+
+      after :all do
+        Response.responses(:reset => :confirm)
+        expect(Response.responses).to be_empty
+      end
+
+      it 'each key of hash is a String' do
+        expect(described_class.generate_items.keys).to all be_a String
+      end
+      it 'each value of hash is an Item object' do
+        expect(described_class.generate_items.values).to all be_an Item
+      end
+      it 'if an item does not have a valid `defindex`, then it is ignored' do
+        expect(described_class.generate_items['Random Craft Hat']).to be_nil
+        expect(described_class.generate_items[':weed:']).to be_nil
+      end
     end
 
     describe '::items' do
@@ -124,14 +145,13 @@ module BackpackTF
       before :each do
         stub_http_response_with('prices.json')
         fetched_prices = bp.fetch(:prices)
-
         bp.update(described_class, fetched_prices)
-        expect(described_class.items.values).to all be_an Item
       end
 
       after :each do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
+        described_class.class_eval { @items = nil }
       end
 
       it 'returns Item object for the item matching the name' do
@@ -149,33 +169,30 @@ module BackpackTF
       before :each do
         stub_http_response_with('prices.json')
         fetched_prices = bp.fetch(:prices)
-
         bp.update(described_class, fetched_prices)
-        expect(described_class.items.values).to all be_an Item
       end
 
       after :each do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
+        described_class.class_eval { @items = nil }
       end
 
       it 'returns a name of an Item object' do
         item = described_class.random_item
         expect(described_class.items.keys.include? item).to be_truthy
       end
+
       context 'asking for prices property' do
         let(:item_prices) { described_class.random_item :price }
 
-        it 'returns a Hash object where the keys are Strings' do
+        it 'returns a Hash object where keys are String objects' do
           expect(item_prices.keys).to all be_a String
         end
         it 'returns a Hash object where values are ItemPrice objects' do
           expect(item_prices.values).to all be_an ItemPrice
         end
       end
-    end
-
-    describe '::generate_price_keys' do
     end
 
   end

@@ -6,17 +6,6 @@ module BackpackTF
       ["Strange_Tradable_Craftable", "Collector's_Tradable_Craftable", "Vintage_Tradable_Craftable", "Unique_Tradable_Craftable", "Unique_Tradable_Non-Craftable"]
     end
 
-    xdescribe '::generate_price_keys'  do
-      it 'includes these keys' do
-        keys = Item.generate_price_keys(stub)
-        keys.each{ |key| expect(expected_keys).to include(key) }
-      end
-      it 'produces all of these keys' do
-        keys = Item.generate_price_keys(stub['prices'])
-        expect(keys).to match_array expected_keys
-      end
-    end
-
     describe 'instance of Item' do
       context 'a typical game item, which does not have any item qualities of Unusual' do
         let(:item_name) { 'Kritzkrieg' }

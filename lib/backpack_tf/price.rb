@@ -17,16 +17,16 @@ module BackpackTF
       @response = superclass.responses[to_sym]
     end
 
-    def self.items
+    def self.items opt = nil
       if @items.nil?
-        generate_items
+        @items = generate_items
       else
         @items
       end
     end
 
     def self.generate_items
-      @items = @response[:items].inject({}) do |items, (name)|
+      @response[:items].inject({}) do |items, (name)|
         defindex = @response[:items][name]['defindex'][0]
 
         if defindex.nil? || defindex < 0
@@ -39,6 +39,9 @@ module BackpackTF
     end
 
     def self.find_item_by_name item_name, opt = nil
+
+      items if @items.nil?
+
       if @items[item_name].nil?
         raise KeyError, "item with the name #{item_name} was not found"
       else
@@ -53,31 +56,15 @@ module BackpackTF
     end
 
     def self.random_item opt = nil
+
+      items if @items.nil?
+
       case opt
       when :prices, :price
         @items[@items.keys.sample].prices
       else
         @items.keys.sample
       end
-    end
-
-    def self.generate_price_keys item_hash
-      raise TypeError unless item_hash.class == Hash
-      prices = item_hash['prices']
-
-      prices.each_pair.inject([]) do |gen_keys, (key, val)|
-        quality = BackpackTF::ItemPrice.qualities[key.to_i]
-        new_key = [quality.to_s]
-
-        tradability = val.keys.first
-        new_key << tradability
-
-        craftability = prices[key][tradability].keys.first
-        new_key << craftability
-
-        gen_keys << new_key.join('_')
-      end
-
     end
 
     ############################
