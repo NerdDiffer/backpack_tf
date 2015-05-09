@@ -1,39 +1,13 @@
 module BackpackTF
 
   class Item
-
-    include BackpackTF::Finder
-
-    ###########################
-    #     Class Methods
-    ###########################
-
-    #def self.generate_price_keys item_hash
-    #  raise TypeError unless item_hash.class == Hash
-    #  prices = item_hash['prices']
-
-    #  prices.each_pair.inject([]) do |gen_keys, (key, val)|
-    #    quality = BackpackTF::ItemPrice.qualities[key.to_i]
-    #    new_key = [quality.to_s]
-
-    #    tradability = val.keys.first
-    #    new_key << tradability
-
-    #    craftability = prices[key][tradability].keys.first
-    #    new_key << craftability
-
-    #    gen_keys << new_key.join('_')
-    #  end
-
-    #end
-
     ###########################
     #     Instance Methods
     ###########################
 
     # @return [String] the name of item
     attr_reader :item_name
-    # @return [Fixnum] the index on which you can link this item to Team Fortress 2's Item Schema
+    # @return [Fixnum] the index to which you can link this item to Team Fortress 2's Item Schema
     attr_reader :defindex
     # @return [Hash<Fixnum, ItemPrice>] a hash object
     attr_reader :prices

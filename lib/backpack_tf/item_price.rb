@@ -2,7 +2,41 @@ module BackpackTF
 
   class ItemPrice
 
-    include BackpackTF::Finder
+    ###########################
+    #      Class Methods
+    ###########################
+
+    @@required_keys = ['currency', 'value', 'last_update', 'difference']
+    def self.required_keys; @@required_keys; end
+
+    # mapping official API quality integers to quality names
+    # https://wiki.teamfortress.com/wiki/WebAPI/GetSchema#Result_Data
+    @@qualities = [
+      :Normal,
+      :Genuine,
+      nil,
+      :Vintage,
+      nil,
+      :Unusual,
+      :Unique,
+      :Community,
+      :Valve,
+      :"Self-Made",
+      nil,
+      :Strange,
+      nil,
+      :Haunted,
+      :"Collector's"
+    ]
+
+    def self.qualities; @@qualities; end
+
+    @@tradabilities = [:Tradable, :'Non-Tradable']
+    @@craftabilities = [:Craftable, :'Non-Craftable']
+    
+    ###########################
+    #     Instance Methods
+    ###########################
 
     # @return [String] the quality of the item being priced, converted to String
     attr_reader :quality
@@ -49,34 +83,6 @@ module BackpackTF
       @difference     = attr['difference']
     end
 
-    @@required_keys = %w(currency value last_update difference)
-    def self.required_keys; @@required_keys; end
-
-    # mapping official API quality integers to quality names
-    # https://wiki.teamfortress.com/wiki/WebAPI/GetSchema#Result_Data
-    @@qualities = [
-      :Normal,
-      :Genuine,
-      nil,
-      :Vintage,
-      nil,
-      :Unusual,
-      :Unique,
-      :Community,
-      :Valve,
-      :"Self-Made",
-      nil,
-      :Strange,
-      nil,
-      :Haunted,
-      :"Collector's"
-    ]
-
-    def self.qualities; @@qualities; end
-
-    @@tradabilities = [:Tradable, :'Non-Tradable']
-    @@craftabilities = [:Craftable, :'Non-Craftable']
-    
   end
 
 end

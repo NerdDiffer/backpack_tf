@@ -5,13 +5,13 @@ module BackpackTF
     # CLASS METHODS
     ############################
 
+    @responses = {}
+
     def self.interface; @interface; end
 
     def self.to_sym
       self.name.to_sym
     end
-
-    @responses = {}
 
     def self.responses key_val = nil
       unless key_val.nil?
