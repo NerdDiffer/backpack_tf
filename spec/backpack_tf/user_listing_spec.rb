@@ -39,10 +39,10 @@ module BackpackTF
       before :each do
         stub_http_response_with('user_listing.json')
         opts = { :compress => 1, :steamid => 76561197978210095 }
-        fetched_listings = bp.fetch(:user_listings, opts) 
+        fetched_listings = bp.fetch(:user_listings, opts)
         Response.responses(described_class.to_sym => fetched_listings)
       end
-      it "Users can be accessed by calling the key, Users" do
+      it "can access response by calling the key, UserListing" do
         expect(Response.responses[described_class.to_sym]).to eq json_obj
       end
     end
@@ -51,13 +51,13 @@ module BackpackTF
       before :each do
         stub_http_response_with('user_listing.json')
         opts = { :compress => 1, :steamid => 76561197978210095 }
-        fetched_listings = bp.fetch(:user_listings, opts) 
+        fetched_listings = bp.fetch(:user_listings, opts)
         Response.responses(described_class.to_sym => fetched_listings)
       end
       it 'can access response information via the class method, ::response' do
         expect(described_class.response).to eq json_obj
       end
-      it "returns same results as calling Response.responses[:'BackpackTF::Users']" do
+      it "returns same results as calling Response.responses[:'BackpackTF::UserListing']" do
         expect(described_class.response).to eq Response.responses[described_class.to_sym]
       end
       it 'the response attribute should have these keys' do
@@ -74,7 +74,7 @@ module BackpackTF
       before :each do
         stub_http_response_with('user_listing.json')
         opts = { :compress => 1, :steamid => 76561197978210095 }
-        fetched_listings = bp.fetch(:user_listings, opts) 
+        fetched_listings = bp.fetch(:user_listings, opts)
         Response.responses(described_class.to_sym => fetched_listings)
       end
       it 'returns the fixture and sets to @@listings variable' do

@@ -67,28 +67,28 @@ module BackpackTF
       #context "USING rspec/mock, updating another another class' class variable" do
       #  before :each do
       #    MockResponse = class_double(Response)
-      #    MockCurrencies = class_double(Currencies)
+      #    MockCurrency = class_double(Currency)
 
       #    allow(MockResponse).to receive(:responses) { 
-      #      { MockCurrencies => fetched_currencies }
+      #      { MockCurrency => fetched_currencies }
       #    }
-      #    expect(MockResponse.responses.keys).to eq [MockCurrencies]
+      #    expect(MockResponse.responses.keys).to eq [MockCurrency]
 
-      #    allow(MockCurrencies).to receive(:response) {
-      #      Response.hash_keys_to_sym(MockResponse.responses[MockCurrencies])
+      #    allow(MockCurrency).to receive(:response) {
+      #      Response.hash_keys_to_sym(MockResponse.responses[MockCurrency])
       #    }
-      #    expect(MockCurrencies.response.keys).to eq [:success, :currencies, :name, :url, :current_time]
+      #    expect(MockCurrency.response.keys).to eq [:success, :currencies, :name, :url, :current_time]
 
-      #    allow(MockCurrencies).to receive(:currencies)
-      #    #expect(MockCurrencies.response).to be_nil
+      #    allow(MockCurrency).to receive(:currencies)
+      #    #expect(MockCurrency.response).to be_nil
       #  end
 
       #  it 'the client passes its fetched data to Response.response class method' do
       #  end
       #  it 'the client can pass fetched data to another class so the class can update one of its own class variables' do
-      #    MockResponse.responses(MockCurrencies => fetched_currencies)
-      #    MockCurrencies.response
-      #    expect(MockCurrencies.currencies).not_to be_nil
+      #    MockResponse.responses(MockCurrency => fetched_currencies)
+      #    MockCurrency.response
+      #    expect(MockCurrency.currencies).not_to be_nil
       #  end
       #end
 
@@ -96,27 +96,27 @@ module BackpackTF
         stub_http_response_with('currencies.json')
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
-        expect(Currencies.response).to be_nil
-        expect(Currencies.currencies).to be_nil
+        expect(Currency.response).to be_nil
+        expect(Currency.currencies).to be_nil
       end
 
       let(:fetched_currencies) {
         bp.fetch(:currencies, {:compress => 1, :appid => 440})
       }
 
-      context 'results on the Currencies.response method' do
+      context 'results on the Currency.response method' do
         it 'returns this Hash object' do
-          bp.update(Currencies, fetched_currencies)
+          bp.update(Currency, fetched_currencies)
           processed_json = Response.hash_keys_to_sym(fetched_currencies)
-          expect(Currencies.response).to eq processed_json
+          expect(Currency.response).to eq processed_json
         end
       end
 
-      context 'results on the Currencies.currencies method' do
+      context 'results on the Currency.currencies method' do
         it 'returns this Hash object' do
-          bp.update(Currencies, fetched_currencies)
+          bp.update(Currency, fetched_currencies)
           processed_json = Response.hash_keys_to_sym(fetched_currencies['currencies'])
-          expect(Currencies.currencies).to eq processed_json
+          expect(Currency.currencies).to eq processed_json
         end
       end
 

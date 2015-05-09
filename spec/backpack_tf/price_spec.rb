@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module BackpackTF
-  describe Prices do
+  describe Price do
 
     let(:bp) { Client.new }
 
@@ -24,7 +24,7 @@ module BackpackTF
     end
 
     describe '::responses' do
-      it "Responses class can access Prices response by calling Prices key" do
+      it "Responses class can access Price response by calling Price key" do
         stub_http_response_with('prices.json')
         fetched_prices = bp.fetch(:prices)
         Response.responses(described_class.to_sym => fetched_prices)
@@ -48,7 +48,7 @@ module BackpackTF
       it 'can access response information' do
         expect(described_class.response).to eq json_obj
       end
-      it "returns same info as the Response class calling Prices key" do
+      it "returns same info as the Response class calling Price key" do
         expect(described_class.response).to eq Response.responses[described_class.to_sym]
       end
       it 'the response attribute should have these keys' do

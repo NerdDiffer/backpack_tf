@@ -2,7 +2,7 @@ module BackpackTF
 
   # ruby representations of a JSON response to
   # `IGetCurrencies`['response']
-  class Currencies < Response
+  class Currency < Response
 
     ###########################
     #     Class Methods
