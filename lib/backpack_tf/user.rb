@@ -1,5 +1,5 @@
 module BackpackTF
-  class Users < Response
+  class User < Response
     INTERFACE = :IGetUsers
     @interface = INTERFACE
     @response = nil

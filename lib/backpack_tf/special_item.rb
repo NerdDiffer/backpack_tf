@@ -1,5 +1,5 @@
 module BackpackTF
-  class SpecialItems < Response
+  class SpecialItem < Response
     INTERFACE = :IGetSpecialItems
     @interface = INTERFACE
     @response = nil

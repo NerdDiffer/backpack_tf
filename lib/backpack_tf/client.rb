@@ -36,16 +36,16 @@ module BackpackTF
       case action
       when :get_prices, :prices
         version = 4
-        interface_url = "/#{Prices.interface}/v#{version}/?"
+        interface_url = "/#{Price.interface}/v#{version}/?"
       when :get_currencies, :currencies
         version = 1
-        interface_url = "/#{Currencies.interface}/v#{version}/?"
+        interface_url = "/#{Currency.interface}/v#{version}/?"
       when :get_special_items, :special_items
         version = 1
-        interface_url = "/#{SpecialItems.interface}/v#{version}/?"
+        interface_url = "/#{SpecialItem.interface}/v#{version}/?"
       when :get_users, :users
         version = 3
-        interface_url = "/#{Users.interface}/v#{version}/?"
+        interface_url = "/#{User.interface}/v#{version}/?"
       when :get_user_listings, :user_listing, :user_listings
         version = 1
         interface_url = "/#{UserListing.interface}/v#{version}/?"

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module BackpackTF
-  describe 'Prices' do
+  describe Price do
 
     let(:bp) { Client.new }
 
@@ -12,11 +12,11 @@ module BackpackTF
     }
 
     it 'responds to these methods' do
-      expect(Prices).to respond_to :responses, :response, :items, :interface, :hash_keys_to_sym
+      expect(described_class).to respond_to :responses, :response, :items, :interface, :hash_keys_to_sym
     end
 
     it 'has these default attributes' do
-      expect(Prices.interface).to eq :IGetPrices
+      expect(described_class.interface).to eq :IGetPrices
     end
 
     describe '::responses' do
@@ -25,23 +25,23 @@ module BackpackTF
         stub_http_response_with('prices.json')
         opts = { :app_id => 440, :compress => 1 }
         fetched_prices = bp.fetch(:prices, opts)
-        Response.responses(Prices.to_sym => fetched_prices)
+        Response.responses(described_class.to_sym => fetched_prices)
       end
 
       context 'access from Response class' do
-        it "Prices can be accessed by calling the key, Prices" do
-          expect(Response.responses[Prices.to_sym]).to eq json_obj
+        it "Price can be accessed by calling the key, Price" do
+          expect(Response.responses[described_class.to_sym]).to eq json_obj
         end
       end
 
-      context "access from Prices class" do
+      context "access from Price class" do
         it 'can access response information via the class method, ::response' do
-          expect(Prices.response).to eq json_obj
+          expect(described_class.response).to eq json_obj
         end
       end
 
-      it "is the same as calling Prices.response" do
-        expect(Response.responses[Prices.to_sym]).to eq Prices.response
+      it "is the same as calling Price.response" do
+        expect(Response.responses[described_class.to_sym]).to eq described_class.response
       end
     end
 
@@ -51,20 +51,20 @@ module BackpackTF
         stub_http_response_with('prices.json')
         opts = { :app_id => 440, :compress => 1 }
         fetched_prices = bp.fetch(:prices, opts)
-        Response.responses(Prices.to_sym => fetched_prices)
+        Response.responses(described_class.to_sym => fetched_prices)
       end
 
       it 'the response attribute should have these keys' do
-        expect(Prices.response.keys).to match_array [:success, :current_time, :raw_usd_value, :usd_currency, :usd_currency_index, :items]
+        expect(described_class.response.keys).to match_array [:success, :current_time, :raw_usd_value, :usd_currency, :usd_currency_index, :items]
       end
 
       it 'the keys of the response attribute should have these values' do
-        expect(Prices.response[:success]).to eq 1
-        expect(Prices.response[:message]).to eq nil
-        expect(Prices.response[:current_time]).to eq 1430785805
-        expect(Prices.response[:raw_usd_value]).to eq 0.115
-        expect(Prices.response[:usd_currency]).to eq 'metal'
-        expect(Prices.response[:usd_currency_index]).to eq 5002
+        expect(described_class.response[:success]).to eq 1
+        expect(described_class.response[:message]).to eq nil
+        expect(described_class.response[:current_time]).to eq 1430785805
+        expect(described_class.response[:raw_usd_value]).to eq 0.115
+        expect(described_class.response[:usd_currency]).to eq 'metal'
+        expect(described_class.response[:usd_currency_index]).to eq 5002
       end
 
     end
@@ -78,31 +78,31 @@ module BackpackTF
         stub_http_response_with('prices.json')
         opts = { :app_id => 440, :compress => 1 }
         fetched_prices = bp.fetch(:prices, opts)
-        Response.responses(Prices => fetched_prices)
+        Response.responses(described_class => fetched_prices)
       end
 
       it 'returns the fixture and sets to @@items variable' do
-        expect(Prices.items).not_to be_nil
+        expect(described_class.items).not_to be_nil
       end
 
       context '@@items attribute' do
         it 'should be a Hash object' do
-          expect(Prices.items).to be_instance_of Hash
+          expect(described_class.items).to be_instance_of Hash
         end
         xit 'should have this many keys' do
-          expect(Prices.items.keys.length).to be 1661
+          expect(described_class.items.keys.length).to be 1661
         end
         it 'each key should be a String' do
-          expect(Prices.items.keys).to all be_a String
+          expect(described_class.items.keys).to all be_a String
         end
         it 'each value should be an Item' do
-          expect(Prices.items.values).to all be_an Item
+          expect(described_class.items.values).to all be_an Item
         end
       end
 
       context 'using keys to generate Item objects' do
-        let(:random_key) { Prices.items.keys.sample }
-        let(:item) { Prices.items[random_key] }
+        let(:random_key) { described_class.items.keys.sample }
+        let(:item) { described_class.items[random_key] }
 
         it 'generates an Item object' do
           expect(item).to be_instance_of Item
@@ -114,15 +114,15 @@ module BackpackTF
           expect(random_key).to eq item.item_name
         end
         it 'passes itself to be stored in the @prices attribute of the Item object' do
-          expect(Prices.items[random_key].prices).to eq item.prices
+          expect(described_class.items[random_key].prices).to eq item.prices
         end
       end
 
     end
 
-    describe 'instances of Prices' do
+    describe 'instances of Price' do
       it 'raises an error when trying to instantiate this class' do
-        expect{Prices.new}.to raise_error RuntimeError
+        expect{described_class.new}.to raise_error RuntimeError
       end
     end
 

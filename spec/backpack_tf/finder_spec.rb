@@ -15,7 +15,7 @@ module BackpackTF
 
   end
 
-  describe Prices do
+  describe Price do
     it_behaves_like 'Finder'
   end
 

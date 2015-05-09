@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module BackpackTF
-  describe Users do
+  describe User do
     let(:bp) { Client.new }
 
     let(:json_obj) {
@@ -41,7 +41,7 @@ module BackpackTF
         fetched_users = bp.fetch(:special_items, opts) 
         Response.responses(described_class.to_sym => fetched_users)
       end
-      it "Users can be accessed by calling the key, Users" do
+      it "User can be accessed by calling the key, User" do
         expect(Response.responses[described_class.to_sym]).to eq json_obj
       end
     end
@@ -56,7 +56,7 @@ module BackpackTF
       it 'can access response information via the class method, ::response' do
         expect(described_class.response).to eq json_obj
       end
-      it "returns same results as calling Response.responses[:'BackpackTF::Users']" do
+      it "returns same results as calling Response.responses[:'BackpackTF::User']" do
         expect(described_class.response).to eq Response.responses[described_class.to_sym]
       end
       it 'the response attribute should have these keys' do

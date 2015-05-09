@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module BackpackTF
-  describe SpecialItems do
+  describe SpecialItem do
     let(:bp) { Client.new }
 
     let(:json_obj) {
@@ -24,7 +24,7 @@ module BackpackTF
         fetched_special_items = bp.fetch(:special_items, {:app_id=>440, :compress=>1}) 
         Response.responses(described_class.to_sym => fetched_special_items)
       end
-      it "SpecialItems can be accessed by calling the key, SpecialItems" do
+      it "SpecialItem can be accessed by calling the key, SpecialItem" do
         expect(Response.responses[described_class.to_sym]).to eq json_obj
       end
     end
@@ -38,7 +38,7 @@ module BackpackTF
       it 'can access response information via the class method, ::response' do
         expect(described_class.response).to eq json_obj
       end
-      it "returns same results as calling Response.responses[:'BackpackTF::SpecialItems']" do
+      it "returns same results as calling Response.responses[:'BackpackTF::SpecialItem']" do
         expect(described_class.response).to eq Response.responses[described_class.to_sym]
       end
       it 'the response attribute should have these keys' do
@@ -68,8 +68,8 @@ module BackpackTF
       it 'has these 2 keys' do
         expect(described_class.items.keys).to match_array [':weed:', 'Random Craft Hat']
       end
-      it 'each key points to an instance of SpecialItems' do
-        expect(described_class.items.values).to all be_a BackpackTF::SpecialItems
+      it 'each key points to an instance of SpecialItem' do
+        expect(described_class.items.values).to all be_a BackpackTF::SpecialItem
       end
     end
 
