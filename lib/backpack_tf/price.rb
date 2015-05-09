@@ -52,7 +52,7 @@ module BackpackTF
       end
     end
 
-    def self.random_item opt = :name
+    def self.random_item opt = nil
       case opt
       when :prices, :price
         @items[@items.keys.sample].prices
