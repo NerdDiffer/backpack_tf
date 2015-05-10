@@ -24,19 +24,8 @@ module BackpackTF
     end
 
     describe '::responses' do
-      it "Responses class can access Price response by calling Price key" do
-        stub_http_response_with('prices.json')
-        fetched_prices = bp.fetch(:prices)
-        Response.responses(described_class.to_sym => fetched_prices)
-        expect(Response.responses[described_class.to_sym]).to eq json_obj
-      end
-    end
-
-    describe '::response' do
-      before :each do
-        stub_http_response_with('prices.json')
-        fetched_prices = bp.fetch(:prices)
-        Response.responses(described_class.to_sym => fetched_prices)
+      before :all do
+        expect(Response.responses).to be_empty
       end
 
       after :all do
@@ -45,14 +34,37 @@ module BackpackTF
         expect(described_class.response).to be_nil
       end
 
+      it "Response class can access Price response by calling Price key" do
+        stub_http_response_with('prices.json')
+        fetched_prices = bp.fetch(:prices)
+        bp.update(described_class, fetched_prices)
+        expect(Response.responses[described_class.to_sym]).to eq json_obj
+      end
+    end
+
+    describe '::response' do
+      before :all do
+        expect(described_class.response).to be_nil
+      end
+
+      before :each do
+        stub_http_response_with('prices.json')
+        fetched_prices = bp.fetch(:prices)
+        bp.update(described_class, fetched_prices)
+      end
+
+      after :all do
+        Response.responses(:reset => :confirm)
+        expect(Response.responses).to be_empty
+        expect(described_class.response).to be_nil
+        expect(described_class.items).to be_nil
+      end
+
       it 'can access response information' do
         expect(described_class.response).to eq json_obj
       end
       it "returns same info as the Response class calling Price key" do
         expect(described_class.response).to eq Response.responses[described_class.to_sym]
-      end
-      it 'the response attribute should have these keys' do
-        expect(described_class.response.keys).to match_array [:success, :current_time, :raw_usd_value, :usd_currency, :usd_currency_index, :items]
       end
       it 'the keys of the response attribute should have these values' do
         response = described_class.response

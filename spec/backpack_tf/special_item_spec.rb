@@ -29,7 +29,7 @@ module BackpackTF
         expect(described_class.response).to be_nil
       end
 
-      it "Responses class can access SpecialItem response by calling SpecialItem key" do
+      it "Response class can access SpecialItem response by calling SpecialItem key" do
         stub_http_response_with('special_items.json')
         fetched_special_items = bp.fetch(:special_items) 
         bp.update(described_class, fetched_special_items)

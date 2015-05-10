@@ -35,7 +35,7 @@ module BackpackTF
         expect(described_class.response).to be_nil
       end
 
-      it "Responses class can access Currency response by calling Currency key" do
+      it "Response class can access Currency response by calling Currency key" do
         stub_http_response_with('currencies.json')
         fetched_currencies = bp.fetch(:currencies)
         bp.update(described_class, fetched_currencies)
