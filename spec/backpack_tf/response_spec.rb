@@ -8,13 +8,13 @@ module BackpackTF
     let(:json_obj) {
       fixture = file_fixture('currencies.json')
       fixture = JSON.parse(fixture)['response']
-      Response.hash_keys_to_sym(fixture)
+      described_class.hash_keys_to_sym(fixture)
     }
 
     let(:more_json) {
       fixture = file_fixture('currencies_updated.json')
       fixture = JSON.parse(fixture)['response']
-      Response.hash_keys_to_sym(fixture)
+      described_class.hash_keys_to_sym(fixture)
     }
 
     describe '::interface' do
@@ -32,6 +32,12 @@ module BackpackTF
     describe '::responses' do
       let (:faked_class_sym) { :'BackpackTF::FakedClass' }
 
+      after :all do
+        Response.responses(:reset => :confirm)
+        expect(Response.responses).to be_empty
+        expect(described_class.response).to be_nil
+      end
+
       it 'returns a Hash object' do
         expect(Response.responses).to be_instance_of Hash
       end
@@ -43,7 +49,7 @@ module BackpackTF
         end
       end
 
-      context 'reset' do
+      context 'resetting' do
         before :each do
           Response.responses(faked_class_sym => json_obj)
           expect(Response.responses[faked_class_sym]).to eq json_obj
@@ -95,6 +101,13 @@ module BackpackTF
           Response.responses( { faked_class_sym => json_obj } )
           expect(Response.responses).not_to be_nil
         end
+      end
+
+    end
+
+    describe '::response' do
+      it "returns nil when called by #{described_class}" do
+        expect(described_class.response).to be_nil
       end
     end
 

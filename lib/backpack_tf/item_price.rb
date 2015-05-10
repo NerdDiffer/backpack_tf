@@ -2,12 +2,11 @@ module BackpackTF
 
   class ItemPrice
 
+    KEYNAME_DELIMITER = '_'
+
     ###########################
     #      Class Methods
     ###########################
-
-    @@required_keys = ['currency', 'value', 'last_update', 'difference']
-    def self.required_keys; @@required_keys; end
 
     # mapping official API quality integers to quality names
     # https://wiki.teamfortress.com/wiki/WebAPI/GetSchema#Result_Data
@@ -29,11 +28,17 @@ module BackpackTF
       :"Collector's"
     ]
 
-    def self.qualities; @@qualities; end
-
     @@tradabilities = [:Tradable, :'Non-Tradable']
     @@craftabilities = [:Craftable, :'Non-Craftable']
-    
+    @@required_keys = ['currency', 'value', 'last_update', 'difference']
+
+    def self.qualities; @@qualities; end
+    def self.required_keys; @@required_keys; end
+
+    def self.quality_name_to_index q
+      @@qualities.index(q.to_sym) unless q.nil?
+    end
+
     ###########################
     #     Instance Methods
     ###########################
@@ -63,17 +68,16 @@ module BackpackTF
 
     def initialize key, attr, priceindex = nil
       attr = JSON.parse(attr) unless attr.class == Hash
-      unless self.class.required_keys.all? {|k| attr.keys.member? k }
-        raise KeyError, "The passed-in hash is required to have at least these 4 keys: #{self.class.required_keys.join(', ')}"
-      end
 
-      key_split = key.split('_')
+      key = key.split(KEYNAME_DELIMITER)
+      key = process_key(key)
+
+      validate_attributes(attr)
 
       @priceindex     = priceindex
-
-      @quality        = key_split[0].to_sym
-      @tradability    = key_split[1].to_sym
-      @craftability   = key_split[2].to_sym
+      @quality        = key[0]
+      @tradability    = key[1]
+      @craftability   = key[2]
       @currency       = attr['currency'].to_sym
       @value          = attr['value']
       @value_high     = attr['value_high']
@@ -81,6 +85,47 @@ module BackpackTF
       @value_high_raw = attr['value_high_raw']
       @last_update    = attr['last_update']
       @difference     = attr['difference']
+    end
+
+    private
+    # requires the key to an Array with length of 3 or more
+    # converts each element to a Symbol object
+    # The 3 bits of info are subject to a NameError if any one of them is invalid
+    # @return [Array] an Array of Symbol objects
+    # @raises NameError, ArgumentError
+    def process_key key
+
+      unless key.length >= 3
+        raise ArgumentError, "This key must have a length of 3 or greater"
+      end
+
+      key.map! { |bit| bit.to_sym }
+
+      unless @@qualities.include? key[0]
+        raise NameError, 'Must include a valid Quality'
+      end
+      unless @@tradabilities.include? key[1]
+        raise NameError, 'Must include a valid Tradability'
+      end
+      unless @@craftabilities.include? key[2]
+        raise NameError, 'Must include a valid Craftability'
+      end
+
+      key
+    end
+
+    def validate_attributes attributes
+
+      raise TypeError unless attributes.class == Hash
+
+      unless @@required_keys.all? { |k| attributes.keys.member? k }
+        msg = "The passed-in hash is required to have at least these 4 keys: "
+        msg += "#{self.class.required_keys.join(', ')}"
+        raise KeyError, msg
+      end
+
+      attributes
+
     end
 
   end

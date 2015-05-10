@@ -10,64 +10,69 @@ module BackpackTF
       Response.hash_keys_to_sym(fixture)
     }
 
-    it 'responds to these methods' do
-      expect(described_class).to respond_to :responses, :interface, :hash_keys_to_sym
-    end
-
     it 'has these default attributes' do
       expect(described_class.interface).to eq :IGetSpecialItems
     end
 
-    describe '::responses' do
-      before :each do
-        stub_http_response_with('special_items.json')
-        fetched_special_items = bp.fetch(:special_items, {:app_id=>440, :compress=>1}) 
-        Response.responses(described_class.to_sym => fetched_special_items)
-      end
-      it "SpecialItem can be accessed by calling the key, SpecialItem" do
-        expect(Response.responses[described_class.to_sym]).to eq json_obj
-      end
-    end
-
     describe '::response' do
+      before :all do
+        expect(described_class.response).to be_nil
+      end
+
       before :each do
         stub_http_response_with('special_items.json')
-        fetched_special_items = bp.fetch(:special_items, {:app_id=>440, :compress=>1}) 
-        Response.responses(described_class.to_sym => fetched_special_items)
+        fetched_special_items = bp.fetch(:special_items) 
+        bp.update(described_class, fetched_special_items)
       end
-      it 'can access response information via the class method, ::response' do
-        expect(described_class.response).to eq json_obj
+
+      after :all do
+        Response.responses(:reset => :confirm)
+        expect(Response.responses).to be_empty
+        expect(described_class.response).to be_nil
+        expect(described_class.items).to be_nil
       end
-      it "returns same results as calling Response.responses[:'BackpackTF::SpecialItem']" do
-        expect(described_class.response).to eq Response.responses[described_class.to_sym]
-      end
-      it 'the response attribute should have these keys' do
-        expect(described_class.response.keys).to match_array [:success, :current_time, :items]
-      end
+
       it 'the keys of the response attribute should have these values' do
-        expect(described_class.response[:success]).to eq 1
-        expect(described_class.response[:message]).to eq nil
-        expect(described_class.response[:current_time]).to eq 1431108270
+        response = described_class.response
+        expect(response[:success]).to eq 1
+        expect(response[:message]).to eq nil
+        expect(response[:current_time]).to eq 1431108270
       end
     end
 
     describe '::items' do
+      before :all do
+        expect(described_class.response).to be_nil
+        expect(described_class.items).to be_nil
+      end
+
       before :each do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
+
         stub_http_response_with('special_items.json')
-        fetched_special_items = bp.fetch(:special_items, {:app_id=>440, :compress=>1}) 
-        Response.responses(described_class.to_sym => fetched_special_items)
+        fetched_special_items = bp.fetch(:special_items) 
+        bp.update(described_class, fetched_special_items)
       end
+
+      after :all do
+        Response.responses(:reset => :confirm)
+        expect(Response.responses).to be_empty
+        described_class.class_eval { @items = nil }
+      end
+
       it 'returns the fixture and sets to @@items variable' do
         expect(described_class.items).not_to be_nil
       end
+
       it 'is a Hash object' do
         expect(described_class.items).to be_instance_of Hash
       end
+
       it 'has these 2 keys' do
         expect(described_class.items.keys).to match_array [':weed:', 'Random Craft Hat']
       end
+
       it 'each key points to an instance of SpecialItem' do
         expect(described_class.items.values).to all be_a BackpackTF::SpecialItem
       end
