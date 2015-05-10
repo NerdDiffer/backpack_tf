@@ -43,7 +43,7 @@ module BackpackTF
         craftability = prices[key][tradability].keys.first
         new_key << craftability
 
-        new_key = new_key.join('_')
+        new_key = new_key.join(ItemPrice::KEYNAME_DELIMITER)
 
         prefix = prices[key][tradability][craftability]
 

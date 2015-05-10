@@ -100,6 +100,13 @@ module BackpackTF
         expect(Currency.currencies).to be_nil
       end
 
+      after :each do
+        Response.responses(:reset => :confirm)
+        expect(Response.responses).to be_empty
+        expect(Currency.response).to be_nil
+        expect(Currency.currencies).to be_nil
+      end
+
       let(:fetched_currencies) {
         bp.fetch(:currencies, {:compress => 1, :appid => 440})
       }

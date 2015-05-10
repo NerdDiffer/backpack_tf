@@ -75,6 +75,7 @@ module BackpackTF
       after :all do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
+        described_class.class_eval { @items = nil }
       end
 
       it 'each key of hash is a String' do
@@ -99,6 +100,7 @@ module BackpackTF
       after :all do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
+        described_class.class_eval { @items = nil }
       end
 
       it 'returns the fixture and sets to @@items variable' do
