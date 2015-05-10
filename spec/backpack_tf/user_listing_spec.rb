@@ -10,10 +10,6 @@ module BackpackTF
       Response.hash_keys_to_sym(fixture)
     }
 
-    it 'responds to these methods' do
-      expect(described_class).to respond_to :responses, :interface, :hash_keys_to_sym, :response, :listings
-    end
-
     it 'has these default attributes' do
       expect(described_class.interface).to eq :IGetUserListings
     end
@@ -32,25 +28,6 @@ module BackpackTF
         :meta => {:class => 'multi', :slot => 'tool', :craft_material_type => 'tool'},
         :buyout => 1,
       )
-    end
-
-    describe '::responses' do
-      before :all do
-        expect(Response.responses).to be_empty
-      end
-
-      after :all do
-        Response.responses(:reset => :confirm)
-        expect(Response.responses).to be_empty
-        expect(described_class.response).to be_nil
-      end
-      it "Response class can access UserListing response by calling the key UserListing" do
-        stub_http_response_with('user_listing.json')
-        opts = { :steamid => 76561197978210095 }
-        fetched_listings = bp.fetch(:user_listings, opts)
-        bp.update(described_class, fetched_listings)
-        expect(Response.responses[described_class.to_sym]).to eq json_obj
-      end
     end
 
     describe '::response' do
@@ -72,12 +49,6 @@ module BackpackTF
         expect(described_class.listings).to be_nil
       end
 
-      it 'can access response information' do
-        expect(described_class.response).to eq json_obj
-      end
-      it "returns same info as the Response class calling UserListing key" do
-        expect(described_class.response).to eq Response.responses[described_class.to_sym]
-      end
       it 'the keys of the response attribute should have these values' do
         expect(described_class.response[:success]).to eq 1
         expect(described_class.response[:message]).to eq nil

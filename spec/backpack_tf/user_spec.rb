@@ -10,10 +10,6 @@ module BackpackTF
       Response.hash_keys_to_sym(fixture)
     }
 
-    it 'responds to these methods' do
-      expect(described_class).to respond_to :responses, :interface, :hash_keys_to_sym
-    end
-
     it 'has these default attributes' do
       expect(described_class.interface).to eq :IGetUsers
     end
@@ -31,26 +27,6 @@ module BackpackTF
         :backpack_tf_trust => { 'for' => 3, 'against' => 0 },
         :notifications => 0
       )
-    end
-
-    describe '::responses' do
-      before :all do
-        expect(Response.responses).to be_empty
-      end
-
-      after :all do
-        Response.responses(:reset => :confirm)
-        expect(Response.responses).to be_empty
-        expect(described_class.response).to be_nil
-      end
-
-      it "Response class can access User response by calling the key User" do
-        stub_http_response_with('users.json')
-        opts = {:steamids => [76561198012598620,76561198045802942] }
-        fetched_users = bp.fetch(:special_items, opts) 
-        bp.update(described_class, fetched_users)
-        expect(Response.responses[described_class.to_sym]).to eq json_obj
-      end
     end
 
     describe '::response' do
@@ -72,12 +48,6 @@ module BackpackTF
         expect(described_class.players).to be_nil
       end
 
-      it 'can access response information' do
-        expect(described_class.response).to eq json_obj
-      end
-      it "returns same info as the Response class calling User key" do
-        expect(described_class.response).to eq Response.responses[described_class.to_sym]
-      end
       it 'the keys of the response attribute should have these values' do
         expect(described_class.response[:success]).to eq 1
         expect(described_class.response[:message]).to eq nil

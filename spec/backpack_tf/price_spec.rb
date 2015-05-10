@@ -11,35 +11,12 @@ module BackpackTF
       Response.hash_keys_to_sym(fixture)
     }
 
-    it 'responds to these inherited class methods' do
-      expect(described_class).to respond_to :responses, :to_sym, :interface, :hash_keys_to_sym    
-    end
-
     it 'has these default attributes' do
       expect(described_class.interface).to eq :IGetPrices
     end
 
     it 'raises an error when trying to instantiate this class' do
       expect{described_class.new}.to raise_error RuntimeError
-    end
-
-    describe '::responses' do
-      before :all do
-        expect(Response.responses).to be_empty
-      end
-
-      after :all do
-        Response.responses(:reset => :confirm)
-        expect(Response.responses).to be_empty
-        expect(described_class.response).to be_nil
-      end
-
-      it "Response class can access Price response by calling Price key" do
-        stub_http_response_with('prices.json')
-        fetched_prices = bp.fetch(:prices)
-        bp.update(described_class, fetched_prices)
-        expect(Response.responses[described_class.to_sym]).to eq json_obj
-      end
     end
 
     describe '::response' do
@@ -60,12 +37,6 @@ module BackpackTF
         expect(described_class.items).to be_nil
       end
 
-      it 'can access response information' do
-        expect(described_class.response).to eq json_obj
-      end
-      it "returns same info as the Response class calling Price key" do
-        expect(described_class.response).to eq Response.responses[described_class.to_sym]
-      end
       it 'the keys of the response attribute should have these values' do
         response = described_class.response
         expect(response[:success]).to eq 1

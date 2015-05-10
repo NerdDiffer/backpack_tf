@@ -28,3 +28,50 @@ def stub_http_response_with(filename)
 
   expect(HTTParty::Request).to receive(:new).and_return(http_request)
 end
+
+def make_fetch_sym
+  opt = described_class.to_s
+  ind_after_scope_operator = opt.index('::') + 2
+  opt = opt[ind_after_scope_operator..-1]
+  opt.downcase.to_sym
+end
+
+def mock_alias
+
+  case described_class.to_s
+
+  when BackpackTF::Price.to_s
+    described_class.class_eval do
+      class << self; attr_class_alias(:data_storage, :items); end
+    end
+  when BackpackTF::Currency.to_s
+    described_class.class_eval do
+      class << self; attr_class_alias :data_storage, :currencies; end
+    end
+  when BackpackTF::SpecialItem.to_s
+    described_class.class_eval do
+      class << self; attr_class_alias :data_storage, :items; end
+    end
+  when BackpackTF::User.to_s
+    described_class.class_eval do
+      class << self; attr_class_alias :data_storage, :players; end
+    end
+  when BackpackTF::UserListing.to_s
+    described_class.class_eval do
+      class << self; attr_class_alias :data_storage, :listings; end
+    end
+  else
+    raise RuntimeError, "#{described_class} != described_class"
+  end
+
+end
+
+# credit: http://stackoverflow.com/a/913453/2908123
+class Module
+  def attr_class_alias(new_attr, original_attr)
+    alias_method(new_attr, original_attr) if method_defined? original_attr
+    new_writer = "#{new_attr}="
+    original_writer = "#{original_attr}="
+    alias_method(new_writer, original_writer) if method_defined? original_writer
+  end
+end

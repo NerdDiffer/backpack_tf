@@ -32,6 +32,9 @@ module BackpackTF
       @responses
     end
 
+    def self.response
+    end
+
     # checks the data type of the keys of a Hash object
     # if the key is a String, then changes it to a Symbol
     # otherwise, leaves it as is
