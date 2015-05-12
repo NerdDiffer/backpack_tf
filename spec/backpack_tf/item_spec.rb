@@ -59,16 +59,26 @@ module BackpackTF
       end
     end
 
-    describe 'An item with an unconventional structure' do
-      item_attr = JSON.parse(file_fixture('item_with_unconventional_structure.json'))['Aqua Summer 2013 Cooler']
-      item = described_class.new('Aqua Summer 2013 Cooler', item_attr)
+    describe 'An item with many priceindex values (Crate or Unusual)' do
+      item_attr = JSON.parse(file_fixture('item_crate.json'))['Mann Co. Supply Munition']
+      item = described_class.new('Mann Co. Supply Munition', item_attr)
       subject { item }
       it_behaves_like('a common item', item_attr)
 
       context 'item-specific tests' do
         it 'should have these values' do
-          expect(item.item_name).to eq 'Aqua Summer 2013 Cooler'
-          expect(item.defindex).to eq 5650
+          expect(subject.item_name).to eq 'Mann Co. Supply Munition'
+          expect(subject.defindex).to match_array [5734, 5735, 5742, 5752, 5781, 5802, 5803]
+        end
+        it 'prices array should have these keys' do
+          ans = ['Unique_Tradable_Craftable_#82',
+                 'Unique_Tradable_Craftable_#83',
+                 'Unique_Tradable_Craftable_#84',
+                 'Unique_Tradable_Craftable_#85',
+                 'Unique_Tradable_Craftable_#90',
+                 'Unique_Tradable_Craftable_#91',
+                 'Unique_Tradable_Craftable_#92']
+          expect(subject.prices.keys).to match_array ans
         end
       end
     end
@@ -77,7 +87,7 @@ module BackpackTF
       item_attr = JSON.parse(file_fixture('item_without_defindex.json'))['Strange Part: Fires Survived']
       item = described_class.new('Strange Part: Fires Survived', item_attr)
       subject { item }
-      it_behaves_like('a common item', item_attr)
+      #it_behaves_like('a common item', item_attr)
 
       context 'item-specific tests' do
         it 'should have these values' do

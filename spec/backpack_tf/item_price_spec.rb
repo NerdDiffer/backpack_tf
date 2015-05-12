@@ -12,6 +12,26 @@ module BackpackTF
       end
     end
     
+    describe '::hash_particle_effects' do
+      it 'creates a key value pair for each id & name' do
+        expect(described_class.hash_particle_effects[17]).to eq 'Sunbeams'
+        expect(described_class.hash_particle_effects[5]).to eq 'Holy Glow'
+      end
+      it 'is nil if it cannot find that key' do
+        expect(described_class.hash_particle_effects[nil]).to be_nil
+      end
+
+      context '@@particle_effects' do
+        it 'same thing can be accessed through class variable' do
+          expect(described_class.particle_effects[17]).to eq 'Sunbeams'
+          expect(described_class.particle_effects[5]).to eq 'Holy Glow'
+        end
+        it 'is nil if it cannot find that key' do
+          expect(described_class.particle_effects[nil]).to be_nil
+        end
+      end
+    end
+
     describe '#initialize' do
       base_json = JSON.parse(file_fixture('item_typical.json'))['Kritzkrieg']
       ok_json = base_json['prices']['6']['Tradable']['Craftable'][0]
@@ -88,7 +108,7 @@ module BackpackTF
           expect(subject.value_high_raw).to be_nil
           expect(subject.last_update).to eq 1418795322
           expect(subject.difference).to eq 280
-          expect(subject.priceindex).to eq 6
+          expect(subject.priceindex).to eq 'Green Confetti'
         end
       end
     end

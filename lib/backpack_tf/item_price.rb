@@ -3,6 +3,8 @@ module BackpackTF
   class ItemPrice
 
     KEYNAME_DELIMITER = '_'
+    PARTICLE_EFFECTS_KEY = 'attribute_controlled_attached_particles'
+    PARTICLE_EFFECTS_FILE = "./lib/backpack_tf/assets/#{PARTICLE_EFFECTS_KEY}.json"
 
     ###########################
     #      Class Methods
@@ -37,6 +39,40 @@ module BackpackTF
 
     def self.quality_name_to_index q
       @@qualities.index(q.to_sym) unless q.nil?
+    end
+
+    def self.hash_particle_effects
+
+      file = File.open(PARTICLE_EFFECTS_FILE).read
+      effects_arr = JSON.parse(file)[PARTICLE_EFFECTS_KEY]
+
+      effects_arr.inject({}) do |hash, pe|
+        id = pe['id']
+        name = pe['name']
+        hash[id] = name
+        hash
+      end
+
+    end
+
+    @@particle_effects = self.hash_particle_effects
+    def self.particle_effects; @@particle_effects; end
+
+    def self.ins_sp str
+      str = str.split('')
+      new_str = ''
+      str.each_with_index do |c, i|
+        if i == 0
+          new_str += c
+        else
+          unless c == c.upcase && str[i-1] == str[i-1].upcase
+            new_str += c
+          else
+            new_str += (' ' + c)
+          end
+        end
+      end
+      new_str
     end
 
     ###########################
@@ -74,7 +110,7 @@ module BackpackTF
 
       validate_attributes(attr)
 
-      @priceindex     = priceindex
+      @priceindex     = self.class.particle_effects[priceindex]
       @quality        = key[0]
       @tradability    = key[1]
       @craftability   = key[2]

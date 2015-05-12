@@ -1,0 +1,667 @@
+{"attribute_controlled_attached_particles": [
+			{
+				"system": "burningplayer_red",
+				"id": 1,
+				"attach_to_rootbone": false,
+				"name": "Particle 1"
+			},
+			{
+				"system": "burningplayer_flyingbits",
+				"id": 2,
+				"attach_to_rootbone": false,
+				"name": "Flying Bits"
+			},
+			{
+				"system": "particle_nemesis_burst_blue",
+				"id": 3,
+				"attach_to_rootbone": false,
+				"attachment": "muzzle1",
+				"name": "Nemesis Burst"
+			},
+			{
+				"system": "community_sparkle",
+				"id": 4,
+				"attach_to_rootbone": false,
+				"name": "Community Sparkle"
+			},
+			{
+				"system": "halopoint",
+				"id": 5,
+				"attach_to_rootbone": false,
+				"attachment": "halopoint1",
+				"name": "Holy Glow"
+			},
+			{
+				"system": "superrare_confetti_green",
+				"id": 6,
+				"attach_to_rootbone": false,
+				"name": "Green Confetti"
+			},
+			{
+				"system": "superrare_confetti_purple",
+				"id": 7,
+				"attach_to_rootbone": false,
+				"name": "Purple Confetti"
+			},
+			{
+				"system": "superrare_ghosts",
+				"id": 8,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Haunted Ghosts"
+			},
+			{
+				"system": "superrare_greenenergy",
+				"id": 9,
+				"attach_to_rootbone": true,
+				"name": "Green Energy"
+			},
+			{
+				"system": "superrare_purpleenergy",
+				"id": 10,
+				"attach_to_rootbone": true,
+				"name": "Purple Energy"
+			},
+			{
+				"system": "superrare_circling_tf",
+				"id": 11,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Circling TF Logo"
+			},
+			{
+				"system": "superrare_flies",
+				"id": 12,
+				"attach_to_rootbone": true,
+				"name": "Massed Flies"
+			},
+			{
+				"system": "superrare_burning1",
+				"id": 13,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Burning Flames"
+			},
+			{
+				"system": "superrare_burning2",
+				"id": 14,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Scorching Flames"
+			},
+			{
+				"system": "superrare_plasma1",
+				"id": 15,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Searing Plasma"
+			},
+			{
+				"system": "superrare_plasma2",
+				"id": 16,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Vivid Plasma"
+			},
+			{
+				"system": "superrare_beams1",
+				"id": 17,
+				"attach_to_rootbone": true,
+				"name": "Sunbeams"
+			},
+			{
+				"system": "superrare_circling_peacesign",
+				"id": 18,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Circling Peace Sign"
+			},
+			{
+				"system": "superrare_circling_heart",
+				"id": 19,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Circling Heart"
+			},
+			{
+				"system": "stamp_spin",
+				"id": 20,
+				"attach_to_rootbone": true,
+				"name": "Map Stamps"
+			},
+			{
+				"system": "drg_pipe_smoke",
+				"id": 28,
+				"attach_to_rootbone": false,
+				"attachment": "cig_drg_smoke",
+				"name": "Genteel Smoke"
+			},
+			{
+				"system": "unusual_storm",
+				"id": 29,
+				"attach_to_rootbone": true,
+				"name": "Stormy Storm"
+			},
+			{
+				"system": "unusual_blizzard",
+				"id": 30,
+				"attach_to_rootbone": true,
+				"name": "Blizzardy Storm"
+			},
+			{
+				"system": "unusual_orbit_nutsnbolts",
+				"id": 31,
+				"attach_to_rootbone": true,
+				"name": "Nuts n' Bolts"
+			},
+			{
+				"system": "unusual_orbit_planets",
+				"id": 32,
+				"attach_to_rootbone": true,
+				"name": "Orbiting Planets"
+			},
+			{
+				"system": "unusual_orbit_fire",
+				"id": 33,
+				"attach_to_rootbone": true,
+				"name": "Orbiting Fire"
+			},
+			{
+				"system": "unusual_bubbles",
+				"id": 34,
+				"attach_to_rootbone": true,
+				"name": "Bubbling"
+			},
+			{
+				"system": "unusual_smoking",
+				"id": 35,
+				"attach_to_rootbone": true,
+				"name": "Smoking"
+			},
+			{
+				"system": "unusual_steaming",
+				"id": 36,
+				"attach_to_rootbone": true,
+				"name": "Steaming"
+			},
+			{
+				"system": "unusual_orbit_jack_flaming",
+				"id": 37,
+				"attach_to_rootbone": true,
+				"name": "Flaming Lantern"
+			},
+			{
+				"system": "unusual_fullmoon_cloudy",
+				"id": 38,
+				"attach_to_rootbone": true,
+				"name": "Cloudy Moon"
+			},
+			{
+				"system": "unusual_bubbles_green",
+				"id": 39,
+				"attach_to_rootbone": true,
+				"name": "Cauldron Bubbles"
+			},
+			{
+				"system": "unusual_orbit_fire_dark",
+				"id": 40,
+				"attach_to_rootbone": true,
+				"name": "Eerie Orbiting Fire"
+			},
+			{
+				"system": "unusual_storm_knives",
+				"id": 43,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Knifestorm"
+			},
+			{
+				"system": "unusual_skull_misty",
+				"id": 44,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Misty Skull"
+			},
+			{
+				"system": "unusual_fullmoon_cloudy_green",
+				"id": 45,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Harvest Moon"
+			},
+			{
+				"system": "unusual_fullmoon_cloudy_secret",
+				"id": 46,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "It's A Secret To Everybody"
+			},
+			{
+				"system": "unusual_storm_spooky",
+				"id": 47,
+				"attach_to_rootbone": true,
+				"attachment": "muzzle",
+				"name": "Stormy 13th Hour"
+			},
+			{
+				"system": "unusual_orbit_cards_teamcolor_blue",
+				"id": 55,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Attrib_Particle55"
+			},
+			{
+				"system": "unusual_zap_yellow",
+				"id": 56,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Kill-a-Watt"
+			},
+			{
+				"system": "unusual_zap_green",
+				"id": 57,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Terror-Watt"
+			},
+			{
+				"system": "unusual_hearts_bubbling",
+				"id": 58,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Cloud 9"
+			},
+			{
+				"system": "unusual_orbit_cards_teamcolor_red",
+				"id": 59,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Aces High"
+			},
+			{
+				"system": "unusual_orbit_cash",
+				"id": 60,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Dead Presidents"
+			},
+			{
+				"system": "unusual_crisp_spotlights",
+				"id": 61,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Miami Nights"
+			},
+			{
+				"system": "unusual_spotlights",
+				"id": 62,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Disco Beat Down"
+			},
+			{
+				"system": "unusual_robot_holo_glow_green",
+				"id": 63,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Phosphorous"
+			},
+			{
+				"system": "unusual_robot_holo_glow_orange",
+				"id": 64,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Sulphurous"
+			},
+			{
+				"system": "unusual_robot_orbit_binary",
+				"id": 65,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Memory Leak"
+			},
+			{
+				"system": "unusual_robot_orbit_binary2",
+				"id": 66,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Overclocked"
+			},
+			{
+				"system": "unusual_robot_orbiting_sparks",
+				"id": 67,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Electrostatic"
+			},
+			{
+				"system": "unusual_robot_orbiting_sparks2",
+				"id": 68,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Power Surge"
+			},
+			{
+				"system": "unusual_robot_radioactive",
+				"id": 69,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Anti-Freeze"
+			},
+			{
+				"system": "unusual_robot_time_warp",
+				"id": 70,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Time Warp"
+			},
+			{
+				"system": "unusual_robot_time_warp2",
+				"id": 71,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Green Black Hole"
+			},
+			{
+				"system": "unusual_robot_radioactive2",
+				"id": 72,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Roboactive"
+			},
+			{
+				"system": "unusual_spellbook_circle_green",
+				"id": 73,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Arcana"
+			},
+			{
+				"system": "unusual_spellbook_circle_purple",
+				"id": 74,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Spellbound"
+			},
+			{
+				"system": "unusual_bats_flaming_proxy_green",
+				"id": 75,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Chiroptera Venenata"
+			},
+			{
+				"system": "unusual_bats_flaming_proxy_purple",
+				"id": 76,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Poisoned Shadows"
+			},
+			{
+				"system": "unusual_bats_flaming_proxy_orange",
+				"id": 77,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Something Burning This Way Comes"
+			},
+			{
+				"system": "unusual_meteor_shower_parent_orange",
+				"id": 78,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Hellfire"
+			},
+			{
+				"system": "unusual_meteor_shower_parent_purple",
+				"id": 79,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Darkblaze"
+			},
+			{
+				"system": "unusual_meteor_shower_parent_green",
+				"id": 80,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Demonflame"
+			},
+			{
+				"system": "unusual_tentmonster_purple_parent",
+				"id": 81,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Bonzo The All-Gnawing"
+			},
+			{
+				"system": "unusual_eyes_purple_parent",
+				"id": 82,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Amaranthine"
+			},
+			{
+				"system": "unusual_eyes_orange_parent",
+				"id": 83,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Stare From Beyond"
+			},
+			{
+				"system": "unusual_eyes_green_parent",
+				"id": 84,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "The Ooze"
+			},
+			{
+				"system": "unusual_souls_purple_parent",
+				"id": 85,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Ghastly Ghosts Jr"
+			},
+			{
+				"system": "unusual_souls_green_parent",
+				"id": 86,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Haunted Phantasm Jr"
+			},
+			{
+				"system": "unusual_eotl_frostbite",
+				"id": 87,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Frostbite"
+			},
+			{
+				"system": "unusual_eotl_oribiting_burning_duck_parent",
+				"id": 88,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Molten Mallard"
+			},
+			{
+				"system": "unusual_eotl_sunrise",
+				"id": 89,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Morning Glory"
+			},
+			{
+				"system": "unusual_eotl_sunset",
+				"id": 90,
+				"attach_to_rootbone": true,
+				"attachment": "unusual",
+				"name": "Death at Dusk"
+			},
+			{
+				"system": "killstreak_eyeglow_1_teamcolor_red",
+				"id": 2001,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle2001"
+			},
+			{
+				"system": "killstreak_t1_lvl1",
+				"id": 2002,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle2002"
+			},
+			{
+				"system": "killstreak_t2_lvl1",
+				"id": 2003,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle2003"
+			},
+			{
+				"system": "killstreak_t3_lvl1",
+				"id": 2004,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle2004"
+			},
+			{
+				"system": "killstreak_t4_lvl1",
+				"id": 2005,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle2005"
+			},
+			{
+				"system": "killstreak_t5_lvl1",
+				"id": 2006,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle2006"
+			},
+			{
+				"system": "killstreak_t6_lvl1",
+				"id": 2007,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle2007"
+			},
+			{
+				"system": "killstreak_t7_lvl1",
+				"id": 2008,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle2008"
+			},
+			{
+				"system": "utaunt_firework_teamcolor_red",
+				"id": 3001,
+				"attach_to_rootbone": false,
+				"name": "Showstopper"
+			},
+			{
+				"system": "utaunt_firework_teamcolor_blue",
+				"id": 3002,
+				"attach_to_rootbone": false,
+				"name": "Showstopper"
+			},
+			{
+				"system": "utaunt_beams_yellow",
+				"id": 3003,
+				"attach_to_rootbone": false,
+				"name": "Holy Grail"
+			},
+			{
+				"system": "utaunt_disco_party",
+				"id": 3004,
+				"attach_to_rootbone": false,
+				"name": "'72"
+			},
+			{
+				"system": "utaunt_hearts_glow_parent",
+				"id": 3005,
+				"attach_to_rootbone": false,
+				"name": "Fountain of Delight"
+			},
+			{
+				"system": "utaunt_meteor_parent",
+				"id": 3006,
+				"attach_to_rootbone": false,
+				"name": "Screaming Tiger"
+			},
+			{
+				"system": "utaunt_cash_confetti",
+				"id": 3007,
+				"attach_to_rootbone": false,
+				"name": "Skill Gotten Gains"
+			},
+			{
+				"system": "utaunt_tornado_parent_black",
+				"id": 3008,
+				"attach_to_rootbone": false,
+				"name": "Midnight Whirlwind"
+			},
+			{
+				"system": "utaunt_tornado_parent_white",
+				"id": 3009,
+				"attach_to_rootbone": false,
+				"name": "Silver Cyclone"
+			},
+			{
+				"system": "utaunt_lightning_parent",
+				"id": 3010,
+				"attach_to_rootbone": false,
+				"name": "Mega Strike"
+			},
+			{
+				"system": "utaunt_souls_green_parent",
+				"id": 3011,
+				"attach_to_rootbone": false,
+				"name": "Haunted Phantasm"
+			},
+			{
+				"system": "utaunt_souls_purple_parent",
+				"id": 3012,
+				"attach_to_rootbone": false,
+				"name": "Ghastly Ghosts"
+			},
+			{
+				"system": "killstreak_eyeglow_4_teamcolor_red",
+				"id": 22001,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle22001"
+			},
+			{
+				"system": "killstreak_t1_lvl2",
+				"id": 22002,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle22002"
+			},
+			{
+				"system": "killstreak_t2_lvl2",
+				"id": 22003,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle22003"
+			},
+			{
+				"system": "killstreak_t3_lvl2",
+				"id": 22004,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle22004"
+			},
+			{
+				"system": "killstreak_t4_lvl2",
+				"id": 22005,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle22005"
+			},
+			{
+				"system": "killstreak_t5_lvl2",
+				"id": 22006,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle22006"
+			},
+			{
+				"system": "killstreak_t6_lvl2",
+				"id": 22007,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle22007"
+			},
+			{
+				"system": "killstreak_t7_lvl2",
+				"id": 22008,
+				"attach_to_rootbone": false,
+				"name": "Attrib_Particle22008"
+			}
+		]
+}

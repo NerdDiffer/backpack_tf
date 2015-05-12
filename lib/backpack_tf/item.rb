@@ -1,5 +1,7 @@
 module BackpackTF
 
+  require 'byebug'
+
   class Item
     ###########################
     #     Instance Methods
@@ -19,8 +21,14 @@ module BackpackTF
         attr = JSON.parse(attr) 
       end
 
-      @defindex   = attr['defindex'][0]
+      @defindex   = process_defindex(attr['defindex'])
       @prices     = gen_prices_hash(attr)
+    end
+
+    def process_defindex arr
+      return nil if arr.length == 0
+      return arr[0] if arr.length == 1
+      arr
     end
 
     def gen_prices_hash input_hash
@@ -47,26 +55,24 @@ module BackpackTF
 
         prefix = prices[key][tradability][craftability]
 
-        if prefix.class == Array
-          item_prices = prefix.first
+
+        if (prefix.length <= 1)
+          item_prices = prefix[0]
           item_price_obj = ItemPrice.new(new_key, item_prices)
           hash[new_key] = item_price_obj
-        elsif prefix.class == Hash
-          if prefix.keys.length <= 1
-            item_prices = prefix.values[0]
-            item_price_obj = ItemPrice.new(new_key, item_prices)
-            hash[new_key] = item_price_obj
-          else
-            prefix.keys.each do |prefix_key|
-              temp_key = "#{new_key}_Effect ##{prefix_key.to_i}"
-              item_prices = prefix[prefix_key]
-              item_price_obj = ItemPrice.new(temp_key, item_prices, prefix_key)
-              hash[new_key] = item_price_obj
-            end
+        else
+
+          prefix.keys.each do |prefix_key|
+            temp_key = "#{new_key}_##{prefix_key.to_i}"
+            item_prices = prefix[prefix_key]
+            item_price_obj = ItemPrice.new(temp_key, item_prices, prefix_key)
+            hash[temp_key] = item_price_obj
           end
+
         end
 
         hash
+
       end
     end
 
