@@ -1,7 +1,5 @@
 module BackpackTF
 
-  require 'byebug'
-
   class Item
     ###########################
     #     Instance Methods
@@ -22,7 +20,7 @@ module BackpackTF
       end
 
       @defindex   = process_defindex(attr['defindex'])
-      @prices     = gen_prices_hash(attr)
+      @prices     = generate_prices_hash(attr)
     end
 
     def process_defindex arr
@@ -31,7 +29,7 @@ module BackpackTF
       arr
     end
 
-    def gen_prices_hash input_hash
+    def generate_prices_hash input_hash
 
       raise TypeError, 'expecting a Hash object' unless input_hash.class == Hash
       unless input_hash.has_key? 'prices'
@@ -42,6 +40,7 @@ module BackpackTF
       prices = input_hash['prices']
 
       prices.inject({}) do |hash, (key, val)|
+
         quality = BackpackTF::ItemPrice.qualities[key.to_i]
         new_key = [quality.to_s]
 
@@ -55,25 +54,30 @@ module BackpackTF
 
         prefix = prices[key][tradability][craftability]
 
-
         if (prefix.length <= 1)
           item_prices = prefix[0]
+          # patch for oddly-structured items, ie: Aqua Summer 2013 Cooler
+          item_prices = prefix.values.first if item_prices.nil?
+
           item_price_obj = ItemPrice.new(new_key, item_prices)
           hash[new_key] = item_price_obj
-        else
-
+        elsif key == '5' # item with 'Unusual' quality
+          prefix.keys.each do |prefix_key|
+            item_prices = prefix[prefix_key]
+            item_price_obj = ItemPrice.new(new_key, item_prices, prefix_key)
+            hash[item_price_obj.effect] = item_price_obj
+          end
+        else # a Crate
           prefix.keys.each do |prefix_key|
             temp_key = "#{new_key}_##{prefix_key.to_i}"
             item_prices = prefix[prefix_key]
             item_price_obj = ItemPrice.new(temp_key, item_prices, prefix_key)
             hash[temp_key] = item_price_obj
           end
-
         end
-
         hash
-
       end
+
     end
 
   end

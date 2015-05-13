@@ -97,10 +97,12 @@ module BackpackTF
     attr_reader :value_raw
     # @return [Float] The item's value in the lowest currency without rounding. Reques raw to be enabled and set to 2
     attr_reader :value_high_raw
-    # @return [Fixnum]  A timestamp of when the price was last updated
+    # @return [Fixnum] A timestamp of when the price was last updated
     attr_reader :last_update
-    # @return [Fixnum]  A relative difference between the former price and the current price. If 0, assume new price.
+    # @return [Fixnum] A relative difference between the former price and the current price. If 0, assume new price.
     attr_reader :difference
+    # @return [String] Result of @@particle_effects[@priceindex]
+    attr_reader :effect
 
     def initialize key, attr, priceindex = nil
       attr = JSON.parse(attr) unless attr.class == Hash
@@ -110,7 +112,6 @@ module BackpackTF
 
       validate_attributes(attr)
 
-      @priceindex     = self.class.particle_effects[priceindex]
       @quality        = key[0]
       @tradability    = key[1]
       @craftability   = key[2]
@@ -121,6 +122,8 @@ module BackpackTF
       @value_high_raw = attr['value_high_raw']
       @last_update    = attr['last_update']
       @difference     = attr['difference']
+      @priceindex     = priceindex
+      @effect         = self.class.particle_effects[priceindex.to_i]
     end
 
     private

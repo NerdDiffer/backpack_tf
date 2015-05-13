@@ -2,7 +2,7 @@ require_relative './lib/backpack_tf/version.rb'
 
 Gem::Specification.new do |s|
   s.name          = 'backpack_tf'
-  s.date          = '2015-05-10'
+  s.date          = '2015-05-12'
   s.summary       = 'a wrapper for the backpack.tf API'
   s.author        = 'Rafael Espinoza'
   s.email         = 'rafael@rafaelespinoza.com'

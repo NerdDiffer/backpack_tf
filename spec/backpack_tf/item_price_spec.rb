@@ -38,6 +38,7 @@ module BackpackTF
       wrong_level = base_json['prices']['6']['Tradable']
 
       context 'validating first parameter' do
+
         it 'will raise ArgumentError if there is not enough information' do
           expect{described_class.new('Unique_Tradable', ok_json)}.to raise_error ArgumentError
         end
@@ -83,6 +84,7 @@ module BackpackTF
           expect(subject.last_update).to eq 1336410088
           expect(subject.difference).to eq 0
           expect(subject.priceindex).to be_nil
+          expect(subject.effect).to be_nil
         end
       end
     end
@@ -108,7 +110,8 @@ module BackpackTF
           expect(subject.value_high_raw).to be_nil
           expect(subject.last_update).to eq 1418795322
           expect(subject.difference).to eq 280
-          expect(subject.priceindex).to eq 'Green Confetti'
+          expect(subject.priceindex).to eq 6
+          expect(subject.effect).to eq 'Green Confetti'
         end
       end
     end
