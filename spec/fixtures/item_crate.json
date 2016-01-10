@@ -1,0 +1,65 @@
+{
+    "Mann Co. Supply Munition": {
+        "defindex": [
+            5734,
+            5735,
+            5742,
+            5752,
+            5781,
+            5802,
+            5803
+        ],
+        "prices": {
+            "6": {
+                "Tradable": {
+                    "Craftable": {
+                        "82": {
+                            "currency": "metal",
+                            "value": 0.01,
+                            "last_update": 1417567564,
+                            "difference": -0.03,
+                            "value_high": 0.03
+                        },
+                        "83": {
+                            "currency": "metal",
+                            "value": 0.05,
+                            "last_update": 1422061240,
+                            "difference": 0.02
+                        },
+                        "84": {
+                            "currency": "metal",
+                            "value": 0.01,
+                            "last_update": 1423702834,
+                            "difference": -0.06,
+                            "value_high": 0.03
+                        },
+                        "85": {
+                            "currency": "metal",
+                            "value": 0.01,
+                            "last_update": 1417904407,
+                            "difference": -0.01
+                        },
+                        "90": {
+                            "currency": "metal",
+                            "value": 0.05,
+                            "last_update": 1429293267,
+                            "difference": -0.06
+                        },
+                        "91": {
+                            "currency": "metal",
+                            "value": 0.05,
+                            "last_update": 1424623531,
+                            "difference": -0.03
+                        },
+                        "92": {
+                            "currency": "metal",
+                            "value": 0.05,
+                            "last_update": 1430304436,
+                            "difference": -0.06
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
