@@ -20,7 +20,7 @@ module BackpackTF
     end
 
     describe '::response' do
-      before :all do
+      before :context do
         expect(described_class.response).to be_nil
       end
 
@@ -30,7 +30,7 @@ module BackpackTF
         bp.update(described_class, fetched_prices)
       end
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         expect(described_class.response).to be_nil
@@ -55,7 +55,7 @@ module BackpackTF
         bp.update(described_class, fetched_prices)
       end
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         described_class.class_eval { @items = nil }
@@ -80,17 +80,17 @@ module BackpackTF
         bp.update(described_class, fetched_prices)
       end
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         described_class.class_eval { @items = nil }
       end
 
-      it 'returns the fixture and sets to @@items variable' do
+      it 'returns the fixture and sets to @items variable' do
         expect(described_class.items).not_to be_nil
       end
 
-      context '@@items attribute' do
+      context '@items attribute' do
         it 'should be a Hash object' do
           expect(described_class.items).to be_instance_of Hash
         end

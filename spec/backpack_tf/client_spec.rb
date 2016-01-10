@@ -4,28 +4,51 @@ module BackpackTF
   describe 'Client' do
     let(:bp) { Client.new }
 
-    it 'has these default options' do
-      ans = { base_uri: 'http://backpack.tf/api', timeout: 5 }
-      ans[:default_params] = { key: ENV[Client.env_var] }
-      expect(Client.default_options).to eq ans
+    describe('HTTParty settings') do
+      before(:each) do
+        Client.default_params(key: 'fake_api_key')
+      end
+      after(:each) do
+        Client.default_params(key: nil)
+        expect(Client.default_options[:default_params][:key]).to be_nil
+      end
+
+      it 'needs to have some default_options' do
+        expect(Client.default_options[:base_uri]).not_to be_nil
+        expect(Client.default_options[:timeout]).not_to be_nil
+        expect(Client.default_options[:default_params][:key]).not_to be_nil
+      end
     end
 
     describe '::api_key' do
-      it 'Raises ArgumentError, if key is not a hexadecimal string' do
-        fake_key = 'abcdefghijklmnopqrstuvwx'
-        expect{Client.api_key(fake_key)}.to raise_error ArgumentError
+      context('without a key') do
+        it 'gently reminds user to set an API key' do
+          expect(Client).to receive(:warn)
+          Client.api_key
+        end
       end
-      it 'Raises ArgumentError, if key is not 24 digits long' do
-        fake_key = 'abcdef0987654321'
-        expect{Client.api_key(fake_key)}.to raise_error ArgumentError
+      context('validating a key') do
+        it 'Raises ArgumentError, if key is not a hexadecimal string' do
+          fake_key = 'abcdefghijklmnopqrstuvwx'
+          expect{ Client.api_key(fake_key) }.to raise_error ArgumentError
+        end
+        it 'Raises ArgumentError, if key is not 24 digits long' do
+          fake_key = 'abcdef0987654321'
+          expect{ Client.api_key(fake_key) }.to raise_error ArgumentError
+        end
       end
-      it 'lets an otherwise theoretically-valid key, pass through' do
-        key = generate_fake_api_key
-        expect(Client.api_key(key)).to eq key
+      context('confirming a key') do
+        it 'lets an otherwise theoretically-valid key, pass through' do
+          key = generate_fake_api_key
+          expect(Client.api_key(key)).to eq key
+        end
       end
     end
 
     describe '::extract_query_string' do
+      before(:each) do
+        allow(Client).to receive(:warn).and_return true
+      end
       it 'produces a query parameter string' do
         opts = {:key => Client.api_key, :appid => 440, :format => 'json', :compress => 1, :raw => 2}
         ans = "key=#{Client.api_key}&appid=440&format=json&compress=1&raw=2"
@@ -34,6 +57,9 @@ module BackpackTF
     end
 
     describe '::build_url_via' do
+      before(:each) do
+        allow(Client).to receive(:warn).and_return true
+      end
       it 'returns correct destination url when asking for pricing data' do
         opts = {:key => Client.api_key, :compress => 1}
         expect(Client.build_url_via(:get_prices, opts)).to eq "http://backpack.tf/api/IGetPrices/v4/?key=#{Client.api_key}&compress=1"
@@ -41,17 +67,16 @@ module BackpackTF
       it 'raises an error when asking for any unexpected interface' do
         expect{Client.build_url_via(:foo)}.to raise_error ArgumentError
       end
-    end  
+    end
 
     describe '#fetch' do
-
       before :each do
         stub_http_response_with('currencies.json')
       end
 
-      let(:fetched_currencies) {
+      let(:fetched_currencies) do
         bp.fetch(:currencies, {:compress => 1, :appid => 440})
-      }
+      end
 
       it 'fetches JSON from an interface and returns as a Hash object' do
         expect(fetched_currencies).to be_instance_of Hash

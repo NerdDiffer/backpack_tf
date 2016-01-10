@@ -1,11 +1,10 @@
 module BackpackTF
   class UserListing < Response
-
     INTERFACE = :IGetUserListings
 
     @interface = INTERFACE
     @response = nil
-    @@listings = []
+    @listings = []
 
     def self.interface; @interface; end
 
@@ -15,7 +14,7 @@ module BackpackTF
 
     def self.listings
       return @response if response.nil?
-      @@listings = response[:listings].inject([]) do |listings, attr|
+      @listings = response[:listings].inject([]) do |listings, attr|
         listings << new(attr)
         listings
       end

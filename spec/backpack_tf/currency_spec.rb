@@ -21,7 +21,7 @@ module BackpackTF
     end
 
     describe '::response' do
-      before :all do
+      before :context do
         expect(described_class.response).to be_nil
       end
 
@@ -31,7 +31,7 @@ module BackpackTF
         bp.update(described_class, fetched_currencies)
       end
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         expect(described_class.response).to be_nil
@@ -49,7 +49,7 @@ module BackpackTF
     end
 
     describe '::currencies' do
-      before :all do
+      before :context do
         expect(described_class.response).to be_nil
         expect(described_class.currencies).to be_nil
       end
@@ -63,21 +63,21 @@ module BackpackTF
         bp.update(described_class, fetched_currencies)
       end
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         described_class.class_eval { @currencies = nil }
       end
 
-      it 'returns the fixture and sets to @@currencies variable' do
+      it 'returns the fixture and sets to @currencies variable' do
         expect(described_class.currencies).not_to be_nil
       end
 
-      it '@@currencies attribute should be a Hash object' do
+      it '@currencies attribute should be a Hash object' do
         expect(described_class.currencies).to be_instance_of Hash
       end
 
-      it '@@currencies should have these keys' do
+      it '@currencies should have these keys' do
         expected_keys = [:metal, :keys, :earbuds, :hat]
         expect(described_class.currencies.keys).to match_array expected_keys
       end
@@ -85,7 +85,7 @@ module BackpackTF
 
     describe '#initialize' do
 
-      before :all do
+      before :context do
         expect(described_class.response).to be_nil
         expect(described_class.currencies).to be_nil
       end
@@ -95,7 +95,7 @@ module BackpackTF
         expect(described_class.currencies).not_to be_nil
       end
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         described_class.class_eval { @currencies = nil }

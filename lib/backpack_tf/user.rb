@@ -3,7 +3,7 @@ module BackpackTF
     INTERFACE = :IGetUsers
     @interface = INTERFACE
     @response = nil
-    @@players = {}
+    @players = {}
 
     def self.response
       @response = superclass.responses[to_sym]
@@ -11,9 +11,9 @@ module BackpackTF
 
     def self.players
       return @response if response.nil?
-      @@players = response[:players].inject({}) do |players, (steamid, attr)|
+      @players = response[:players].inject({}) do |players, (steamid, attr)|
         players[steamid] = new(attr)
-        players 
+        players
       end
     end
 

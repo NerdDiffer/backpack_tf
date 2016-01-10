@@ -32,7 +32,7 @@ module BackpackTF
     describe '::responses' do
       let (:faked_class_sym) { :'BackpackTF::FakedClass' }
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         expect(described_class.response).to be_nil

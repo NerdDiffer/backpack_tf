@@ -1,9 +1,7 @@
+# Ruby representations of a JSON response to IGetPrices['response']
+
 module BackpackTF
-
-  # ruby representations of a JSON response to
-  # `IGetPrices`['response']
   class Price < Response
-
     INTERFACE = :IGetPrices
     @interface = INTERFACE
     @response = nil

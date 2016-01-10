@@ -1,9 +1,7 @@
+# Ruby representations of a JSON response to IGetCurrencies['response']
+
 module BackpackTF
-
-  # ruby representations of a JSON response to
-  # `IGetCurrencies`['response']
   class Currency < Response
-
     ###########################
     #     Class Methods
     ###########################
@@ -11,7 +9,7 @@ module BackpackTF
     INTERFACE = :IGetCurrencies
     @interface = INTERFACE
     @response = nil
-    @@currencies = nil
+    @currencies = nil
 
     def self.response
       @response = superclass.responses[to_sym]
@@ -19,8 +17,8 @@ module BackpackTF
 
     def self.currencies
       return @response if @response.nil?
-      @@currencies = response[:currencies]
-      hash_keys_to_sym(@@currencies)
+      @currencies = response[:currencies]
+      hash_keys_to_sym(@currencies)
     end
 
     ###########################
@@ -63,7 +61,5 @@ module BackpackTF
       @defindex   = attr[:defindex]
       @blanket    = attr[:blanket]
     end
-
   end
-
 end

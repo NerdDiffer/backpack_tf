@@ -1,5 +1,4 @@
 module BackpackTF
-
   class Item
     ###########################
     #     Instance Methods
@@ -16,7 +15,7 @@ module BackpackTF
       @item_name  = item_name
 
       unless attr.class == Hash
-        attr = JSON.parse(attr) 
+        attr = JSON.parse(attr)
       end
 
       @defindex   = process_defindex(attr['defindex'])
@@ -30,7 +29,6 @@ module BackpackTF
     end
 
     def generate_prices_hash input_hash
-
       raise TypeError, 'expecting a Hash object' unless input_hash.class == Hash
       unless input_hash.has_key? 'prices'
         msg = "input_hash must be at the one level above the point where 'prices' is a key in the JSON hash"
@@ -77,8 +75,6 @@ module BackpackTF
         end
         hash
       end
-
     end
-
   end
 end

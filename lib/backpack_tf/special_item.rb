@@ -3,7 +3,7 @@ module BackpackTF
     INTERFACE = :IGetSpecialItems
     @interface = INTERFACE
     @response = nil
-    @@items = {}
+    @items = {}
 
     def self.response
       @response = superclass.responses[to_sym]
@@ -11,7 +11,7 @@ module BackpackTF
 
     def self.items
       return @response if @response.nil?
-      @@items = response[:items].inject({}) do |hash, item|
+      @items = response[:items].inject({}) do |hash, item|
         #item = hash_keys_to_sym(item)
         name = item['name']
         hash[name] = new(name, item)

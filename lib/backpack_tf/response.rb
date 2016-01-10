@@ -1,10 +1,8 @@
 module BackpackTF
   class Response
-
     ############################
     # CLASS METHODS
     ############################
-
     @responses = {}
 
     def self.interface; @interface; end
@@ -26,14 +24,12 @@ module BackpackTF
         else
           @responses[key] = hash_keys_to_sym(val)
         end
-
       end
 
       @responses
     end
 
-    def self.response
-    end
+    def self.response; end
 
     # checks the data type of the keys of a Hash object
     # if the key is a String, then changes it to a Symbol
@@ -49,10 +45,8 @@ module BackpackTF
       end
     end
 
-    ############################
-    # PRIVATE INSTANCE METHODS
-    ############################
     private
+
     def check_attr_keys attr
       raise TypeError, 'pass in a Hash object' unless attr.class == Hash 
 
@@ -62,6 +56,5 @@ module BackpackTF
 
       self.class.hash_keys_to_sym(attr)
     end
-
   end
 end

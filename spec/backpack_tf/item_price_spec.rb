@@ -21,7 +21,7 @@ module BackpackTF
         expect(described_class.hash_particle_effects[nil]).to be_nil
       end
 
-      context '@@particle_effects' do
+      context '@particle_effects' do
         it 'same thing can be accessed through class variable' do
           expect(described_class.particle_effects[17]).to eq 'Sunbeams'
           expect(described_class.particle_effects[5]).to eq 'Holy Glow'

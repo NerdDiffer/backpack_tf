@@ -1,38 +1,40 @@
 module BackpackTF
-
   class Client
-
     include HTTParty
-  
+
     ###########################
     #     Class Methods
     ###########################
 
     # store your API key as an environment variable
     # `export <env_var>='<your api key>'`
-    @@env_var = 'BPTF_API_KEY'
-    def self.env_var; @@env_var; end
-  
-    def self.api_key key = nil
-      default = key || ENV[@@env_var]
-  
-      if default.nil?
-        msg = "Assign your API key to an environment variable.\n"
-        msg << "ex: `export #{@@env_var}=value`"
-        raise KeyError, msg
-      elsif default.class == String && (default.length != 24 || !!default[/\H/])
+    @env_var = 'BPTF_API_KEY'
+
+    def self.api_key(key = nil)
+      key ||= ENV[@env_var]
+
+      # This should not matter when running tests.
+      if key.nil?
+        msg =  "--- WARNING ---\n"
+        msg << "Assign your API key to an environment variable.\n"
+        msg << "ex: `export #{@env_var}=value`\n\n"
+        warn(msg)
+      end
+
+      if key.class == String && (key.length != 24 || !!key[/\H/])
         msg = "The key should be a hexadecimal number, 24-digits long"
         raise ArgumentError, msg
       else
-        default
+        key
       end
     end
-  
-    base_uri 'http://backpack.tf/api'
-    default_timeout 5
-    default_params(:key => api_key)
-  
-    def self.build_url_via action, query_options = {}
+
+    # HTTParty settings
+    base_uri('http://backpack.tf/api')
+    default_timeout(5)
+    default_params(key: api_key)
+
+    def self.build_url_via(action, query_options = {})
       case action
       when :get_prices, :prices, :price
         version = 4
@@ -52,7 +54,7 @@ module BackpackTF
       else
         raise ArgumentError, 'pass in valid action as a Symbol object'
       end
-  
+
       base_uri + interface_url + extract_query_string(query_options)
     end
 
@@ -70,11 +72,11 @@ module BackpackTF
     #     Instance Methods
     ###########################
     attr_reader :db
-  
+
     def initialize
-      @db = nil 
+      @db = nil
     end
-  
+
     def fetch interface, query_options = {}
       get_data(interface, query_options)['response']
     end
@@ -83,9 +85,9 @@ module BackpackTF
       send_update_to_master_hash(class_to_update, data_to_update)
       refresh_class_hash(class_to_update)
     end
-  
+
     private
-  
+
     def send_update_to_master_hash class_to_update, data_to_update
       Response.responses( { class_to_update.to_sym => data_to_update } )
     end
@@ -112,7 +114,5 @@ module BackpackTF
         {}
       end
     end
-
   end
-
 end

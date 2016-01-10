@@ -31,7 +31,7 @@ module BackpackTF
     end
 
     describe '::response' do
-      before :all do
+      before :context do
         expect(described_class.response).to be_nil
       end
 
@@ -42,7 +42,7 @@ module BackpackTF
         Response.responses(described_class.to_sym => fetched_listings)
       end
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         expect(described_class.response).to be_nil
@@ -57,7 +57,7 @@ module BackpackTF
     end
 
     describe '::listings' do
-      before :all do
+      before :context do
         expect(described_class.response).to be_nil
         expect(described_class.listings).to be_nil
       end
@@ -69,13 +69,13 @@ module BackpackTF
         Response.responses(described_class.to_sym => fetched_listings)
       end
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         described_class.class_eval { @listings = nil }
       end
 
-      it 'returns the fixture and sets to @@listings variable' do
+      it 'returns the fixture and sets to @listings variable' do
         expect(described_class.listings).not_to be_nil
       end
       it 'is an Array object' do

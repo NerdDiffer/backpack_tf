@@ -10,7 +10,7 @@ module BackpackTF
       Response.hash_keys_to_sym(fixture)
     }
 
-    before :all do
+    before :context do
       mock_alias
     end
 
@@ -29,11 +29,11 @@ module BackpackTF
     end
 
     describe '::responses' do
-      before :all do
+      before :context do
         expect(Response.responses).to be_empty
       end
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         expect(described_class.response).to be_nil
@@ -48,7 +48,7 @@ module BackpackTF
     end
 
     describe '::response' do
-      before :all do
+      before :context do
         expect(described_class.response).to be_nil
       end
 
@@ -58,7 +58,7 @@ module BackpackTF
         bp.update(described_class, fetched_data)
       end
 
-      after :all do
+      after :context do
         Response.responses(:reset => :confirm)
         expect(Response.responses).to be_empty
         expect(described_class.response).to be_nil
