@@ -3,9 +3,6 @@
 
 .ruby-version
 *.gem
-Gemfile.lock
 
 spec/fixtures/*yml
 spec/other-library-examples
-
-scratch/

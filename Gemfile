@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'httparty'
+gem 'httparty', '~> 0.13.5'
 
 group :test do
-  gem 'rspec'
-  gem 'webmock'
+  gem 'rspec', '~> 3.3.0'
+  gem 'webmock', '~> 1.21.0'
 end
