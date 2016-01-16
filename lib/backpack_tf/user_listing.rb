@@ -9,12 +9,12 @@ module BackpackTF
     def self.interface; @interface; end
 
     def self.response
-      @response = superclass.responses[to_sym]
+      @response ||= superclass.responses[to_sym]
     end
 
     def self.listings
-      return @response if response.nil?
-      @listings = response[:listings].inject([]) do |listings, attr|
+      response if @response.nil?
+      @listings = response['listings'].inject([]) do |listings, attr|
         listings << new(attr)
         listings
       end

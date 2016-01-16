@@ -1,126 +1,84 @@
 require 'spec_helper'
 
-module BackpackTF
-  describe Currency do
-    let(:bp) { Client.new }
+describe BackpackTF::Currency do
+  let(:json_response) {
+    fixture = file_fixture('currencies_updated.json')
+    JSON.parse(fixture)['response']
+  }
 
-    let(:json_obj) {
-      fixture = file_fixture('currencies.json')
-      fixture = JSON.parse(fixture)['response']
-      Response.hash_keys_to_sym(fixture)
-    }
+  it 'class has these default attributes' do
+    expect(described_class.interface).to eq :IGetCurrencies
+  end
 
-    let(:more_json) {
-      fixture = file_fixture('currencies_updated.json')
-      fixture = JSON.parse(fixture)['response']
-      Response.hash_keys_to_sym(fixture)
-    }
+  describe '::response' do
+    it 'the keys of the response attribute should have these values' do
+      responses_collection = { :'BackpackTF::Currency' => json_response }
 
-    it 'class has these default attributes' do
-      expect(described_class.interface).to eq :IGetCurrencies
+      allow(described_class).
+        to receive(:to_sym).
+        and_return(:'BackpackTF::Currency')
+      expect(described_class).
+        to receive(:to_sym)
+      allow(BackpackTF::Response).
+        to receive(:responses).
+        and_return(responses_collection)
+      expect(BackpackTF::Response).
+        to receive(:responses)
+
+      response = described_class.response
+      expect(response['success']).to eq 1
+      expect(response['message']).to eq nil
+      expect(response['current_time']).to eq 1430988840
+      expect(response['name']).to eq 'Team Fortress 2'
+      expect(response['url']).to eq 'http://backpack.tf'
     end
+  end
 
-    describe '::response' do
-      before :context do
-        expect(described_class.response).to be_nil
-      end
+  describe '::currencies' do
+    it 'the @currencies variable should have these keys' do
+      response = json_response
+      allow(described_class).
+        to receive(:response).
+        and_return(response)
 
-      before :each do
-        stub_http_response_with('currencies.json')
-        fetched_currencies = bp.fetch(:currencies)
-        bp.update(described_class, fetched_currencies)
-      end
-
-      after :context do
-        Response.responses(:reset => :confirm)
-        expect(Response.responses).to be_empty
-        expect(described_class.response).to be_nil
-        expect(described_class.currencies).to be_nil
-      end
-
-      it 'the keys of the response attribute should have these values' do
-        response = described_class.response
-        expect(response[:success]).to eq 1
-        expect(response[:message]).to eq nil
-        expect(response[:current_time]).to eq 1430784460
-        expect(response[:name]).to eq 'Team Fortress 2'
-        expect(response[:url]).to eq 'http://backpack.tf'
-      end
+      currencies = described_class.currencies
+      expected_keys = %w(metal keys earbuds hat)
+      expect(currencies.keys).to match_array expected_keys
     end
+  end
 
-    describe '::currencies' do
-      before :context do
-        expect(described_class.response).to be_nil
-        expect(described_class.currencies).to be_nil
-      end
-
-      before :each do
-        Response.responses(:reset => :confirm)
-        expect(Response.responses).to be_empty
-
-        stub_http_response_with('currencies.json')
-        fetched_currencies = bp.fetch(:currencies)
-        bp.update(described_class, fetched_currencies)
-      end
-
-      after :context do
-        Response.responses(:reset => :confirm)
-        expect(Response.responses).to be_empty
-        described_class.class_eval { @currencies = nil }
-      end
-
-      it 'returns the fixture and sets to @currencies variable' do
-        expect(described_class.currencies).not_to be_nil
-      end
-
-      it '@currencies attribute should be a Hash object' do
-        expect(described_class.currencies).to be_instance_of Hash
-      end
-
-      it '@currencies should have these keys' do
-        expected_keys = [:metal, :keys, :earbuds, :hat]
-        expect(described_class.currencies.keys).to match_array expected_keys
-      end
-    end
-
-    describe '#initialize' do
-
-      before :context do
-        expect(described_class.response).to be_nil
-        expect(described_class.currencies).to be_nil
-      end
-
-      before :each do
-        bp.update(described_class, json_obj)
-        expect(described_class.currencies).not_to be_nil
-      end
-
-      after :context do
-        Response.responses(:reset => :confirm)
-        expect(Response.responses).to be_empty
-        described_class.class_eval { @currencies = nil }
-      end
-
-      subject {
-        described_class.new(:metal, described_class.currencies[:metal])
+  describe '#initialize' do
+    it 'instance should have these values' do
+      currencies = json_response
+      processed_currencies = {
+        quality: 6,
+        priceindex: 0,
+        single: 'ref',
+        plural: 'ref',
+        round: '2',
+        craftable: 'Craftable',
+        tradable: 'Tradable',
+        defindex: 5002,
+        blanket: 0
       }
 
-      it 'instance should respond to these methods' do
-        expect(subject).to respond_to(:quality, :priceindex, :single, :plural, :round, :craftable, :tradable, :defindex, :blanket)
-      end
+      allow_any_instance_of(described_class).
+        to receive(:check_attr_keys).
+        and_return(processed_currencies)
 
-      it 'instance should have these values' do
-        expect(subject.quality).to eq 6
-        expect(subject.priceindex).to eq 0
-        expect(subject.single).to eq 'ref'
-        expect(subject.plural).to eq 'ref'
-        expect(subject.round).to eq 2
-        expect(subject.craftable).to eq :Craftable
-        expect(subject.tradable).to eq :Tradable
-        expect(subject.defindex).to eq 5002
-        expect(subject.blanket).to eq 0
-      end
+      subject = described_class.new(:metal, currencies['metal'])
+
+      expect(subject).to have_attributes(
+        quality: 6,
+        priceindex: 0,
+        single: 'ref',
+        plural: 'ref',
+        round: '2',
+        craftable: :Craftable,
+        tradable: :Tradable,
+        defindex: 5002,
+        blanket: 0
+      )
     end
-
   end
 end

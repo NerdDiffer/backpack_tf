@@ -6,12 +6,12 @@ module BackpackTF
     @players = {}
 
     def self.response
-      @response = superclass.responses[to_sym]
+      @response ||= superclass.responses[to_sym]
     end
 
     def self.players
-      return @response if response.nil?
-      @players = response[:players].inject({}) do |players, (steamid, attr)|
+      response if @response.nil?
+      @players = response['players'].inject({}) do |players, (steamid, attr)|
         players[steamid] = new(attr)
         players
       end

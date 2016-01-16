@@ -1,15 +1,12 @@
-##TODO list
+## TODO list
 
-#####testing:
-* a mock backpack.tf service
-* stubs & archived cache data
+#### Documentation
 
-#####documentation:
-* better documentation on all classes, modules, methods, attributes, etc
-* support for YARD or RDOC
+* Better documentation on all classes, modules, methods, attributes, etc
+* Support for YARD or RDOC
 
-#####caching:
-* options to cache data and force a refresh
+#### Formats
 
-#####formats:
-* the API outputs 3 formats: JSON (default), JSONP and VDF. Currently, the gem supports JSON input only. Support for JSONP & VDF is needed.
+* Support JSONP & VDF formats.
+  * The API outputs 3 formats: JSON (default), JSONP and VDF. Currently, the
+    gem supports JSON input only.

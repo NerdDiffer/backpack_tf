@@ -5,15 +5,21 @@ Dota 2. This gem is a wrapper for the backpack.tf [API](http://backpack.tf/api).
 The goal is to capture the results and turn them into Ruby objects for use in
 your application.
 
-It is in the early stages of development. See the [TODO](TODO.md) list if
-you are interested in contributing.
+See the [TODO](TODO.md) list if you are interested in contributing.
 
 ### Installation
 
+##### from the command line
+
+`$ gem install backpack_tf`
+
+##### from your Gemfile
+
+`gem 'backpack_tf'`
+
 ### Usage
 
-* [Register an API key](http://backpack.tf/api). You'll need to log in with your
-  Steam account if you haven't already done so.
+* [Register an API key](http://backpack.tf/api)
 * Assign your key to an environment variable: `export BPTF_API_KEY='SECRET_KEY'`
 
 ### Examples
@@ -57,49 +63,55 @@ BackpackTF::Price.items[random_key]
 ## Interfaces
 
 #### IGetPrices
+
 * Get pricing data for all priced items
 * [official doc](http://backpack.tf/api/prices)
 
-API responses from this interface are captured in the `Price` class. The `Price`
-class is not meant to be instantiated. One of the class attributes is `@@items`,
-a Hash object. Information on any particular item, ie: 'Eviction Notice', is
-captured in an instance of the `Item` class. Furthermore, there may be several
-prices for the same item, ie: an Eviction Notice with the Unique quality has a
-different price than a Eviction Notice with a Strange quality. Each price is an
-instance of the `ItemPrice` class, and is stored in the `@prices` hash of that
-item.
+Responses from this interface are captured in the `BackpackTF::Price` class.
+The `BackpackTF::Price` class is not meant to be instantiated. One of the class
+attributes is `@items`, a Hash object.
 
-##### a visual
+Information on any particular item, (ie: 'Eviction Notice'), is captured in an
+instance of the `BackpackTF::Item` class. Furthermore, there may be several
+prices for the same item. For example, an Eviction Notice with the Unique
+quality has a different price than an Eviction Notice with the Strange quality.
 
-* `Price` class
-  * `@@items` hash of `Price` class.
-    * `Item` object (ie: 'Beast From Below')
-    * `Item` object (ie: 'Taunt: Rock, Paper Scissors')
-    * `Item` object (ie: 'Eviction Notice')
-      * `@prices` hash of an `Item` object
-        * `ItemPrice` object (ie: price for Unique Eviction Notice)
-        * `ItemPrice` object (ie: price for Collector's Eviction Notice)
-        * `ItemPrice` object (ie: price for Strange Eviction Notice)
+Each price is an instance of the `BackpackTF::ItemPrice` class, and is stored in
+the `@prices` hash of that item.
+
+##### A visual representation of this hierarchy
+
+* `BackpackTF::Price` class
+  * `@items` hash of `BackpackTF::Price` class.
+    * `BackpackTF::Item` object (ie: 'Beast From Below')
+    * `BackpackTF::Item` object (ie: 'Taunt: Rock, Paper Scissors')
+    * `BackpackTF::Item` object (ie: 'Eviction Notice')
+      * `@prices` hash of an `BackpackTF::Item` object
+        * `BackpackTF::ItemPrice` object (ie: price of Unique Eviction Notice)
+        * `BackpackTF::ItemPrice` object (ie: price of Vintage Eviction Notice)
+        * `BackpackTF::ItemPrice` object (ie: price of Strange Eviction Notice)
 
 #### IGetCurrencies
 
-* Get internal currency data for a given game
+* Get internal currency data
 * [official doc](http://backpack.tf/api/currencies)
 
-API responses from this interface are captured in the `Currency` class. Similar
-the `Price` class, it has a set of class methods, and attributes to describe the
-API response. Unlike, the `Price` class, this one can be instantiated. There are
-currently 4 currencies available through the API. Each one is an instance of
-`Currency` and is held in the `@@currencies` hash of the `Currency` class.
+API responses from this interface are captured in the `Currency` class.
+Similar the `BackpackTF::Price` class, it has a set of class methods, and
+attributes to describe the API response.
+Unlike, the `Price` class, this one can be instantiated. There are currently 4
+currencies available through the API.
+Each one is an instance of `BackpackTF::Currency` and is held in the
+`@currencies` hash of the `BackpackTF::Currency` class.
 
 #### IGetSpecialItems
 
-* Get internal backpack.tf item placeholders for a given game.
+* Get internal backpack.tf item placeholders
 * [official doc](http://backpack.tf/api/special)
 
 This is for items that only exist on backpack.tf. They are not real game items,
-but you will see them returned in a call to `IGetPrices`. The class for this
-interface is `SpecialItem`.
+but you will see them returned in a call to `IGetSpecialItems`.
+The class for this interface is `BackpackTF::SpecialItem`.
 
 #### IGetUsers
 
@@ -108,14 +120,15 @@ interface is `SpecialItem`.
 * [official doc](http://backpack.tf/api/users)
 
 Get some basic information for a list of backpack.tf users. It's basically the
-info that you'd see on their profile page. The response for this interface is
-captured in the `User` class. You can request several users at once by sending
-them in an array.
+info that you'd see on their profile page.
+The response for this interface is captured in the `BackpackTF::User` class.
+You can request several users at once by sending them in an array.
 
 #### IGetUserListings
 
 * Get classified listings for a given user
 * [official doc](http://backpack.tf/api/classifieds)
 
-Request all classified listings for one user. You must pass in the 64-bit
-`steamid`. The response is captured in the `UserListing` class.
+Request all classified listings for one user.
+You must pass in the 64-bit `steamid`.
+The response is captured in the `BackpackTF::UserListing` class.

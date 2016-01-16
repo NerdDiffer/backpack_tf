@@ -10,8 +10,8 @@ module BackpackTF
     end
 
     def self.items
-      return @response if @response.nil?
-      @items = response[:items].inject({}) do |hash, item|
+      response if @response.nil?
+      @items = @response['items'].inject({}) do |hash, item|
         #item = hash_keys_to_sym(item)
         name = item['name']
         hash[name] = new(name, item)

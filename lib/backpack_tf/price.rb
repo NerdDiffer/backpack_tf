@@ -15,46 +15,43 @@ module BackpackTF
       @response = superclass.responses[to_sym]
     end
 
-    def self.items opt = nil
-      if @items.nil?
-        @items = generate_items
-      else
-        @items
-      end
+    def self.items
+      response if @response.nil?
+      @items ||= generate_items
     end
 
     def self.generate_items
-      @response[:items].inject({}) do |items, (name)|
-        defindex = @response[:items][name]['defindex'][0]
+      response if @response.nil?
+
+      @response['items'].inject({}) do |items, (name)|
+        defindex = @response['items'][name]['defindex'][0]
 
         if defindex.nil? || defindex < 0
           items
         else
-          items[name] = Item.new(name, @response[:items][name])
+          items[name] = Item.new(name, @response['items'][name])
           items
         end
       end
     end
 
     def self.find_item_by_name item_name, opt = nil
-
       items if @items.nil?
 
       if @items[item_name].nil?
-        raise KeyError, "item with the name #{item_name} was not found"
+        return nil
       else
         if opt.nil?
           @items[item_name]
         elsif @items[item_name].respond_to? opt
           @items[item_name].public_send(opt)
         else
-          raise KeyError, "the item, #{item_name} does not have that attribute"
+          return nil
         end
       end
     end
 
     def self.random_item opt = nil
-
       items if @items.nil?
 
       case opt

@@ -12,13 +12,12 @@ module BackpackTF
     @currencies = nil
 
     def self.response
-      @response = superclass.responses[to_sym]
+      @response ||= superclass.responses[to_sym]
     end
 
     def self.currencies
-      return @response if @response.nil?
-      @currencies = response[:currencies]
-      hash_keys_to_sym(@currencies)
+      response if @response.nil?
+      @currencies = response['currencies']
     end
 
     ###########################
@@ -41,25 +40,25 @@ module BackpackTF
     attr_reader :tradable
     # @return [Fixnum] the definition index of the currency
     attr_reader :defindex
-    # TODO: what does the :blanket attribute mean?
+    # What does the :blanket attribute mean?
     # it is set to 0 by default. However, it is set to 1 for :hat.
     # :hat also has an extra property & value :blanket_name => 'Random Craft Hat'
-    # @return [Fixnum] 
+    # @return [Fixnum]
     attr_reader :blanket
 
     def initialize name, attr
-      attr = check_attr_keys(attr)
+      processed_attr = check_attr_keys(attr)
 
       @name       = name.to_s
-      @quality    = attr[:quality]
-      @priceindex = attr[:priceindex]
-      @single     = attr[:single]
-      @plural     = attr[:plural]
-      @round      = attr[:round]
-      @craftable  = attr[:craftable].to_sym
-      @tradable   = attr[:tradable].to_sym
-      @defindex   = attr[:defindex]
-      @blanket    = attr[:blanket]
+      @quality    = processed_attr[:quality]
+      @priceindex = processed_attr[:priceindex]
+      @single     = processed_attr[:single]
+      @plural     = processed_attr[:plural]
+      @round      = processed_attr[:round]
+      @craftable  = processed_attr[:craftable].to_sym
+      @tradable   = processed_attr[:tradable].to_sym
+      @defindex   = processed_attr[:defindex]
+      @blanket    = processed_attr[:blanket]
     end
   end
 end

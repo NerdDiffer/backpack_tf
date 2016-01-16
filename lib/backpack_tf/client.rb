@@ -58,7 +58,7 @@ module BackpackTF
       base_uri + interface_url + extract_query_string(query_options)
     end
 
-    def self.extract_query_string options = {}
+    def self.extract_query_string(options = {})
       options.each_pair.map do |key, val|
         unless val.class == Array
           "#{key}=#{val}"
@@ -71,42 +71,23 @@ module BackpackTF
     ###########################
     #     Instance Methods
     ###########################
-    attr_reader :db
 
-    def initialize
-      @db = nil
-    end
-
-    def fetch interface, query_options = {}
+    def fetch(interface, query_options = {})
       get_data(interface, query_options)['response']
-    end
-
-    def update class_to_update, data_to_update
-      send_update_to_master_hash(class_to_update, data_to_update)
-      refresh_class_hash(class_to_update)
     end
 
     private
 
-    def send_update_to_master_hash class_to_update, data_to_update
-      Response.responses( { class_to_update.to_sym => data_to_update } )
-    end
-
-    def refresh_class_hash class_to_update
-      class_to_update.response
-    end
-
-    def get_data action, query_options = {}
+    def get_data(action, query_options = {})
       handle_timeouts do
         url = self.class.build_url_via(action, query_options)
-        self.class.get(url)
+        HTTParty.get(url)
       end
     end
 
     # HTTParty raises an errors after time limit defined by ::default_timeout
-    # * if it cannot connect to server, then it raises Net::OpenTimeout
-    # * if it cannot read response from server, then it raises Net::ReadTimeout
-    # if one of those happen, then an empty hash is returned
+    # - if it cannot connect to server, then it raises Net::OpenTimeout
+    # - if it cannot read response from server, then it raises Net::ReadTimeout
     def handle_timeouts
       begin
         yield
