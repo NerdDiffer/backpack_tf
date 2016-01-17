@@ -4,5 +4,6 @@
 .ruby-version
 *.gem
 
+coverage/
 spec/fixtures/*yml
 spec/other-library-examples

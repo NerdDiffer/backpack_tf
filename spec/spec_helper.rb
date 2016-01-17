@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require 'backpack_tf'
 require 'webmock/rspec'
 require 'byebug'
