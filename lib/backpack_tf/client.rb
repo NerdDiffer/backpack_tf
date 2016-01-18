@@ -52,20 +52,15 @@ module BackpackTF
     def build_url_via(action, query_options = {})
       interface_url = case action
       when :get_prices, :prices, :price
-        version = 4
-        interface_url = "/#{Price::INTERFACE}/v#{version}/?"
+        "/#{Price::Interface.name}/v#{Price::Interface.version}/?"
       when :get_currencies, :currencies, :currency
-        version = 1
-        interface_url = "/#{Currency::INTERFACE}/v#{version}/?"
+        "/#{Currency::Interface.name}/v#{Currency::Interface.version}/?"
       when :get_special_items, :special_items, :special_item, :specialitem
-        version = 1
-        interface_url = "/#{SpecialItem::INTERFACE}/v#{version}/?"
+        "/#{SpecialItem::Interface.name}/v#{SpecialItem::Interface.version}/?"
       when :get_users, :users, :user
-        version = 3
-        interface_url = "/#{User::INTERFACE}/v#{version}/?"
+        "/#{User::Interface.name}/v#{User::Interface.version}/?"
       when :get_user_listings, :user_listings, :user_listing, :userlisting
-        version = 1
-        interface_url = "/#{UserListing::INTERFACE}/v#{version}/?"
+        "/#{UserListing::Interface.name}/v#{UserListing::Interface.version}/?"
       else
         raise ArgumentError, 'pass in valid action as a Symbol object'
       end

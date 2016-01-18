@@ -5,8 +5,6 @@ module BackpackTF
     ############################
     @responses = {}
 
-    def self.interface; @interface; end
-
     def self.to_sym
       self.name.to_sym
     end

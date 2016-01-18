@@ -1,9 +1,22 @@
 # Ruby representations of a JSON response to IGetPrices['response']
 
 module BackpackTF
-  class Price < Response
-    INTERFACE = :IGetPrices
-    @interface = INTERFACE
+  class Price < BackpackTF::Response
+    class Interface < BackpackTF::Interface
+      class << self
+        attr_reader :raw, :since
+      end
+
+      @name = :IGetPrices
+      @version = 4
+
+      def self.defaults(options)
+        @raw = options[:raw] || nil
+        @since = options[:since] || nil
+        super(options)
+      end
+    end
+
     @response = nil
     @items = nil
 
@@ -29,7 +42,7 @@ module BackpackTF
         if defindex.nil? || defindex < 0
           items
         else
-          items[name] = Item.new(name, @response['items'][name])
+          items[name] = BackpackTF::Item.new(name, @response['items'][name])
           items
         end
       end
@@ -67,13 +80,11 @@ module BackpackTF
     ############################
 
     def initialize
-      msg = "This class is meant to receive the JSON response from the #{self.class.interface} interface."
+      msg = "This class is meant to receive the JSON response from the interface."
       msg << "It holds a Hash array of prices of items, but not is meant to be instantiated."
       msg << "See the Item class if you are interested in an item."
       msg << "However, information on items should be stored in the @items property of #{self.class}."
       raise RuntimeError, msg
     end
-
   end
-
 end
