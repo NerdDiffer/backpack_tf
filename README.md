@@ -1,5 +1,7 @@
 # backpack_tf
 
+[![Build Status](https://travis-ci.org/NerdDiffer/backpack_tf.svg?branch=master)](https://travis-ci.org/NerdDiffer/backpack_tf)
+
 Backpack.tf is a website for the in-game economies of Team Fortress 2 and
 Dota 2. This gem is a wrapper for the backpack.tf [API](http://backpack.tf/api).
 The goal is to capture the results and turn them into Ruby objects for use in
