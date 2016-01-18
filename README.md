@@ -5,16 +5,19 @@ Dota 2. This gem is a wrapper for the backpack.tf [API](http://backpack.tf/api).
 The goal is to capture the results and turn them into Ruby objects for use in
 your application.
 
-It is in the early stages of development. See the [TODO](TODO.md) list if
-you are interested in contributing.
+### Contributing
 
-### Installation
+If you are interested in contributing, please see
+[issues](https://github.com/NerdDiffer/backpack_tf/issues) and branch off of
+the `development` branch.
 
 ### Usage
 
 * [Register an API key](http://backpack.tf/api). You'll need to log in with your
   Steam account if you haven't already done so.
 * Assign your key to an environment variable: `export BPTF_API_KEY='SECRET_KEY'`
+  * **NOTE**: In the next release, you will be able to simply pass in your key
+    as you are initializing your client.
 
 ### Examples
 
