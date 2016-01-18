@@ -2,75 +2,10 @@ module BackpackTF
   class Client
     include HTTParty
 
-    ###########################
-    #     Class Methods
-    ###########################
-
-    # store your API key as an environment variable
-    # `export <env_var>='<your api key>'`
-    @env_var = 'BPTF_API_KEY'
-
-    def self.api_key(key = nil)
-      key ||= ENV[@env_var]
-
-      # This should not matter when running tests.
-      if key.nil?
-        msg =  "--- WARNING ---\n"
-        msg << "Assign your API key to an environment variable.\n"
-        msg << "ex: `export #{@env_var}=value`\n\n"
-        warn(msg)
-      end
-
-      if key.class == String && (key.length != 24 || !!key[/\H/])
-        msg = "The key should be a hexadecimal number, 24-digits long"
-        raise ArgumentError, msg
-      else
-        key
-      end
+    def initialize(key)
+      @key = check_key(key)
+      httparty_settings
     end
-
-    # HTTParty settings
-    base_uri('http://backpack.tf/api')
-    default_timeout(5)
-    default_params(key: api_key)
-
-    def self.build_url_via(action, query_options = {})
-      case action
-      when :get_prices, :prices, :price
-        version = 4
-        interface_url = "/#{Price.interface}/v#{version}/?"
-      when :get_currencies, :currencies, :currency
-        version = 1
-        interface_url = "/#{Currency.interface}/v#{version}/?"
-      when :get_special_items, :special_items, :special_item, :specialitem
-        version = 1
-        interface_url = "/#{SpecialItem.interface}/v#{version}/?"
-      when :get_users, :users, :user
-        version = 3
-        interface_url = "/#{User.interface}/v#{version}/?"
-      when :get_user_listings, :user_listings, :user_listing, :userlisting
-        version = 1
-        interface_url = "/#{UserListing.interface}/v#{version}/?"
-      else
-        raise ArgumentError, 'pass in valid action as a Symbol object'
-      end
-
-      base_uri + interface_url + extract_query_string(query_options)
-    end
-
-    def self.extract_query_string(options = {})
-      options.each_pair.map do |key, val|
-        unless val.class == Array
-          "#{key}=#{val}"
-        else
-          "#{key}=#{val.join(',')}"
-        end
-      end.join('&')
-    end
-
-    ###########################
-    #     Instance Methods
-    ###########################
 
     def fetch(interface, query_options = {})
       get_data(interface, query_options)['response']
@@ -80,7 +15,7 @@ module BackpackTF
 
     def get_data(action, query_options = {})
       handle_timeouts do
-        url = self.class.build_url_via(action, query_options)
+        url = build_url_via(action, query_options)
         HTTParty.get(url)
       end
     end
@@ -94,6 +29,58 @@ module BackpackTF
       rescue Net::OpenTimeout, Net::ReadTimeout
         {}
       end
+    end
+
+    def httparty_settings
+      self.class.base_uri('http://backpack.tf/api')
+      self.class.default_timeout(5)
+      self.class.default_params(key: @key)
+    end
+
+    def check_key(key = nil)
+      # This should not matter when running tests.
+      warn('--- WARNING: your key is nil ---') if key.nil?
+
+      if key.class == String && (key.length != 24 || !!key[/\H/])
+        msg = 'The key should be a hexadecimal number, 24-digits long'
+        raise ArgumentError, msg
+      else
+        key
+      end
+    end
+
+    def build_url_via(action, query_options = {})
+      interface_url = case action
+      when :get_prices, :prices, :price
+        version = 4
+        interface_url = "/#{Price::INTERFACE}/v#{version}/?"
+      when :get_currencies, :currencies, :currency
+        version = 1
+        interface_url = "/#{Currency::INTERFACE}/v#{version}/?"
+      when :get_special_items, :special_items, :special_item, :specialitem
+        version = 1
+        interface_url = "/#{SpecialItem::INTERFACE}/v#{version}/?"
+      when :get_users, :users, :user
+        version = 3
+        interface_url = "/#{User::INTERFACE}/v#{version}/?"
+      when :get_user_listings, :user_listings, :user_listing, :userlisting
+        version = 1
+        interface_url = "/#{UserListing::INTERFACE}/v#{version}/?"
+      else
+        raise ArgumentError, 'pass in valid action as a Symbol object'
+      end
+
+      self.class.base_uri + interface_url + extract_query_string(query_options)
+    end
+
+    def extract_query_string(options = {})
+      options.each_pair.map do |key, val|
+        unless val.class == Array
+          "#{key}=#{val}"
+        else
+          "#{key}=#{val.join(',')}"
+        end
+      end.join('&')
     end
   end
 end

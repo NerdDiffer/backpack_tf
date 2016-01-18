@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe BackpackTF::Response do
-  let (:bp) { BackpackTF::Client.new }
+  let (:bp) { BackpackTF::Client.new('deadbeef01234567deadbeef') }
   let (:faked_class_sym) { :'BackpackTF::FakedClass' }
   let(:json_obj) {
     fixture = file_fixture('currencies.json')
