@@ -3,7 +3,6 @@ SimpleCov.start
 
 require 'backpack_tf'
 require 'webmock/rspec'
-require 'byebug'
 
 def generate_fake_api_key
   hex_nums = %w(0 1 2 3 4 5 6 7 8 9 a b c d e f)
