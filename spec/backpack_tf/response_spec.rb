@@ -14,12 +14,6 @@ describe BackpackTF::Response do
     described_class.hash_keys_to_sym(fixture)
   }
 
-  describe '::interface' do
-    it 'should be nil' do
-      expect(BackpackTF::Response.interface).to be_nil
-    end
-  end
-
   describe '::to_sym' do
     it 'should return the name of the class, as a Symbol object' do
       expect(BackpackTF::Response.to_sym).to eq :'BackpackTF::Response'

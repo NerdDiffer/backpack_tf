@@ -1,8 +1,19 @@
 module BackpackTF
-  class UserListing < Response
-    INTERFACE = :IGetUserListings
+  class UserListing < BackpackTF::Response
+    class Interface < BackpackTF::Interface
+      class << self
+        attr_reader :steamid
+      end
 
-    @interface = INTERFACE
+      @name = :IGetUserListings
+      @version = 2
+
+      def self.defaults(options)
+        @steamid = options[:steamid] || nil
+        super(options)
+      end
+    end
+
     @response = nil
     @listings = []
 

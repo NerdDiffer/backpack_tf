@@ -7,6 +7,7 @@ end
 
 # IMPORTANT! require the Response module before any other class or module
 require_relative 'backpack_tf/version'
+require_relative 'backpack_tf/interface'
 require_relative 'backpack_tf/response'
 require_relative 'backpack_tf/client'
 require_relative 'backpack_tf/currency'

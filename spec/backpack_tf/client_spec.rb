@@ -74,10 +74,8 @@ describe BackpackTF::Client do
       expected = "http://backpack.tf/api/IGetPrices/v4/?key=#{BackpackTF::Client.api_key}&compress=1"
       expect(actual).to eq expected
     end
-    it 'raises an error when asking for any unexpected interface' do
-      expect{ BackpackTF::Client.build_url_via(:foo) }.to raise_error ArgumentError
-    end
   end
+
   describe '#fetch' do
     before :each do
       stub_http_response_with('currencies.json')

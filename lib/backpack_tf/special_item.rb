@@ -1,7 +1,10 @@
 module BackpackTF
-  class SpecialItem < Response
-    INTERFACE = :IGetSpecialItems
-    @interface = INTERFACE
+  class SpecialItem < BackpackTF::Response
+    class Interface < BackpackTF::Interface
+      @name = :IGetSpecialItems
+      @version = 1
+    end
+
     @response = nil
     @items = {}
 

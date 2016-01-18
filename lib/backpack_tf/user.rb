@@ -1,7 +1,19 @@
 module BackpackTF
-  class User < Response
-    INTERFACE = :IGetUsers
-    @interface = INTERFACE
+  class User < BackpackTF::Response
+    class Interface < BackpackTF::Interface
+      class << self
+        attr_reader :steamids
+      end
+
+      @name = :IGetUsers
+      @version = 3
+
+      def self.defaults(options = {})
+        @steamids = options[:steamids] || nil
+        super(options)
+      end
+    end
+
     @response = nil
     @players = {}
 

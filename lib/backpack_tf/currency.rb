@@ -1,13 +1,16 @@
 # Ruby representations of a JSON response to IGetCurrencies['response']
 
 module BackpackTF
-  class Currency < Response
+  class Currency < BackpackTF::Response
+    class Interface < BackpackTF::Interface
+      @name = :IGetCurrencies
+      @version = 1
+    end
+
     ###########################
     #     Class Methods
     ###########################
 
-    INTERFACE = :IGetCurrencies
-    @interface = INTERFACE
     @response = nil
     @currencies = nil
 
