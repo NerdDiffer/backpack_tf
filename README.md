@@ -7,15 +7,19 @@ Dota 2. This gem is a wrapper for the backpack.tf [API](http://backpack.tf/api).
 The goal is to capture the results and turn them into Ruby objects for use in
 your application.
 
-See the [TODO](TODO.md) list if you are interested in contributing.
+### Contributing
+
+If you are interested in contributing, please see any open
+[issues](https://github.com/NerdDiffer/backpack_tf/issues), let me know, and
+branch off of the `development` branch.
 
 ### Installation
 
-##### from the command line
+###### from the command line
 
 `$ gem install backpack_tf`
 
-##### from your Gemfile
+###### from your Gemfile
 
 `gem 'backpack_tf'`
 
@@ -30,65 +34,50 @@ See the [TODO](TODO.md) list if you are interested in contributing.
 #
 # create a new Client object
 #
-bp = BackpackTF::Client.new
+bp = BackpackTF::Client.new(<your_api_key>)
 
 #
 # fetch some data
 #
-fetched_prices = bp.fetch(:prices, { :compress => 1 })
-fetched_currencies = bp.fetch(:currencies, { :compress => 1 })
-fetched_special_items = bp.fetch(:special_items, { :compress => 1})
-fetched_users = bp.fetch(:users, { :steamids => [steam_id_64, steam_id_64] })
-fetched_listings = bp.fetch(:user_listings, { :steamid => steam_id_64 })
+fetched_prices = bp.fetch(:prices)
+fetched_currencies = bp.fetch(:currencies)
+fetched_special_items = bp.fetch(:special_items)
+fetched_users = bp.fetch(:users, { steamids: [array,of,64,bit,steam,ids] })
+fetched_listings = bp.fetch(:user_listings, { steamid: 64_bit_steam_id })
 
 #
-# update a class with the data
-# *note*: you should send a message from your Client object to the class before
-# using any of those class' methods.
-# This does not apply to the `Item` class and the `ItemPrice` class.
-# Those are updated through the `Price` class.
+# assign fetched data to the corresponding module
 #
-
-bp.update(BackpackTF::Price, fetched_prices)
-bp.update(BackpackTF::Currency, fetched_currencies)
-bp.update(BackpackTF::SpecialItem, fetched_special_items)
-bp.update(BackpackTF::User, fetched_users)
-bp.update(BackpackTF::UserListing, fetched_listings)
-
-#
-# look at prices of a random item
-#
-random_key = BackpackTF::Price.items.sample
-BackpackTF::Price.items[random_key]
+BackpackTF::Price.response = fetched_prices
+BackpackTF::Currency.response = fetched_currencies
+BackpackTF::SpecialItem.response = fetched_special_items
+BackpackTF::User.response = fetched_users
+BackpackTF::UserListing.response = fetched_listings
 ```
 
-## Interfaces
+## Interfaces & Responses
 
 #### IGetPrices
 
 * Get pricing data for all priced items
 * [official doc](http://backpack.tf/api/prices)
 
-Responses from this interface are captured in the `BackpackTF::Price` class.
-The `BackpackTF::Price` class is not meant to be instantiated. One of the class
-attributes is `@items`, a Hash object.
-
 Information on any particular item, (ie: 'Eviction Notice'), is captured in an
-instance of the `BackpackTF::Item` class. Furthermore, there may be several
-prices for the same item. For example, an Eviction Notice with the Unique
-quality has a different price than an Eviction Notice with the Strange quality.
+instance of `BackpackTF::Item`. Furthermore, there may be several prices for the
+same item. For example, an Eviction Notice with the Unique quality has a
+different price than an Eviction Notice with the Strange quality.
 
-Each price is an instance of the `BackpackTF::ItemPrice` class, and is stored in
-the `@prices` hash of that item.
+Each price is an instance of `BackpackTF::ItemPrice`, and is stored in the
+`@prices` hash of that item.
 
 ##### A visual representation of this hierarchy
 
-* `BackpackTF::Price` class
-  * `@items` hash of `BackpackTF::Price` class.
+* `BackpackTF::Price` module
+  * `@items` hash of `BackpackTF::Price::Response`.
     * `BackpackTF::Item` object (ie: 'Beast From Below')
     * `BackpackTF::Item` object (ie: 'Taunt: Rock, Paper Scissors')
     * `BackpackTF::Item` object (ie: 'Eviction Notice')
-      * `@prices` hash of an `BackpackTF::Item` object
+      * `@prices` hash of a `BackpackTF::Item` object
         * `BackpackTF::ItemPrice` object (ie: price of Unique Eviction Notice)
         * `BackpackTF::ItemPrice` object (ie: price of Vintage Eviction Notice)
         * `BackpackTF::ItemPrice` object (ie: price of Strange Eviction Notice)
@@ -98,13 +87,9 @@ the `@prices` hash of that item.
 * Get internal currency data
 * [official doc](http://backpack.tf/api/currencies)
 
-API responses from this interface are captured in the `Currency` class.
-Similar the `BackpackTF::Price` class, it has a set of class methods, and
-attributes to describe the API response.
-Unlike, the `Price` class, this one can be instantiated. There are currently 4
-currencies available through the API.
+There are currently 4 currencies available through the API.
 Each one is an instance of `BackpackTF::Currency` and is held in the
-`@currencies` hash of the `BackpackTF::Currency` class.
+`@currencies` hash of the `BackpackTF::Currency::Response` class.
 
 #### IGetSpecialItems
 
@@ -113,7 +98,6 @@ Each one is an instance of `BackpackTF::Currency` and is held in the
 
 This is for items that only exist on backpack.tf. They are not real game items,
 but you will see them returned in a call to `IGetSpecialItems`.
-The class for this interface is `BackpackTF::SpecialItem`.
 
 #### IGetUsers
 
@@ -123,8 +107,7 @@ The class for this interface is `BackpackTF::SpecialItem`.
 
 Get some basic information for a list of backpack.tf users. It's basically the
 info that you'd see on their profile page.
-The response for this interface is captured in the `BackpackTF::User` class.
-You can request several users at once by sending them in an array.
+You can request several users at once by sending an array.
 
 #### IGetUserListings
 
@@ -133,4 +116,3 @@ You can request several users at once by sending them in an array.
 
 Request all classified listings for one user.
 You must pass in the 64-bit `steamid`.
-The response is captured in the `BackpackTF::UserListing` class.

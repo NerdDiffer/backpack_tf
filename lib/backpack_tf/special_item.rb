@@ -1,26 +1,10 @@
+require 'backpack_tf/response/special_item'
+require 'backpack_tf/interface/special_item'
+
 module BackpackTF
-  class SpecialItem < BackpackTF::Response
-    class Interface < BackpackTF::Interface
-      @name = :IGetSpecialItems
-      @version = 1
-    end
-
-    @response = nil
-    @items = {}
-
-    def self.response
-      @response = superclass.responses[to_sym]
-    end
-
-    def self.items
-      response if @response.nil?
-      @items = @response['items'].inject({}) do |hash, item|
-        #item = hash_keys_to_sym(item)
-        name = item['name']
-        hash[name] = new(name, item)
-        hash
-      end
-    end
+  # Ruby representations of a JSON response to IGetSpecialItems
+  class SpecialItem
+    include Helpers
 
     attr_reader :name
     attr_reader :item_name
@@ -39,7 +23,7 @@ module BackpackTF
     attr_reader :appid
 
     def initialize name, attr
-      attr = check_attr_keys(attr)
+      attr = hash_keys_to_sym(attr)
 
       @name                 = name
       @item_name            = attr[:item_name]

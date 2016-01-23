@@ -1,33 +1,10 @@
+require 'backpack_tf/response/user'
+require 'backpack_tf/interface/user'
+
 module BackpackTF
-  class User < BackpackTF::Response
-    class Interface < BackpackTF::Interface
-      class << self
-        attr_reader :steamids
-      end
-
-      @name = :IGetUsers
-      @version = 3
-
-      def self.defaults(options = {})
-        @steamids = options[:steamids] || nil
-        super(options)
-      end
-    end
-
-    @response = nil
-    @players = {}
-
-    def self.response
-      @response ||= superclass.responses[to_sym]
-    end
-
-    def self.players
-      response if @response.nil?
-      @players = response['players'].inject({}) do |players, (steamid, attr)|
-        players[steamid] = new(attr)
-        players
-      end
-    end
+  # Ruby representations of a JSON response to IGetUsers
+  class User
+    include Helpers
 
     attr_reader :steamid
     attr_reader :success
@@ -45,7 +22,7 @@ module BackpackTF
     attr_reader :notifications
 
     def initialize attr
-      attr = check_attr_keys(attr)
+      attr = hash_keys_to_sym(attr)
 
       @steamid                = attr[:steamid]
       @success                = attr[:success]

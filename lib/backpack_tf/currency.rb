@@ -1,31 +1,10 @@
-# Ruby representations of a JSON response to IGetCurrencies['response']
+require 'backpack_tf/response/currency'
+require 'backpack_tf/interface/currency'
 
 module BackpackTF
-  class Currency < BackpackTF::Response
-    class Interface < BackpackTF::Interface
-      @name = :IGetCurrencies
-      @version = 1
-    end
-
-    ###########################
-    #     Class Methods
-    ###########################
-
-    @response = nil
-    @currencies = nil
-
-    def self.response
-      @response ||= superclass.responses[to_sym]
-    end
-
-    def self.currencies
-      response if @response.nil?
-      @currencies = response['currencies']
-    end
-
-    ###########################
-    #     Instance Methods
-    ###########################
+  # Ruby representations of a JSON response to IGetCurrencies
+  class Currency
+    include Helpers
 
     # @return [Fixnum] the quality index of the currency
     attr_reader :quality
@@ -50,7 +29,7 @@ module BackpackTF
     attr_reader :blanket
 
     def initialize name, attr
-      processed_attr = check_attr_keys(attr)
+      processed_attr = hash_keys_to_sym(attr)
 
       @name       = name.to_s
       @quality    = processed_attr[:quality]

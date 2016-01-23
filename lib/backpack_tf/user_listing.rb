@@ -1,35 +1,10 @@
+require 'backpack_tf/response/user_listing'
+require 'backpack_tf/interface/user_listing'
+
 module BackpackTF
-  class UserListing < BackpackTF::Response
-    class Interface < BackpackTF::Interface
-      class << self
-        attr_reader :steamid
-      end
-
-      @name = :IGetUserListings
-      @version = 2
-
-      def self.defaults(options)
-        @steamid = options[:steamid] || nil
-        super(options)
-      end
-    end
-
-    @response = nil
-    @listings = []
-
-    def self.interface; @interface; end
-
-    def self.response
-      @response ||= superclass.responses[to_sym]
-    end
-
-    def self.listings
-      response if @response.nil?
-      @listings = response['listings'].inject([]) do |listings, attr|
-        listings << new(attr)
-        listings
-      end
-    end
+  # Ruby representations of a JSON response to IGetUserListings
+  class UserListing
+    include Helpers
 
     attr_reader :id
     attr_reader :bump
@@ -41,7 +16,7 @@ module BackpackTF
     attr_reader :buyout
 
     def initialize attr
-      attr = check_attr_keys(attr)
+      attr = hash_keys_to_sym(attr)
 
       @id = attr[:id].to_sym
       @bump = attr[:bump]
@@ -49,22 +24,21 @@ module BackpackTF
       @currencies = attr[:currencies]
       @item = set_keys_of_key_to_symbols(attr[:item], 'attributes')
       @details = attr[:details]
-      @meta = self.class.hash_keys_to_sym(attr[:meta])
+      @meta = hash_keys_to_sym(attr[:meta])
       @buyout = attr[:buyout]
     end
 
     private
-    # Similar to Response.hash_key_to_sym, except you are returning
-    # an Array of Hash objects instead of a Hash.
+
     def set_keys_of_key_to_symbols attr, key
       return nil unless attr.has_key? key
 
       item_attributes = attr[key].map do |set_of_attr|
-        self.class.hash_keys_to_sym(set_of_attr)
+        hash_keys_to_sym(set_of_attr)
       end
       attr[key] = item_attributes
 
-      self.class.hash_keys_to_sym(attr)
+      hash_keys_to_sym(attr)
     end
   end
 end
