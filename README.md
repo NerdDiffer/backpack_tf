@@ -23,12 +23,9 @@ branch off of the `development` branch.
 
 `gem 'backpack_tf'`
 
-### Usage
+### Usage & Examples
 
-* [Register an API key](http://backpack.tf/api)
-* Assign your key to an environment variable: `export BPTF_API_KEY='SECRET_KEY'`
-
-### Examples
+[Register an API key](http://backpack.tf/developer), pass it in to the client.
 
 ``` ruby
 #
