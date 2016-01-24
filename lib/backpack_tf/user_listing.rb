@@ -6,26 +6,28 @@ module BackpackTF
   class UserListing
     include Helpers
 
-    attr_reader :id
     attr_reader :bump
-    attr_reader :created
+    attr_reader :intent
     attr_reader :currencies
-    attr_reader :item
-    attr_reader :details
-    attr_reader :meta
     attr_reader :buyout
+    attr_reader :details
+    attr_reader :item
+    attr_reader :flags
+    attr_reader :created
+    attr_reader :id
 
     def initialize attr
       attr = hash_keys_to_sym(attr)
 
-      @id = attr[:id].to_sym
-      @bump = attr[:bump]
-      @created = attr[:created]
+      @bump       = attr[:bump]
+      @intent     = attr[:intent]
       @currencies = attr[:currencies]
-      @item = set_keys_of_key_to_symbols(attr[:item], 'attributes')
-      @details = attr[:details]
-      @meta = hash_keys_to_sym(attr[:meta])
-      @buyout = attr[:buyout]
+      @buyout     = attr[:buyout]
+      @details    = attr[:details]
+      @item       = set_keys_of_key_to_symbols(attr[:item], :attributes)
+      @flags      = hash_keys_to_sym(attr[:flags])
+      @created    = attr[:created]
+      @id         = attr[:id]
     end
 
     private
