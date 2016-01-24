@@ -39,20 +39,24 @@ bp = BackpackTF::Client.new(<your_api_key>)
 #
 # fetch some data
 #
-fetched_prices = bp.fetch(:prices)
-fetched_currencies = bp.fetch(:currencies)
-fetched_special_items = bp.fetch(:special_items)
-fetched_users = bp.fetch(:users, { steamids: [array,of,64,bit,steam,ids] })
-fetched_listings = bp.fetch(:user_listings, { steamid: 64_bit_steam_id })
+prices = bp.fetch(:prices)
+price_history = bp.fetch(:price_history, { item: item_name_or_defindex })
+market_prices = bp.fetch(:market_prices)
+currencies = bp.fetch(:currencies)
+special_items = bp.fetch(:special_items)
+users = bp.fetch(:users, { steamids: [array,of,64,bit,steam,ids] })
+listings = bp.fetch(:user_listings, { steamid: 64_bit_steam_id })
 
 #
 # assign fetched data to the corresponding module
 #
-BackpackTF::Price.response = fetched_prices
-BackpackTF::Currency.response = fetched_currencies
-BackpackTF::SpecialItem.response = fetched_special_items
-BackpackTF::User.response = fetched_users
-BackpackTF::UserListing.response = fetched_listings
+BackpackTF::Price.response = prices
+BackpackTF::PriceHistory.response = price_history
+BackpackTF::MarketPrices.response = market_prices
+BackpackTF::Currency.response = currencies
+BackpackTF::SpecialItem.response = special_items
+BackpackTF::User.response = users
+BackpackTF::UserListing.response = listings
 ```
 
 ## Interfaces & Responses
@@ -81,6 +85,31 @@ Each price is an instance of `BackpackTF::ItemPrice`, and is stored in the
         * `BackpackTF::ItemPrice` object (ie: price of Unique Eviction Notice)
         * `BackpackTF::ItemPrice` object (ie: price of Vintage Eviction Notice)
         * `BackpackTF::ItemPrice` object (ie: price of Strange Eviction Notice)
+
+#### IGetPriceHistory
+
+* Get price history for an item
+* [official doc](http://backpack.tf/api/pricehistory)
+
+You must pass in the item name or its `defindex` number as value on the `name`
+key when accessing this interface. IE:
+
+* `client.fetch(:price_history, item: 829)` or
+* `client.fetch(:price_history, item: 'War Pig')`
+
+If you pass in a string as the `item`, then it must match the `item_name`
+property (not the `name` property) as per its definition in the schema. For more
+information, see the
+[TF2 Wiki page on item schema](https://wiki.teamfortress.com/wiki/Item_schema).
+
+You can optionally pass the client `quality`, `tradable`, `craftable` or
+`priceindex` keys. See the
+[official doc](http://backpack.tf/api/pricehistory) for more info.
+
+#### IGetMarketPrices
+
+* Get Steam Community Market price information
+* [official doc](http://backpack.tf/api/market)
 
 #### IGetCurrencies
 
