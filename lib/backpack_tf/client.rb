@@ -51,10 +51,14 @@ module BackpackTF
 
     def build_url_via(action, query_options = {})
       interface_url = case action
-      when :get_prices, :prices, :price
-        "/#{Price::Interface.name}/v#{Price::Interface.version}/?"
       when :get_currencies, :currencies, :currency
         "/#{Currency::Interface.name}/v#{Currency::Interface.version}/?"
+      when :get_market_prices, :market_prices, :market_price
+        "/#{MarketPrice::Interface.name}/v#{MarketPrice::Interface.version}/?"
+      when :get_prices, :prices, :price
+        "/#{Price::Interface.name}/v#{Price::Interface.version}/?"
+      when :get_price_history, :price_history
+        "/#{PriceHistory::Interface.name}/v#{PriceHistory::Interface.version}/?"
       when :get_special_items, :special_items, :special_item, :specialitem
         "/#{SpecialItem::Interface.name}/v#{SpecialItem::Interface.version}/?"
       when :get_users, :users, :user
