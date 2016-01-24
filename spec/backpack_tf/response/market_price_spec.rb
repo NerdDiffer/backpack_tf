@@ -1,0 +1,22 @@
+require 'spec_helper'
+
+describe BackpackTF::MarketPrice::Response do
+  let(:json_response) {
+    fixture = file_fixture('market_prices.json')
+    JSON.parse(fixture)['response']
+  }
+
+  describe '::items' do
+    before(:each) do
+      described_class.response = json_response
+    end
+    after(:each) do
+      described_class.response = nil
+    end
+
+    it 'each key points to a BackpackTF::MarketPrice object' do
+      items = described_class.items
+      expect(items.values).to all be_a BackpackTF::MarketPrice
+    end
+  end
+end
