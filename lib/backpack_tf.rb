@@ -17,5 +17,4 @@ require 'backpack_tf/market_price'
 
 # namespace for classes & modules inside of the wrapper for the BackpackTF API
 module BackpackTF
-
 end

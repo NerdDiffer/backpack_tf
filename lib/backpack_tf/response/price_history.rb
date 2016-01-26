@@ -1,5 +1,6 @@
 module BackpackTF
   class PriceHistory
+    # Process reponses from IGetPriceHistory
     class Response < BackpackTF::Response
       @response = nil
       @history = []

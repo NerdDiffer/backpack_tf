@@ -1,4 +1,5 @@
 module BackpackTF
+  # Base class for processing a response from a BackpackTF API
   class Response
     class << self
       attr_accessor :response

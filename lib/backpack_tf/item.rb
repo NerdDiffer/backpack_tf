@@ -1,4 +1,5 @@
 module BackpackTF
+  # This lives inside the `@items` hash of BackpackTF::Price::Response
   class Item
     ###########################
     #     Instance Methods
@@ -6,39 +7,37 @@ module BackpackTF
 
     # @return [String] the name of item
     attr_reader :item_name
-    # @return [Fixnum] the index to which you can link this item to Team Fortress 2's Item Schema
+    # @return [Fixnum] an index number as per TF2's Item Schema
     attr_reader :defindex
     # @return [Hash<Fixnum, ItemPrice>] a hash object
     attr_reader :prices
 
-    def initialize item_name, attr
-      @item_name  = item_name
+    def initialize(item_name, attr)
+      @item_name = item_name
 
-      unless attr.class == Hash
-        attr = JSON.parse(attr)
-      end
+      attr = JSON.parse(attr) unless attr.class == Hash
 
-      @defindex   = process_defindex(attr['defindex'])
-      @prices     = generate_prices_hash(attr)
+      @defindex = process_defindex(attr['defindex'])
+      @prices   = generate_prices_hash(attr)
     end
 
-    def process_defindex arr
+    def process_defindex(arr)
       return nil if arr.length == 0
       return arr[0] if arr.length == 1
       arr
     end
 
-    def generate_prices_hash input_hash
-      raise TypeError, 'expecting a Hash object' unless input_hash.class == Hash
-      unless input_hash.has_key? 'prices'
-        msg = "input_hash must be at the one level above the point where 'prices' is a key in the JSON hash"
-        raise KeyError, msg
+    def generate_prices_hash(input_hash)
+      fail TypeError, 'expecting a Hash object' unless input_hash.class == Hash
+      unless input_hash.key?('prices')
+        msg = 'input_hash must be at the one level above the point'
+        msg << 'where \'prices\' is a key in the JSON hash'
+        fail KeyError, msg
       end
 
       prices = input_hash['prices']
 
-      prices.inject({}) do |hash, (key, val)|
-
+      prices.each_with_object({}) do |(key, val), hash|
         quality = BackpackTF::ItemPrice.qualities[key.to_i]
         new_key = [quality.to_s]
 
@@ -52,7 +51,7 @@ module BackpackTF
 
         prefix = prices[key][tradability][craftability]
 
-        if (prefix.length <= 1)
+        if prefix.length <= 1
           item_prices = prefix[0]
           # patch for oddly-structured items, ie: Aqua Summer 2013 Cooler
           item_prices = prefix.values.first if item_prices.nil?

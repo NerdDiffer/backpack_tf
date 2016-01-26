@@ -21,7 +21,7 @@ module BackpackTF
     attr_reader :ban_vac
     attr_reader :notifications
 
-    def initialize attr
+    def initialize(attr)
       attr = hash_keys_to_sym(attr)
 
       @steamid                = attr[:steamid]

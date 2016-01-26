@@ -10,7 +10,7 @@ module BackpackTF
     attr_reader :quantity
     attr_reader :value
 
-    def initialize name, attr
+    def initialize(name, attr)
       attr = hash_keys_to_sym(attr)
 
       @name         = name.to_s

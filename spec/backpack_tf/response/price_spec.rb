@@ -62,10 +62,10 @@ describe BackpackTF::Price::Response do
   end
 
   describe '::generate_items' do
-    let(:real_response) {
+    let(:real_response) do
       fixture = file_fixture('prices.json')
       JSON.parse(fixture)['response']
-    }
+    end
     let(:item) do
       fixture = file_fixture('item_typical.json')
       item_json = JSON.parse(fixture)['Kritzkrieg']

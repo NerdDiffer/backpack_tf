@@ -1,3 +1,5 @@
+# Version of this API library
 module BackpackTF
-  VERSION = "0.8.4"
+  version = '0.8.4'
+  VERSION = version
 end

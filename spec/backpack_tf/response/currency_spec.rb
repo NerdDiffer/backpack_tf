@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe BackpackTF::Currency::Response do
-  let(:json_response) {
+  let(:json_response) do
     fixture = file_fixture('currencies_updated.json')
     JSON.parse(fixture)['response']
-  }
+  end
 
   context 'reader methods' do
     before(:each) do

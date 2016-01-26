@@ -16,7 +16,7 @@ module BackpackTF
     attr_reader :created
     attr_reader :id
 
-    def initialize attr
+    def initialize(attr)
       attr = hash_keys_to_sym(attr)
 
       @bump       = attr[:bump]
@@ -32,8 +32,8 @@ module BackpackTF
 
     private
 
-    def set_keys_of_key_to_symbols attr, key
-      return nil unless attr.has_key? key
+    def set_keys_of_key_to_symbols(attr, key)
+      return nil unless attr.key?(key)
 
       item_attributes = attr[key].map do |set_of_attr|
         hash_keys_to_sym(set_of_attr)

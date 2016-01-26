@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe BackpackTF::PriceHistory::Response do
- let(:json_response) {
+  let(:json_response) do
     fixture = file_fixture('price_history.json')
     JSON.parse(fixture)['response']
-  }
+  end
 
   describe '::history' do
     before(:each) do

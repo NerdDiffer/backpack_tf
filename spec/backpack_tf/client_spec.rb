@@ -7,7 +7,7 @@ describe BackpackTF::Client do
   describe '#initialize' do
     it 'sets a value for @key' do
       client = described_class.new(key)
-      expect( client.instance_eval{ @key }).to eq 'deadbeef01234567deadbeef'
+      expect(client.instance_eval { @key }).to eq 'deadbeef01234567deadbeef'
     end
     it 'creates an instance of BackpackTF::Client' do
       client = described_class.new(key)
@@ -20,7 +20,7 @@ describe BackpackTF::Client do
       stub_http_response_with('currencies.json')
     end
     it 'fetches JSON from an interface and returns a response' do
-      response = bp.fetch(:currencies, {:compress => 1, :appid => 440})
+      response = bp.fetch(:currencies, compress: 1, appid: 440)
       response.keys.all? do |key|
         expect(response[key]).not_to be_nil
       end
@@ -55,11 +55,11 @@ describe BackpackTF::Client do
     context('checking a key') do
       it 'Raises ArgumentError, if key is not a hexadecimal string' do
         fake_key = 'abcdefghijklmnopqrstuvwx'
-        expect{ bp.send(:check_key, fake_key) }.to raise_error ArgumentError
+        expect { bp.send(:check_key, fake_key) }.to raise_error ArgumentError
       end
       it 'Raises ArgumentError, if key is not 24 digits long' do
         fake_key = 'abcdef0987654321'
-        expect{ bp.send(:check_key, fake_key) }.to raise_error ArgumentError
+        expect { bp.send(:check_key, fake_key) }.to raise_error ArgumentError
       end
       it 'lets an otherwise theoretically-valid key pass through' do
         key = generate_fake_api_key
@@ -75,8 +75,8 @@ describe BackpackTF::Client do
 
     it 'returns correct destination url when asking for pricing data' do
       query_opts = {
-        :key => key,
-        :compress => 1
+        key: key,
+        compress: 1
       }
 
       actual = bp.send(:build_url_via, :prices, query_opts)
@@ -102,6 +102,16 @@ describe BackpackTF::Client do
 
       expected = "key=#{key}&appid=440&format=json&compress=1&raw=2"
       expect(bp.send(:extract_query_string, opts)).to eq expected
+    end
+  end
+
+  describe '#select_interface_url_fragment' do
+    it 'picks a url fragment based on an action' do
+      # TODO: test cover this method
+    end
+    it 'returns nil when it cannot match to an action' do
+      actual = bp.send(:select_interface_url_fragment, :foobar)
+      expect(actual).to be_nil
     end
   end
 end

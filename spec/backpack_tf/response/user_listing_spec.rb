@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe BackpackTF::UserListing::Response do
-  let(:json_response) {
+  let(:json_response) do
     fixture = file_fixture('user_listing.json')
     JSON.parse(fixture)['response']
-  }
+  end
 
   describe '::listings' do
     before(:each) do

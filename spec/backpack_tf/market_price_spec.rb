@@ -3,7 +3,7 @@ require 'spec_helper'
 describe BackpackTF::MarketPrice do
   let(:response_attr) do
     {
-      'last_updated' => 1453654816,
+      'last_updated' => 1_453_654_816,
       'quantity' => 52,
       'value' => 89
     }
@@ -13,7 +13,7 @@ describe BackpackTF::MarketPrice do
     it 'has these attributes' do
       actual = described_class.new('A Color Similar to Slate', response_attr)
       expect(actual).to have_attributes(
-        last_updated: 1453654816,
+        last_updated: 1_453_654_816,
         quantity: 52,
         value: 89
       )

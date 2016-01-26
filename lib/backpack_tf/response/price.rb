@@ -1,5 +1,6 @@
 module BackpackTF
   module Price
+    # Process reponses from IGetPrices
     class Response < BackpackTF::Response
       @response = nil
       @items = nil
@@ -24,15 +25,15 @@ module BackpackTF
       def self.generate_items
         response if @response.nil?
 
-        @response['items'].inject({}) do |items, (name)|
+        @response['items'].each_with_object({}) do |(name), items|
           defindex = @response['items'][name]['defindex'][0]
 
           if defindex.nil? || defindex < 0
-            items
+            # ignore this item
           else
             items[name] = BackpackTF::Item.new(name, @response['items'][name])
-            items
           end
+          items
         end
       end
     end

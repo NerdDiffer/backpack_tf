@@ -1,5 +1,6 @@
 module BackpackTF
   module Price
+    # Access the IGetPrices interface
     class Interface < BackpackTF::Interface
       class << self
         attr_reader :raw, :since

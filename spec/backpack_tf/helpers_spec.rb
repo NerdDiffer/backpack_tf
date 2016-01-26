@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe BackpackTF::Helpers do
   module BackpackTF
-    class DummyClass
+    class DummyClass # :nodoc:
       include BackpackTF::Helpers
 
-      class Response < BackpackTF::Response
+      class Response < BackpackTF::Response # :nodoc:
         self.response = { foo: 'bar' }
       end
     end
@@ -56,11 +56,11 @@ describe BackpackTF::Helpers do
           BackpackTF::DummyClass.class_eval { self.response = { foo: 'bar' } }
         end
 
-        it 'can write .response of its own Response class (compare by value)' do
+        it 'can write to its own Response class (compare by value)' do
           expected = { bar: 'foo' }
           expect(BackpackTF::DummyClass.response).to eq(expected)
         end
-        it 'can write .response of its own Response class (compare by reference)' do
+        it 'can write to its own Response class (compare by reference)' do
           expected = BackpackTF::DummyClass::Response.response
           expect(BackpackTF::DummyClass.response).to eq(expected)
         end
@@ -71,12 +71,12 @@ describe BackpackTF::Helpers do
   describe '#hash_keys_to_sym' do
     it 'changes each key from a String to a Symbol' do
       metal = {
-        'quality'=> 6,
-        'single'=> 'ref'
+        'quality' => 6,
+        'single' => 'ref'
       }
       hashed_metal = {
-        :quality=> 6,
-        :single=> 'ref'
+        quality: 6,
+        single: 'ref'
       }
       actual = dummy.send(:hash_keys_to_sym, metal)
       expect(actual).to eq hashed_metal

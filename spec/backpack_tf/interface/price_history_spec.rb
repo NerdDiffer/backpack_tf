@@ -26,7 +26,7 @@ describe BackpackTF::PriceHistory::Interface do
         quality: 'quality name or defindex',
         tradable: 1,
         craftable: 1,
-        priceindex: 0,
+        priceindex: 0
       }
       described_class.defaults(options)
       %i(@item @quality @tradable @craftable @priceindex).each do |ivar|

@@ -1,5 +1,6 @@
 module BackpackTF
   class UserListing
+    # Access the IGetUserListings interface
     class Interface < BackpackTF::Interface
       class << self
         attr_reader :steamid

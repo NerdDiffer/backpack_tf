@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe BackpackTF::Currency do
-  let(:currencies) {
+  let(:currencies) do
     fixture = file_fixture('currencies_updated.json')
     JSON.parse(fixture)['response']
-  }
+  end
 
   describe '#initialize' do
     it 'instance should have these values' do
@@ -20,9 +20,9 @@ describe BackpackTF::Currency do
         blanket: 0
       }
 
-      allow_any_instance_of(described_class).
-        to receive(:hash_keys_to_sym).
-        and_return(processed_currencies)
+      allow_any_instance_of(described_class)
+        .to receive(:hash_keys_to_sym)
+        .and_return(processed_currencies)
 
       subject = described_class.new(:metal, currencies['metal'])
 

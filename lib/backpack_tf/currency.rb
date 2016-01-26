@@ -14,21 +14,18 @@ module BackpackTF
     attr_reader :single
     # @return [String] the plural form of noun that is used in the suffix
     attr_reader :plural
-    # @return [Fixnum] the number of decimal places the price should be rounded to
+    # @return [Fixnum] number of decimal places the price should be rounded to
     attr_reader :round
-    # @return [Symbol] either :Craftable or :Non-Craftable to signify currency's craftability
+    # @return [Symbol] currency's craftability (:Craftable or :Non-Craftable)
     attr_reader :craftable
-    # @return [Symbol] either :Tradable or :Non-Tradable to signify currency's tradability
+    # @return [Symbol] currency's tradability (:Tradable or :Non-Tradable)
     attr_reader :tradable
     # @return [Fixnum] the definition index of the currency
     attr_reader :defindex
-    # What does the :blanket attribute mean?
-    # it is set to 0 by default. However, it is set to 1 for :hat.
-    # :hat also has an extra property & value :blanket_name => 'Random Craft Hat'
-    # @return [Fixnum]
+    # @return [Fixnum] Not sure what this attribute means!
     attr_reader :blanket
 
-    def initialize name, attr
+    def initialize(name, attr)
       processed_attr = hash_keys_to_sym(attr)
 
       @name       = name.to_s

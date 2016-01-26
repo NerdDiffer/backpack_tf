@@ -2,6 +2,7 @@ require 'backpack_tf/response/price_history'
 require 'backpack_tf/interface/price_history'
 
 module BackpackTF
+  # Ruby representations of a JSON response to IGetPriceHistory
   class PriceHistory
     include Helpers
 
@@ -10,7 +11,7 @@ module BackpackTF
     attr_reader :currency
     attr_reader :timestamp
 
-    def initialize attr
+    def initialize(attr)
       attr = hash_keys_to_sym(attr)
 
       @value      = attr[:value]

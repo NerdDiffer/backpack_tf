@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe BackpackTF::SpecialItem::Response do
-  let(:json_response) {
+  let(:json_response) do
     fixture = file_fixture('special_items.json')
     JSON.parse(fixture)['response']
-  }
+  end
 
   describe '::items' do
     before(:each) do
