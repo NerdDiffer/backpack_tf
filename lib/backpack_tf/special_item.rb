@@ -1,5 +1,5 @@
-require 'backpack_tf/response/special_item'
-require 'backpack_tf/interface/special_item'
+require 'backpack_tf/special_item/interface'
+require 'backpack_tf/special_item/response'
 
 module BackpackTF
   # Ruby representations of a JSON response to IGetSpecialItems

@@ -1,5 +1,5 @@
-require 'backpack_tf/response/currency'
-require 'backpack_tf/interface/currency'
+require 'backpack_tf/currency/interface'
+require 'backpack_tf/currency/response'
 
 module BackpackTF
   # Ruby representations of a JSON response to IGetCurrencies
