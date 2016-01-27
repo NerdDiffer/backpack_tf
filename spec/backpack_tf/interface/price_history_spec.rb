@@ -29,7 +29,8 @@ describe BackpackTF::PriceHistory::Interface do
         priceindex: 0
       }
       described_class.defaults(options)
-      %i(@item @quality @tradable @craftable @priceindex).each do |ivar|
+      ivars = [:@item, :@quality, :@tradable, :@craftable, :@priceindex]
+      ivars.each do |ivar|
         expect(described_class.instance_variable_get(ivar)).not_to be_nil
       end
     end

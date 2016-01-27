@@ -21,10 +21,10 @@ module BackpackTF
 
       @bump       = attr[:bump]
       @intent     = attr[:intent]
-      @currencies = attr[:currencies]
+      @currencies = hash_keys_to_sym(attr[:currencies])
       @buyout     = attr[:buyout]
       @details    = attr[:details]
-      @item       = set_keys_of_key_to_symbols(attr[:item], :attributes)
+      @item       = set_keys_of_key_to_symbols(attr[:item], 'attributes')
       @flags      = hash_keys_to_sym(attr[:flags])
       @created    = attr[:created]
       @id         = attr[:id]
