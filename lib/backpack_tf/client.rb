@@ -56,10 +56,10 @@ module BackpackTF
 
     def extract_query_string(options = {})
       options.each_pair.map do |key, val|
-        if val.class != Array
-          "#{key}=#{val}"
-        else
+        if val.class == Array
           "#{key}=#{val.join(',')}"
+        else
+          "#{key}=#{val}"
         end
       end.join('&')
     end
