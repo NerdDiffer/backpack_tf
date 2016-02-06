@@ -5,25 +5,60 @@ describe BackpackTF::Client do
   let(:bp) { BackpackTF::Client.new(key) }
 
   describe '#initialize' do
+    it 'calls #check_key' do
+      expect_any_instance_of(described_class).to receive(:check_key)
+      described_class.new(key)
+    end
     it 'sets a value for @key' do
       client = described_class.new(key)
       expect(client.instance_eval { @key }).to eq 'deadbeef01234567deadbeef'
     end
-    it 'creates an instance of BackpackTF::Client' do
-      client = described_class.new(key)
-      expect(client).to be_an_instance_of(described_class)
+    it 'calls #httparty_settings' do
+      expect_any_instance_of(described_class).to receive(:httparty_settings)
+      described_class.new(key)
     end
   end
 
   describe '#fetch' do
-    before :each do
-      stub_http_response_with('currencies.json')
+    it 'calls #get_data' do
+      mock_response = { 'response' => nil }
+      expect(bp).to receive(:get_data).and_return(mock_response)
+      bp.fetch(:foo)
     end
     it 'fetches JSON from an interface and returns a response' do
+      stub_http_response_with('currencies.json')
       response = bp.fetch(:currencies, compress: 1, appid: 440)
       response.keys.all? do |key|
         expect(response[key]).not_to be_nil
       end
+    end
+  end
+
+  describe '#get_data' do
+    it 'calls #handle_timeout' do
+      allow(described_class).to receive(:get).and_return('get')
+      allow(bp).to receive(:build_url_via).and_return('url')
+      expect(bp).to receive(:handle_timeouts)
+      bp.send(:get_data, :foo)
+    end
+    it 'calls #build_url_via' do
+      allow(described_class).to receive(:get).and_return('get')
+      expect(bp).to receive(:build_url_via).and_return('url')
+      bp.send(:get_data, :foo)
+    end
+    it 'calls HTTParty.get' do
+      allow(bp).to receive(:build_url_via).and_return('url')
+      expect(described_class).to receive(:get)
+      bp.send(:get_data, :foo)
+    end
+  end
+
+  describe 'handle_timeouts' do
+    specify do
+      expect { |mtd| bp.send(:handle_timeouts, &mtd) }.to yield_control
+    end
+    it 'rescues on Net::OpenTimeout or Net::ReadTimeout exceptions' do
+      bp.send(:handle_timeouts) { raise Net::OpenTimeout }
     end
   end
 
@@ -87,10 +122,6 @@ describe BackpackTF::Client do
   end
 
   describe '#extract_query_string' do
-    before(:each) do
-      allow(bp).to receive(:warn).and_return true
-    end
-
     it 'produces a query parameter string' do
       opts = {
         key: key,
@@ -103,11 +134,46 @@ describe BackpackTF::Client do
       expected = "key=#{key}&appid=440&format=json&compress=1&raw=2"
       expect(bp.send(:extract_query_string, opts)).to eq expected
     end
+    it 'separates array values by comma' do
+      opts = {
+        steamids: %w(1 2 3)
+      }
+
+      expected = 'steamids=1,2,3'
+      expect(bp.send(:extract_query_string, opts)).to eq expected
+    end
   end
 
   describe '#select_interface_url_fragment' do
-    it 'picks a url fragment based on an action' do
-      # TODO: test cover this method
+    context 'verifying API base urls' do
+      it 'gets it right for IGetCurrencies' do
+        actual = bp.send(:select_interface_url_fragment, :currencies)
+        expect(actual).to eq '/IGetCurrencies/v1/?'
+      end
+      it 'gets it right for IGetMarketPrices' do
+        actual = bp.send(:select_interface_url_fragment, :market_prices)
+        expect(actual).to eq '/IGetMarketPrices/v1/?'
+      end
+      it 'gets it right for IGetPrices' do
+        actual = bp.send(:select_interface_url_fragment, :prices)
+        expect(actual).to eq '/IGetPrices/v4/?'
+      end
+      it 'gets it right for IGetPriceHistory' do
+        actual = bp.send(:select_interface_url_fragment, :price_history)
+        expect(actual).to eq '/IGetPriceHistory/v1/?'
+      end
+      it 'gets it right for IGetSpecialItems' do
+        actual = bp.send(:select_interface_url_fragment, :special_items)
+        expect(actual).to eq '/IGetSpecialItems/v1/?'
+      end
+      it 'gets it right for IGetUsers' do
+        actual = bp.send(:select_interface_url_fragment, :users)
+        expect(actual).to eq '/IGetUsers/v3/?'
+      end
+      it 'gets it right for IGetUserListings' do
+        actual = bp.send(:select_interface_url_fragment, :user_listings)
+        expect(actual).to eq '/IGetUserListings/v2/?'
+      end
     end
     it 'returns nil when it cannot match to an action' do
       actual = bp.send(:select_interface_url_fragment, :foobar)
