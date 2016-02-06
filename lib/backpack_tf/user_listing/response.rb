@@ -6,7 +6,6 @@ module BackpackTF
       @listings = []
 
       def self.listings
-        response if @response.nil?
         @listings = response['listings'].map do |attr|
           BackpackTF::UserListing.new(attr)
         end

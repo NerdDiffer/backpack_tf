@@ -11,6 +11,8 @@ module BackpackTF
     attr_reader :currency
     attr_reader :timestamp
 
+    # @param attr [Hash] Attributes for the price history object
+    # @return [PriceHistory] A new PriceHistory object.
     def initialize(attr)
       attr = hash_keys_to_sym(attr)
 

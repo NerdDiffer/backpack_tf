@@ -3,11 +3,20 @@ module BackpackTF
   class Client
     include HTTParty
 
+    # @param key [String] Your backpack.tf API key
+    # @return [Client] a new Client object
     def initialize(key)
       @key = check_key(key)
       httparty_settings
     end
 
+    # @param interface [Symbol] API name to fetch, in singular, snake-case.
+    #   For example:
+    #   `:currencies`, `:market_prices`, `:prices`, `:price_history`,
+    #   `:special_items`, `:users`, `:user_listings`
+    # @param query_options [Hash] Additional query string key-value pairs
+    # @return [Hash] Parsed JSON response from an API, starting from the
+    #   'response' key.
     def fetch(interface, query_options = {})
       get_data(interface, query_options)['response']
     end

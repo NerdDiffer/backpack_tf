@@ -10,6 +10,9 @@ module BackpackTF
     attr_reader :quantity
     attr_reader :value
 
+    # @param name [String] The name of the item.
+    # @param attr [Hash] Attributes for the item.
+    # @return [MarketPrice] A new MarketPrice object.
     def initialize(name, attr)
       attr = hash_keys_to_sym(attr)
 

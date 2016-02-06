@@ -16,6 +16,8 @@ module BackpackTF
     attr_reader :created
     attr_reader :id
 
+    # @param attr [Hash] Attributes.
+    # @return [UserListing] A new UserListing object.
     def initialize(attr)
       attr = hash_keys_to_sym(attr)
 

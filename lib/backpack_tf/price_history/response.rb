@@ -6,7 +6,6 @@ module BackpackTF
       @history = []
 
       def self.history
-        response if @response.nil?
         @history = @response['history'].map do |attr|
           BackpackTF::PriceHistory.new(attr)
         end

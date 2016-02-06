@@ -1,5 +1,5 @@
 module BackpackTF
-  # Extra methods for classes needing instantiation
+  # Common methods for objects & response-based classes
   module Helpers
     def self.included(base)
       base.extend(ClassMethods)

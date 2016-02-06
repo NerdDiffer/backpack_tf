@@ -78,8 +78,6 @@ module BackpackTF
       # @param priceindex [nil, Fixnum, Array], not needed unless the item is
       #   Unusual, a Crate, a Strangifier, a Chemistry set or has dual qualities
       def initialize(key, attr, priceindex = nil)
-        # TODO: remove this line if smoke test passes w/o its involvement
-        # attr = JSON.parse(attr) unless attr.class == Hash
         key = split_key(key)
 
         @quality        = key[0].to_sym

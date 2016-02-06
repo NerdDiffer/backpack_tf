@@ -25,6 +25,9 @@ module BackpackTF
     # @return [Fixnum] Not sure what this attribute means!
     attr_reader :blanket
 
+    # @param name [String] name of currency
+    # @param attr [Hash] attributes for Currency object
+    # @return [Currency] a new Currency object
     def initialize(name, attr)
       processed_attr = hash_keys_to_sym(attr)
 

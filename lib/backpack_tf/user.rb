@@ -21,6 +21,8 @@ module BackpackTF
     attr_reader :ban_vac
     attr_reader :notifications
 
+    # @param attr [Hash] Attributes.
+    # @return [User] A new User object.
     def initialize(attr)
       attr = hash_keys_to_sym(attr)
 

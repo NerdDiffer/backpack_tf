@@ -6,7 +6,6 @@ module BackpackTF
       @items = {}
 
       def self.items
-        response if @response.nil?
         @items = @response['items'].each_with_object({}) do |(name, attr), acc|
           acc[name] = BackpackTF::MarketPrice.new(name, attr)
         end

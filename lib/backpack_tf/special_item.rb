@@ -22,6 +22,9 @@ module BackpackTF
     attr_reader :image_url_large_orig
     attr_reader :appid
 
+    # @param name [String] Name of the SpecialItem.
+    # @param attr [Hash] Attributes.
+    # @return [SpecialItem] A new SpecialItem object.
     def initialize(name, attr)
       attr = hash_keys_to_sym(attr)
 

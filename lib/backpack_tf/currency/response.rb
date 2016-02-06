@@ -6,7 +6,6 @@ module BackpackTF
       @currencies = nil
 
       def self.currencies
-        response if @response.nil?
         hash = @response['currencies'].each_with_object({}) do |(name, attr), h|
           h[name] = BackpackTF::Currency.new(name, attr)
         end

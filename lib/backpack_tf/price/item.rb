@@ -6,12 +6,10 @@ module BackpackTF
       attr_reader :item_name
       # @return [Fixnum] an index number as per TF2's Item Schema
       attr_reader :defindex
-      # @return [Hash<Fixnum, ItemPrice>] a hash object
+      # @return [Hash<Fixnum, ItemPrice>] pricing information for a given item
       attr_reader :prices
 
       def initialize(item_name, attr)
-        # TODO: remove this line if smoke test passes w/o its involvement
-        # attr = JSON.parse(attr) unless attr.class == Hash
         @item_name = item_name
         @defindex  = process_defindex(attr['defindex'])
         @prices    = generate_prices_hash(attr)

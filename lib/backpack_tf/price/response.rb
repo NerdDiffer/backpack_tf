@@ -18,13 +18,10 @@ module BackpackTF
       end
 
       def self.items
-        response if @response.nil?
         @items ||= generate_items
       end
 
       def self.generate_items
-        response if @response.nil?
-
         @response['items'].each_with_object({}) do |(name), items|
           defindex = @response['items'][name]['defindex'][0]
 

@@ -6,7 +6,6 @@ module BackpackTF
       @items = {}
 
       def self.items
-        response if @response.nil?
         @items = @response['items'].each_with_object({}) do |item, hash|
           name = item['name']
           hash[name] = BackpackTF::SpecialItem.new(name, item)
