@@ -31,7 +31,7 @@ module BackpackTF
           if defindex.nil? || defindex < 0
             # ignore this item
           else
-            items[name] = BackpackTF::Item.new(name, @response['items'][name])
+            items[name] = Item.new(name, @response['items'][name])
           end
           items
         end

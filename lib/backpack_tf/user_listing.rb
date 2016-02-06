@@ -1,5 +1,5 @@
-require 'backpack_tf/response/user_listing'
-require 'backpack_tf/interface/user_listing'
+require 'backpack_tf/user_listing/interface'
+require 'backpack_tf/user_listing/response'
 
 module BackpackTF
   # Ruby representations of a JSON response to IGetUserListings

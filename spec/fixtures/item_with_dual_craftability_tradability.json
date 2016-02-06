@@ -1,0 +1,59 @@
+{
+    "All-Father": {
+        "defindex": [
+            647
+        ],
+        "prices": {
+            "11": {
+                "Tradable": {
+                    "Craftable": {
+                        "0": {
+                            "currency": "keys",
+                            "value": 7,
+                            "last_update": 1452909931,
+                            "difference": 17.495
+                        }
+                    },
+                    "Non-Craftable": {
+                        "0": {
+                            "currency": "keys",
+                            "value": 5,
+                            "last_update": 1452125733,
+                            "difference": 6.998
+                        }
+                    }
+                },
+                "Non-Tradable": {
+                    "Craftable": {
+                        "0": {
+                            "currency": "keys",
+                            "value": 3,
+                            "last_update": 1440760724,
+                            "difference": 48
+                        }
+                    }
+                }
+            },
+            "6": {
+                "Tradable": {
+                    "Craftable": {
+                        "0": {
+                            "currency": "metal",
+                            "value": 10.55,
+                            "last_update": 1453512623,
+                            "difference": 0.89
+                        }
+                    },
+                    "Non-Craftable": {
+                        "0": {
+                            "currency": "metal",
+                            "value": 9,
+                            "last_update": 1442934980,
+                            "difference": 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

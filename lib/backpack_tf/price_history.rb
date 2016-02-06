@@ -1,5 +1,5 @@
-require 'backpack_tf/response/price_history'
-require 'backpack_tf/interface/price_history'
+require 'backpack_tf/price_history/interface'
+require 'backpack_tf/price_history/response'
 
 module BackpackTF
   # Ruby representations of a JSON response to IGetPriceHistory

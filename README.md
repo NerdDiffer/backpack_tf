@@ -64,24 +64,24 @@ BackpackTF::UserListing.response = listings
 * [official doc](http://backpack.tf/api/prices)
 
 Information on any particular item, (ie: 'Eviction Notice'), is captured in an
-instance of `BackpackTF::Item`. Furthermore, there may be several prices for the
-same item. For example, an Eviction Notice with the Unique quality has a
+instance of `BackpackTF::Price::Item`. Furthermore, there may be several prices
+for the same item. For example, an Eviction Notice with the Unique quality has a
 different price than an Eviction Notice with the Strange quality.
 
-Each price is an instance of `BackpackTF::ItemPrice`, and is stored in the
-`@prices` hash of that item.
+Each price is an instance of `BackpackTF::Price::ItemPrice`, and is stored in
+the `@prices` hash of that item.
 
 ##### A visual representation of this hierarchy
 
 * `BackpackTF::Price` module
   * `@items` hash of `BackpackTF::Price::Response`.
-    * `BackpackTF::Item` object (ie: 'Beast From Below')
-    * `BackpackTF::Item` object (ie: 'Taunt: Rock, Paper Scissors')
-    * `BackpackTF::Item` object (ie: 'Eviction Notice')
-      * `@prices` hash of a `BackpackTF::Item` object
-        * `BackpackTF::ItemPrice` object (ie: price of Unique Eviction Notice)
-        * `BackpackTF::ItemPrice` object (ie: price of Vintage Eviction Notice)
-        * `BackpackTF::ItemPrice` object (ie: price of Strange Eviction Notice)
+    * `BackpackTF::Price::Item` object (ie: 'Beast From Below')
+    * `BackpackTF::Price::Item` object (ie: 'Taunt: Rock, Paper Scissors')
+    * `BackpackTF::Price::Item` object (ie: 'Eviction Notice')
+      * `@prices` hash of a `BackpackTF::Price::Item` object
+        * `BackpackTF::Price::ItemPrice` object (ie: price of a Unique item)
+        * `BackpackTF::Price::ItemPrice` object (ie: price of a Vintage item)
+        * `BackpackTF::Price::ItemPrice` object (ie: price of a Strange item)
 
 #### IGetPriceHistory
 

@@ -1,5 +1,8 @@
-require 'backpack_tf/response/price'
-require 'backpack_tf/interface/price'
+require 'backpack_tf/price/interface'
+require 'backpack_tf/price/response'
+require 'backpack_tf/price/item'
+require 'backpack_tf/price/item_price'
+require 'backpack_tf/price/particle_effect'
 
 module BackpackTF
   # Ruby representations of a JSON response to IGetPrices

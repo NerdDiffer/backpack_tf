@@ -62,32 +62,25 @@ describe BackpackTF::Price::Response do
   end
 
   describe '::generate_items' do
-    let(:real_response) do
+    let(:json_response) do
       fixture = file_fixture('prices.json')
       JSON.parse(fixture)['response']
     end
-    let(:item) do
-      fixture = file_fixture('item_typical.json')
-      item_json = JSON.parse(fixture)['Kritzkrieg']
-      BackpackTF::Item.new('Kritzkrieg', item_json)
-    end
-    let(:items) { { 'Kritzkrieg' => item } }
 
     context 'using keys to generate BackpackTF::Item objects' do
       before(:each) do
-        described_class.response = real_response
+        described_class.response = json_response
       end
       after(:each) do
         described_class.response = nil
       end
-      it 'each value of hash is a BackpackTF::Item object' do
+      it 'each value of hash is a BackpackTF::Price::Item object' do
         actual = described_class.generate_items.values
-        expect(actual).to all be_a BackpackTF::Item
+        expect(actual).to all be_a BackpackTF::Price::Item
       end
       it 'if an item does not have a valid `defindex`, then it is ignored' do
         generated_items = described_class.generate_items
         expect(generated_items['Random Craft Hat']).to be_nil
-        expect(generated_items[':weed:']).to be_nil
       end
     end
   end

@@ -1,1 +1,311 @@
-{"Barnstormer":{"defindex":[988],"prices":{"5":{"Tradable":{"Craftable":{"6":{"currency":"keys","value":18,"last_update":1418795322,"difference":280,"value_high":22},"7":{"currency":"keys","value":15,"last_update":1427240637,"difference":-16.9385},"8":{"currency":"keys","value":67,"last_update":1412688562,"difference":580.22},"9":{"currency":"keys","value":38,"last_update":1426592869,"difference":-188.815,"value_high":40},"10":{"currency":"keys","value":54,"last_update":1430651464,"difference":-73.98,"value_high":56},"11":{"currency":"keys","value":26,"last_update":1430514572,"difference":-25.739130434783},"13":{"currency":"keys","difference":1501.5,"last_update":1389942856,"value":214,"value_high":215},"14":{"currency":"keys","value":203,"last_update":1405544923,"difference":443.14066326531},"19":{"currency":"keys","value":70,"last_update":1412655977,"difference":609.231},"29":{"currency":"keys","value":18,"last_update":1424595094,"difference":-82.782,"value_high":23},"30":{"currency":"keys","value":14,"last_update":1426634788,"difference":42.9125,"value_high":19},"31":{"item_name":"Barnstormer","quality":5,"craftable":"Craftable","tradable":"Tradable","priceindex":31,"defindex":[988],"value":23,"currency":"keys","value_high":26,"value_old":{"currency":"usd","value":74.4,"value_high":89.28,"last_update":1380366823,"difference":-23.34},"last_update":1401407345,"difference":-135.48506632653},"32":{"currency":"keys","value":12,"last_update":1412860765,"difference":-21.65,"value_high":16},"33":{"currency":"keys","value":19,"last_update":1426560513,"difference":-104.18575,"value_high":24},"34":{"currency":"keys","value":18,"last_update":1406904862,"difference":-9.6526530612245},"35":{"currency":"keys","value":15,"last_update":1426592774,"difference":-162.40333333333,"value_high":19},"36":{"currency":"keys","value":15,"last_update":1420313482,"difference":-28,"value_high":16},"56":{"currency":"keys","value":32,"last_update":1404952347,"difference":-134.91653061224,"value_high":36},"57":{"currency":"keys","difference":-59.636,"last_update":1400197661,"value":21,"value_high":22},"58":{"currency":"keys","value":14,"last_update":1426723046,"difference":-8.5825,"value_high":20},"59":{"currency":"keys","value":19,"last_update":1408972311,"difference":140.315},"60":{"currency":"keys","value":15,"last_update":1430018292,"difference":280.5,"value_high":18},"61":{"currency":"keys","value":15,"last_update":1426593954,"difference":-17.165,"value_high":19},"62":{"currency":"keys","value":13,"last_update":1426592741,"difference":-145.9025,"value_high":18},"63":{"currency":"keys","value":30,"last_update":1421524482,"difference":434.445,"value_high":36},"64":{"currency":"keys","value":36,"last_update":1423376185,"difference":576.06875,"value_high":40},"65":{"currency":"keys","value":17,"last_update":1411656644,"difference":29.257,"value_high":24},"66":{"currency":"usd","value":51.98,"value_high":76.45,"last_update":1384529093,"difference":-99.15},"67":{"currency":"usd","value":79.32,"value_high":95.18,"last_update":1383575955,"difference":-97.776},"68":{"currency":"keys","value":43,"last_update":1406475390,"difference":398.259,"value_high":54},"69":{"currency":"usd","value":232.39,"last_update":1369898821,"difference":0},"70":{"currency":"keys","value":27,"last_update":1418969616,"difference":446.25,"value_high":37},"71":{"currency":"keys","value":60,"last_update":1426512316,"difference":-685.5},"72":{"currency":"keys","value":47,"last_update":1427566642,"difference":-8.6283749999999,"value_high":57},"89":{"currency":"keys","value":32,"last_update":1423834006,"difference":543.96,"value_high":40},"90":{"currency":"keys","value":51,"last_update":1426240269,"difference":878.9}}}},"6":{"Tradable":{"Craftable":[{"currency":"metal","value":1.66,"last_update":1430947887,"difference":0.115,"value_high":2}]}}}}}
+{
+    "Barnstormer": {
+        "defindex": [
+            988
+        ],
+        "prices": {
+            "5": {
+                "Tradable": {
+                    "Craftable": {
+                        "11": {
+                            "currency": "keys",
+                            "value": 26,
+                            "last_update": 1430514572,
+                            "difference": -25.739130434783
+                        },
+                        "13": {
+                            "currency": "keys",
+                            "difference": 1501.5,
+                            "last_update": 1389942856,
+                            "value": 214,
+                            "value_high": 215
+                        },
+                        "14": {
+                            "currency": "keys",
+                            "value": 180,
+                            "last_update": 1441253740,
+                            "difference": -328,
+                            "value_high": 185
+                        },
+                        "29": {
+                            "currency": "keys",
+                            "value": 15,
+                            "last_update": 1433165725,
+                            "difference": -38,
+                            "value_high": 22
+                        },
+                        "30": {
+                            "currency": "keys",
+                            "value": 14,
+                            "last_update": 1426634788,
+                            "difference": 42.9125,
+                            "value_high": 19
+                        },
+                        "31": {
+                            "item_name": "Barnstormer",
+                            "quality": 5,
+                            "craftable": "Craftable",
+                            "tradable": "Tradable",
+                            "priceindex": 31,
+                            "defindex": [
+                                988
+                            ],
+                            "value": 23,
+                            "currency": "keys",
+                            "value_high": 26,
+                            "value_old": {
+                                "currency": "usd",
+                                "value": 74.4,
+                                "value_high": 89.28,
+                                "last_update": 1380366823,
+                                "difference": -23.34
+                            },
+                            "last_update": 1401407345,
+                            "difference": -135.48506632653
+                        },
+                        "32": {
+                            "currency": "keys",
+                            "value": 12,
+                            "last_update": 1412860765,
+                            "difference": -21.65,
+                            "value_high": 16
+                        },
+                        "33": {
+                            "currency": "keys",
+                            "value": 19,
+                            "last_update": 1451350882,
+                            "difference": -26.2425,
+                            "value_high": 21
+                        },
+                        "34": {
+                            "currency": "keys",
+                            "value": 15,
+                            "last_update": 1440630759,
+                            "difference": -40,
+                            "value_high": 16
+                        },
+                        "35": {
+                            "currency": "keys",
+                            "value": 15,
+                            "last_update": 1426592774,
+                            "difference": -162.40333333333,
+                            "value_high": 19
+                        },
+                        "36": {
+                            "currency": "keys",
+                            "value": 15,
+                            "last_update": 1420313482,
+                            "difference": -28,
+                            "value_high": 16
+                        },
+                        "56": {
+                            "currency": "keys",
+                            "value": 19,
+                            "last_update": 1437189647,
+                            "difference": -31.54,
+                            "value_high": 23
+                        },
+                        "57": {
+                            "currency": "keys",
+                            "difference": -59.636,
+                            "last_update": 1400197661,
+                            "value": 21,
+                            "value_high": 22
+                        },
+                        "61": {
+                            "currency": "keys",
+                            "value": 15,
+                            "last_update": 1426593954,
+                            "difference": -17.165,
+                            "value_high": 19
+                        },
+                        "62": {
+                            "currency": "keys",
+                            "value": 13,
+                            "last_update": 1426592741,
+                            "difference": -145.9025,
+                            "value_high": 18
+                        },
+                        "65": {
+                            "currency": "keys",
+                            "value": 17,
+                            "last_update": 1411656644,
+                            "difference": 29.257,
+                            "value_high": 24
+                        },
+                        "66": {
+                            "currency": "usd",
+                            "value": 51.98,
+                            "value_high": 76.45,
+                            "last_update": 1384529093,
+                            "difference": -99.15
+                        },
+                        "67": {
+                            "currency": "keys",
+                            "value": 26,
+                            "last_update": 1446782189,
+                            "difference": -64.44
+                        },
+                        "69": {
+                            "currency": "usd",
+                            "value": 232.39,
+                            "last_update": 1369898821,
+                            "difference": 0
+                        },
+                        "7": {
+                            "currency": "keys",
+                            "value": 15,
+                            "last_update": 1427240637,
+                            "difference": -16.9385
+                        },
+                        "71": {
+                            "currency": "keys",
+                            "value": 60,
+                            "last_update": 1426512316,
+                            "difference": -685.5
+                        },
+                        "9": {
+                            "currency": "keys",
+                            "value": 39,
+                            "last_update": 1446782215,
+                            "difference": 0
+                        },
+                        "72": {
+                            "currency": "keys",
+                            "value": 47,
+                            "last_update": 1427566642,
+                            "difference": -8.6283749999999,
+                            "value_high": 57
+                        },
+                        "58": {
+                            "currency": "keys",
+                            "value": 14,
+                            "last_update": 1442466537,
+                            "difference": -24,
+                            "value_high": 17
+                        },
+                        "68": {
+                            "currency": "keys",
+                            "value": 43,
+                            "last_update": 1406475390,
+                            "difference": 398.259,
+                            "value_high": 54
+                        },
+                        "59": {
+                            "currency": "keys",
+                            "value": 19,
+                            "last_update": 1408972311,
+                            "difference": 140.315
+                        },
+                        "10": {
+                            "currency": "keys",
+                            "value": 54,
+                            "last_update": 1430651464,
+                            "difference": -73.98,
+                            "value_high": 56
+                        },
+                        "19": {
+                            "currency": "keys",
+                            "value": 70,
+                            "last_update": 1412655977,
+                            "difference": 609.231
+                        },
+                        "8": {
+                            "currency": "keys",
+                            "value": 67,
+                            "last_update": 1412688562,
+                            "difference": 580.22
+                        },
+                        "6": {
+                            "currency": "keys",
+                            "value": 19,
+                            "last_update": 1433697407,
+                            "difference": 9.5275,
+                            "value_high": 22
+                        },
+                        "70": {
+                            "currency": "keys",
+                            "value": 29,
+                            "last_update": 1445030706,
+                            "difference": 0,
+                            "value_high": 35
+                        },
+                        "63": {
+                            "currency": "keys",
+                            "value": 30,
+                            "last_update": 1421524482,
+                            "difference": 434.445,
+                            "value_high": 36
+                        },
+                        "64": {
+                            "currency": "keys",
+                            "value": 34,
+                            "last_update": 1440774878,
+                            "difference": -48,
+                            "value_high": 36
+                        },
+                        "89": {
+                            "currency": "keys",
+                            "value": 32,
+                            "last_update": 1423834006,
+                            "difference": 543.96,
+                            "value_high": 40
+                        },
+                        "90": {
+                            "currency": "keys",
+                            "value": 51,
+                            "last_update": 1426240269,
+                            "difference": 878.9
+                        },
+                        "60": {
+                            "currency": "keys",
+                            "value": 14,
+                            "last_update": 1442619520,
+                            "difference": -24.0825,
+                            "value_high": 16
+                        },
+                        "84": {
+                            "currency": "keys",
+                            "value": 28,
+                            "last_update": 1432478126,
+                            "difference": 570,
+                            "value_high": 32
+                        },
+                        "77": {
+                            "currency": "keys",
+                            "value": 50,
+                            "last_update": 1432562064,
+                            "difference": 1092.5,
+                            "value_high": 65
+                        },
+                        "82": {
+                            "currency": "keys",
+                            "value": 50,
+                            "last_update": 1438355866,
+                            "difference": 788.5
+                        },
+                        "88": {
+                            "currency": "keys",
+                            "value": 19,
+                            "last_update": 1449693879,
+                            "difference": 9.555,
+                            "value_high": 21
+                        }
+                    }
+                }
+            },
+            "6": {
+                "Tradable": {
+                    "Craftable": {
+                        "0": {
+                            "currency": "metal",
+                            "value": 1.66,
+                            "last_update": 1438031028,
+                            "difference": -0.17
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

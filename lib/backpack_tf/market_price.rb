@@ -1,5 +1,5 @@
-require 'backpack_tf/response/market_price'
-require 'backpack_tf/interface/market_price'
+require 'backpack_tf/market_price/interface'
+require 'backpack_tf/market_price/response'
 
 module BackpackTF
   # Ruby representations of a JSON response to IGetMarketPrices
