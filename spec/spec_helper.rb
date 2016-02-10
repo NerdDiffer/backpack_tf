@@ -1,4 +1,5 @@
-require 'simplecov'
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
 SimpleCov.start
 
 require 'backpack_tf'
@@ -10,6 +11,8 @@ def generate_fake_api_key
   24.times { key << hex_nums.sample }
   key
 end
+
+WebMock.disable_net_connect!(allow: 'codeclimate.com')
 
 # taken from httparty's spec dir
 # https://github.com/jnunemaker/httparty/blob/master/spec/spec_helper.rb
