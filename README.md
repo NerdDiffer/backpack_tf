@@ -1,6 +1,8 @@
 # backpack_tf
 
 [![Build Status](https://travis-ci.org/NerdDiffer/backpack_tf.svg?branch=master)](https://travis-ci.org/NerdDiffer/backpack_tf)
+[![Code Climate](https://codeclimate.com/github/NerdDiffer/backpack_tf/badges/gpa.svg)](https://codeclimate.com/github/NerdDiffer/backpack_tf)
+[![Test Coverage](https://codeclimate.com/github/NerdDiffer/backpack_tf/badges/coverage.svg)](https://codeclimate.com/github/NerdDiffer/backpack_tf/coverage)
 
 Backpack.tf is a website for the in-game economies of Team Fortress 2 and
 Dota 2. This gem is a wrapper for the backpack.tf [API](http://backpack.tf/api).
