@@ -1,0 +1,16 @@
+{
+  "attribute_controlled_attached_particles": [
+    {
+      "system": "foo",
+      "id": 1,
+      "attach_to_rootbone": true,
+      "name": "Foo"
+    },
+    {
+      "system": "bar",
+      "id": 2,
+      "attach_to_rootbone": false,
+      "name": "Bar"
+    }
+  ]
+}
