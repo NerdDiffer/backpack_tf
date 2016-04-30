@@ -44,6 +44,7 @@ describe BackpackTF::Price::ParticleEffect do
       end
       after(:each) do
         described_class.list
+        described_class.class_eval { @list = nil }
       end
 
       it 'calls .accumulate_assets' do
