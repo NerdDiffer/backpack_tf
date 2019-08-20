@@ -4,16 +4,14 @@
 [![Code Climate](https://codeclimate.com/github/NerdDiffer/backpack_tf/badges/gpa.svg)](https://codeclimate.com/github/NerdDiffer/backpack_tf)
 [![Test Coverage](https://codeclimate.com/github/NerdDiffer/backpack_tf/badges/coverage.svg)](https://codeclimate.com/github/NerdDiffer/backpack_tf/coverage)
 
-Backpack.tf is a website for the in-game economies of Team Fortress 2 and
-Dota 2. This gem is a wrapper for the backpack.tf [API](http://backpack.tf/api).
-The goal is to capture the results and turn them into Ruby objects for use in
-your application.
+Backpack.tf is a website for the in-game economies of Team Fortress 2 and Dota
+2. This gem is a wrapper for the backpack.tf
+[API](https://backpack.tf/developer).  The goal is to capture the results and
+turn them into Ruby objects for use in your application.
 
 ### Contributing
 
-If you are interested in contributing, please see any open
-[issues](https://github.com/NerdDiffer/backpack_tf/issues), let me know, and
-branch off of the `development` branch.
+If you are interested in contributing, please see any open issues and let me know.
 
 ### Installation
 
@@ -27,7 +25,7 @@ branch off of the `development` branch.
 
 ### Usage & Examples
 
-[Register an API key](http://backpack.tf/developer), pass it in to the client.
+[Register an API key](https://backpack.tf/developer), pass it in to the client.
 
 ``` ruby
 #
@@ -60,10 +58,11 @@ BackpackTF::UserListing.response = listings
 
 ## Interfaces & Responses
 
+Link to all [official documentation](https://backpack.tf/api/index.html).
+
 #### IGetPrices
 
 * Get pricing data for all priced items
-* [official doc](http://backpack.tf/api/prices)
 
 Information on any particular item, (ie: 'Eviction Notice'), is captured in an
 instance of `BackpackTF::Price::Item`. Furthermore, there may be several prices
@@ -73,7 +72,7 @@ different price than an Eviction Notice with the Strange quality.
 Each price is an instance of `BackpackTF::Price::ItemPrice`, and is stored in
 the `@prices` hash of that item.
 
-##### A visual representation of this hierarchy
+##### hierarchy
 
 * `BackpackTF::Price` module
   * `@items` hash of `BackpackTF::Price::Response`.
@@ -88,7 +87,6 @@ the `@prices` hash of that item.
 #### IGetPriceHistory
 
 * Get price history for an item
-* [official doc](http://backpack.tf/api/pricehistory)
 
 You must pass in the item name or its `defindex` number as value on the `name`
 key when accessing this interface. IE:
@@ -103,17 +101,14 @@ information, see the
 
 You can optionally pass the client `quality`, `tradable`, `craftable` or
 `priceindex` keys. See the
-[official doc](http://backpack.tf/api/pricehistory) for more info.
 
 #### IGetMarketPrices
 
 * Get Steam Community Market price information
-* [official doc](http://backpack.tf/api/market)
 
 #### IGetCurrencies
 
 * Get internal currency data
-* [official doc](http://backpack.tf/api/currencies)
 
 There are currently 4 currencies available through the API.
 Each one is an instance of `BackpackTF::Currency` and is held in the
@@ -122,7 +117,6 @@ Each one is an instance of `BackpackTF::Currency` and is held in the
 #### IGetSpecialItems
 
 * Get internal backpack.tf item placeholders
-* [official doc](http://backpack.tf/api/special)
 
 This is for items that only exist on backpack.tf. They are not real game items,
 but you will see them returned in a call to `IGetSpecialItems`.
@@ -131,7 +125,6 @@ but you will see them returned in a call to `IGetSpecialItems`.
 
 * Get profile info for a list of 64-bit Steam IDs.
 * Does not require an API key
-* [official doc](http://backpack.tf/api/users)
 
 Get some basic information for a list of backpack.tf users. It's basically the
 info that you'd see on their profile page.
@@ -140,7 +133,6 @@ You can request several users at once by sending an array.
 #### IGetUserListings
 
 * Get classified listings for a given user
-* [official doc](http://backpack.tf/api/classifieds)
 
 Request all classified listings for one user.
 You must pass in the 64-bit `steamid`.
